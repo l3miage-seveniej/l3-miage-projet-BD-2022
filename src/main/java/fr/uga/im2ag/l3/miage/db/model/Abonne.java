@@ -2,7 +2,7 @@ package fr.uga.im2ag.l3.miage.db.model;
 
 import java.sql.Date;
 
-public class Abonnes extends Client {
+public class Abonne extends Client {
     
     private Boolean estAbonne;
     private String nom;
@@ -70,7 +70,7 @@ public class Abonnes extends Client {
     public Date getDateFin() {
         return dateFin;
     }
-    
+
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }

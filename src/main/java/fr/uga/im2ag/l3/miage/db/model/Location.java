@@ -1,6 +1,7 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
 public class Location {
+    
     private int id;
     private int heureDebut;
     private int heureFin;
