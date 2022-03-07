@@ -3,9 +3,9 @@ package fr.uga.im2ag.l3.miage.db.model;
 import java.sql.Date;
 
 public class Velo {
-    
+
     private int numero;
-    private String modele;
+    private Modele modele;
     private Date dateMiseEnService;
     private Etat etat;
     private Situation situation;
@@ -16,10 +16,10 @@ public class Velo {
     public void setNumero(int numero) {
         this.numero = numero;
     }
-    public String getModele() {
+    public Modele getModele() {
         return modele;
     }
-    public void setModele(String modele) {
+    public void setModele(Modele modele) {
         this.modele = modele;
     }
     public Date getDateMiseEnService() {
