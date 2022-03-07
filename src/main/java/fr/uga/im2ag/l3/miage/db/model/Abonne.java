@@ -2,25 +2,24 @@ package fr.uga.im2ag.l3.miage.db.model;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Abonne")
 public class Abonne extends Client {
     
-    private Boolean estAbonne;
+    
     private String nom;
     private String prenom;
-    private String sexe;
+    private Enums.sexe sexe;
     private String adresse;
-    private int nCB;
     private Date dateNaissance;
-    private Date dateDebut;
+    private Date dateAbonnement;
 
     private Date dateFin;
     
-    public Boolean getEstAbonne() {
-        return estAbonne;
-    }
-    public void setEstAbonne(Boolean estAbonne) {
-        this.estAbonne = estAbonne;
-    }
+   
     public String getNom() {
         return nom;
     }
@@ -33,10 +32,10 @@ public class Abonne extends Client {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-    public String getSexe() {
+    public Enums.sexe getSexe() {
         return sexe;
     }
-    public void setSexe(String sexe) {
+    public void setSexe(Enums.sexe sexe) {
         this.sexe = sexe;
     }
     public String getAdresse() {
@@ -44,12 +43,6 @@ public class Abonne extends Client {
     }
     public void setAdresse(String adresse) {
         this.adresse = adresse;
-    }
-    public int getnCB() {
-        return nCB;
-    }
-    public void setnCB(int nCB) {
-        this.nCB = nCB;
     }
 
     public Date getDateNaissance() {
@@ -60,11 +53,11 @@ public class Abonne extends Client {
     }
 
     public Date getDateDebut() {
-        return dateDebut;
+        return dateAbonnement;
     }
 
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
+    public void setDateDebut(Date dateAbonnement) {
+        this.dateAbonnement = dateAbonnement;
     }
 
     public Date getDateFin() {

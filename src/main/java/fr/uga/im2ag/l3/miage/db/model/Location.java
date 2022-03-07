@@ -1,17 +1,26 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Location")
 public class Location {
-    
-    private int id;
+    @Id
+    private int idLoc;
+
     private int heureDebut;
+
     private int heureFin;
-    private int cout;
+    
+    private float cout;
     
     public int getId() {
-        return id;
+        return idLoc;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int idLoc) {
+        this.idLoc = idLoc;
     }
     public int getHeureDebut() {
         return heureDebut;
@@ -25,10 +34,10 @@ public class Location {
     public void setHeureFin(int heureFin) {
         this.heureFin = heureFin;
     }
-    public int getCout() {
+    public float getCout() {
         return cout;
     }
-    public void setCout(int cout) {
+    public void setCout(float cout) {
         this.cout = cout;
     }
     

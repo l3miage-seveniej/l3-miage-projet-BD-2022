@@ -3,18 +3,28 @@ package fr.uga.im2ag.l3.miage.db.model;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "VELO")
 public class Velo {
-
+    @Id
+    @GeneratedValue
     private int numeroV;
-    private Enums.Modele modele;
+
+    private Enums.Modele modeleV;
+
     private Enums.Etat etatV;
+
     private Enums.Situation situation;
+
     private Date dateMiseEnService;
+
+    @ManyToOne(targetEntity = Client.class)
+    private Client client;
 
     @ManyToOne(targetEntity = Bornette.class)
     private Bornette estAccueilli;
@@ -28,11 +38,11 @@ public class Velo {
     }
 
     public Enums.Modele getModele() {
-        return modele;
+        return modeleV;
     }
 
-    public void setModele(Enums.Modele modele) {
-        this.modele = modele;
+    public void setModele(Enums.Modele modeleV) {
+        this.modeleV = modeleV;
     }
 
     public Enums.Etat getEtat() {

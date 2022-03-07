@@ -16,7 +16,7 @@ public class Station {
     @GeneratedValue
     private int idStation;
     private String adresse;
-    private Enums.VType type;
+    private Enums.VType typeStation;
 
     @OneToMany(targetEntity = Bornette.class)
     private List<Bornette> bornettes;
@@ -46,10 +46,10 @@ public class Station {
     }
 
     public Enums.VType getType() {
-        return type;
+        return typeStation;
     }
 
-    public void setType(Enums.VType type) {
-        this.type = type;
+    public void setType(Enums.VType typeStation) {
+        this.typeStation = typeStation;
     }
 }

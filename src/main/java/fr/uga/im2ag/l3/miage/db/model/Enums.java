@@ -17,4 +17,7 @@ public class Enums {
     public enum VType {
         PLUS, MOINS, NUL;
     }
+    public enum sexe {
+        MALE, FEMELLE, NON_BINAIRE;
+    }
 }
