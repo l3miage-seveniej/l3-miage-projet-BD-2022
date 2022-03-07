@@ -3,7 +3,7 @@ package fr.uga.im2ag.l3.miage.db.model;
 public class Station {
     
     private String adresse;
-    private VType type;
+    private Enums.VType type;
     private Bornette bornette;
 
     public String getAdresse() {
@@ -14,11 +14,11 @@ public class Station {
         this.adresse = adresse;
     }
 
-    public VType getType() {
+    public Enums.VType getType() {
         return type;
     }
 
-    public void setType(VType type) {
+    public void setType(Enums.VType type) {
         this.type = type;
     }
 

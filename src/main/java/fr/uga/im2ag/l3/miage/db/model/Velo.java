@@ -5,10 +5,10 @@ import java.sql.Date;
 public class Velo {
 
     private int numero;
-    private Modele modele;
+    private Enums.Modele modele;
     private Date dateMiseEnService;
-    private Etat etat;
-    private Situation situation;
+    private Enums.Etat etatV;
+    private Enums.Situation situation;
 
     public int getNumero() {
         return numero;
@@ -16,10 +16,10 @@ public class Velo {
     public void setNumero(int numero) {
         this.numero = numero;
     }
-    public Modele getModele() {
+    public Enums.Modele getModele() {
         return modele;
     }
-    public void setModele(Modele modele) {
+    public void setModele(Enums.Modele modele) {
         this.modele = modele;
     }
     public Date getDateMiseEnService() {
@@ -28,16 +28,16 @@ public class Velo {
     public void setDateMiseEnService(Date dateMiseEnService) {
         this.dateMiseEnService = dateMiseEnService;
     }
-    public Etat getEtat() {
-        return etat;
+    public Enums.Etat getEtat() {
+        return etatV;
     }
-    public void setEtat(Etat etat) {
-        this.etat = etat;
+    public void setEtat(Enums.Etat etatV) {
+        this.etatV = etatV;
     }
-    public Situation getSituation() {
+    public Enums.Situation getSituation() {
         return situation;
     }
-    public void setSituation(Situation situation) {
+    public void setSituation(Enums.Situation situation) {
         this.situation = situation;
     }
 }
