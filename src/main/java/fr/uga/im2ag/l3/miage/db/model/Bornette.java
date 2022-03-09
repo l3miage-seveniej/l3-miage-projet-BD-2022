@@ -21,7 +21,7 @@ public class Bornette {
     private Boolean libre;
 
     @ManyToOne(targetEntity = Station.class)
-    private Station EstPossede;
+    private Station station;
 
     @OneToMany(targetEntity = Velo.class)
     private List<Velo> velos;
@@ -57,4 +57,20 @@ public class Bornette {
     public void setVelos(List<Velo> velos) {
         this.velos = velos;
     }
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
+    }
+
+    @Override
+    public String toString() {
+        return "Bornette [etatB=" + etatB + ", libre=" + libre + ", numeroB=" + numeroB + ", station=" + station
+                + ", velos=" + velos + "]";
+    }
+    
+    
 }

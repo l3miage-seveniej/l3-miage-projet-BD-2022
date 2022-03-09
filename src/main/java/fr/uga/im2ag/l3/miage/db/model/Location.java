@@ -2,6 +2,7 @@ package fr.uga.im2ag.l3.miage.db.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 @Table(name="Location")
 public class Location {
     @Id
+    @GeneratedValue
     private int idLoc;
 
     private int heureDebut;

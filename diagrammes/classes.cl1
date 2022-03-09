@@ -1,0 +1,105 @@
+-- THIS FILE IS GENERATED. DON'T TOUCH IT!!!
+
+model M
+
+enum TypeStation {
+    vPlus,
+    vMoins,
+    vNul
+}
+
+enum Situation {
+    enStation,
+    enLocation,
+    enMaintenance
+}
+
+enum Etat {
+    ok,
+    hs
+}
+
+enum ModeleVelo {
+    hollandais,
+    vtc,
+    vtt
+}
+
+enum Sexe {
+    male,
+    femelle,
+    nonBinaire
+}
+
+class Station
+    attributes
+        idStation : Integer
+        adresse : String
+        typeStation : TypeStation
+end
+
+class Bornette
+    attributes
+        numeroB : Integer
+        etatB : Etat
+        libre : Boolean
+end
+
+class Velo
+    attributes
+        numeroV : Integer
+        modeleV : ModeleVelo
+        dateMiseEnService : String
+        etatV : Etat
+        situation : Situation
+end
+
+class Client
+    attributes
+        idClient : Integer
+        codeSecret : Integer
+        numeroCB : Integer
+end
+
+class Abonne < Client
+    attributes
+        nom : String
+        prenom : String
+        dateNaiss : String
+        sexe : Sexe
+        adresse : String
+        dateAbonnement : String
+end
+
+class Location
+    attributes
+        idLoc : Integer
+        heureDebut : String
+        heureFin : String
+        cout : Real
+end
+
+association EstPossede
+    between
+        Station[1] role station
+        Bornette[*] role bornettes
+end
+
+association EstAccueilli
+    between
+        Bornette[1] role bornette
+        Velo[0..*] role velos
+end
+
+association EstLoue
+    between
+        Velo[1..*] role velosLoues
+        Location[0..*] role locations
+end
+
+association EstEffectuee
+    between
+        Location[1..*] role locations
+        Client[1] role client
+end
+
