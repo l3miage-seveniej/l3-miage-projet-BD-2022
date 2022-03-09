@@ -20,6 +20,10 @@ public class Client {
     @OneToMany(targetEntity = Velo.class)
     private List<Velo> velos;
     
+    @OneToMany(targetEntity = Client.class)
+    private List<Client> clients;
+
+
     public int getnCB() {
         return numeroCB;
     }
@@ -38,5 +42,25 @@ public class Client {
     public void setIdClient(int idClient) {
         this.idClient = idClient;
     }
+    public int getNumeroCB() {
+        return numeroCB;
+    }
+    public void setNumeroCB(int numeroCB) {
+        this.numeroCB = numeroCB;
+    }
+    public List<Velo> getVelos() {
+        return velos;
+    }
+    public void setVelos(List<Velo> velos) {
+        this.velos = velos;
+    }
+    public List<Client> getClients() {
+        return clients;
+    }
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+    
+    
     
 }

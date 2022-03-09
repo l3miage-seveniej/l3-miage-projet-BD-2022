@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "BORNETTE")
@@ -23,7 +24,7 @@ public class Bornette {
     private Station EstPossede;
 
     @OneToMany(targetEntity = Velo.class)
-    private Velo EstAccueilli;
+    private List<Velo> velos;
 
     public int getNumeroB() {
         return numeroB;
@@ -47,5 +48,13 @@ public class Bornette {
 
     public void setLibre(Boolean libre) {
         this.libre = libre;
+    }
+
+    public List<Velo> getVelos() {
+        return velos;
+    }
+
+    public void setVelos(List<Velo> velos) {
+        this.velos = velos;
     }
 }

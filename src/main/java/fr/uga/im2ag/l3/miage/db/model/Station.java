@@ -14,18 +14,18 @@ public class Station {
     
     @Id
     @GeneratedValue
-    private int idStation;
+    private Long idStation;
     private String adresse;
     private Enums.VType typeStation;
 
     @OneToMany(targetEntity = Bornette.class)
     private List<Bornette> bornettes;
     
-    public int getIdStation() {
+    public Long getIdStation() {
         return idStation;
     }
 
-    public void setIdStation(int idStation) {
+    public void setIdStation(Long idStation) {
         this.idStation = idStation;
     }
 
