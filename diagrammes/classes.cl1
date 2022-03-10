@@ -87,8 +87,8 @@ end
 
 association EstAccueilli
     between
-        Bornette[1] role bornette
-        Velo[0..*] role velos
+        Bornette[0..1] role bornette
+        Velo[0..1] role velo
 end
 
 association EstLoue
