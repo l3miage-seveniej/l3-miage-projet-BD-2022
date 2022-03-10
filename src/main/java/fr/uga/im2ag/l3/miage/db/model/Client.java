@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Client {
     @Id
     @GeneratedValue
-    private int idClient;
+    private Long idClient;
     private int numeroCB;
     private int codeSecret;
 
@@ -36,10 +36,10 @@ public class Client {
     public void setCodeSecret(int codeSecret) {
         this.codeSecret = codeSecret;
     }
-    public int getIdClient() {
+    public Long getIdClient() {
         return idClient;
     }
-    public void setIdClient(int idClient) {
+    public void setIdClient(Long idClient) {
         this.idClient = idClient;
     }
     public int getNumeroCB() {

@@ -29,8 +29,9 @@ public class Abonne extends Client {
     public String getPrenom() {
         return prenom;
     }
-    public void setPrenom(String prenom) {
+    public Abonne setPrenom(String prenom) {
         this.prenom = prenom;
+        return this;
     }
     public Enums.sexe getSexe() {
         return sexe;
@@ -58,15 +59,13 @@ public class Abonne extends Client {
 
     public void setDateDebut(Date dateAbonnement) {
         this.dateAbonnement = dateAbonnement;
+        this.dateFin = new Date((dateAbonnement.getTime() + (365l*24l*60l*60l*1000l))); // renvoie la date un an plus tard (365 jours)
     }
 
     public Date getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
-    }
     
     
 }
