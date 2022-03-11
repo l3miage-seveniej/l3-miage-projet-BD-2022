@@ -2499,17 +2499,17 @@
 									},
 									"fillColor": "#ffeaad",
 									"font": "Arial;13;0",
-									"left": 507,
+									"left": 504,
 									"top": 112,
-									"width": 7.22998046875,
+									"width": 21.68359375,
 									"height": 13,
-									"alpha": 0.7065102821782705,
-									"distance": 12.041594578792296,
+									"alpha": 0.5355270062043895,
+									"distance": 15.264337522473747,
 									"hostEdge": {
 										"$ref": "AAAAAAF/ZP1I6bLmuRA="
 									},
 									"edgePosition": 2,
-									"text": "1"
+									"text": "0..1"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2530,7 +2530,7 @@
 									"hostEdge": {
 										"$ref": "AAAAAAF/ZP1I6bLmuRA="
 									},
-									"text": "+velos"
+									"text": "+velo"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2563,16 +2563,16 @@
 									},
 									"fillColor": "#ffeaad",
 									"font": "Arial;13;0",
-									"left": 664,
+									"left": 663,
 									"top": 103,
-									"width": 19.5126953125,
+									"width": 21.68359375,
 									"height": 13,
-									"alpha": -0.7685099131691837,
+									"alpha": -0.7645060383986015,
 									"distance": 19.1049731745428,
 									"hostEdge": {
 										"$ref": "AAAAAAF/ZP1I6bLmuRA="
 									},
-									"text": "0..*"
+									"text": "0..1"
 								},
 								{
 									"_type": "UMLQualifierCompartmentView",
@@ -4298,7 +4298,7 @@
 								"reference": {
 									"$ref": "AAAAAAF/ZNjP7K1RLsU="
 								},
-								"multiplicity": "1"
+								"multiplicity": "0..1"
 							},
 							"end2": {
 								"_type": "UMLAssociationEnd",
@@ -4306,11 +4306,11 @@
 								"_parent": {
 									"$ref": "AAAAAAF/ZP1I6LLitwo="
 								},
-								"name": "velos",
+								"name": "velo",
 								"reference": {
 									"$ref": "AAAAAAF/ZNs4ga2VQ48="
 								},
-								"multiplicity": "0..*"
+								"multiplicity": "0..1"
 							}
 						}
 					],
@@ -4596,19 +4596,6 @@
 									"$ref": "AAAAAAF/ZQenKbtwkIk="
 								},
 								"multiplicity": "0..*"
-							}
-						},
-						{
-							"_type": "UMLAssociationClassLink",
-							"_id": "AAAAAAF/ZQenKbt0KR0=",
-							"_parent": {
-								"$ref": "AAAAAAF/ZQenKbtwkIk="
-							},
-							"classSide": {
-								"$ref": "AAAAAAF/ZQenKbtwkIk="
-							},
-							"associationSide": {
-								"$ref": "AAAAAAF/ZQenKbtxlrc="
 							}
 						},
 						{
@@ -8583,6 +8570,7 @@
 								"$ref": "AAAAAAF/ZS5shsF1I/Y="
 							},
 							"name": "etatB",
+							"type": "",
 							"value": "Etat::ok"
 						},
 						{
@@ -8625,6 +8613,7 @@
 								"$ref": "AAAAAAF/ZTAU38GunXE="
 							},
 							"name": "etatB",
+							"type": "",
 							"value": "Etat::hs"
 						},
 						{
@@ -8697,6 +8686,7 @@
 								"$ref": "AAAAAAF/ZTITXcLwM5M="
 							},
 							"name": "modeleV",
+							"type": "",
 							"value": "ModeleVelo::hollandais"
 						},
 						{
@@ -8716,6 +8706,7 @@
 								"$ref": "AAAAAAF/ZTITXcLwM5M="
 							},
 							"name": "etatV",
+							"type": "",
 							"value": "Etat::ok"
 						},
 						{
@@ -8725,6 +8716,7 @@
 								"$ref": "AAAAAAF/ZTITXcLwM5M="
 							},
 							"name": "situation",
+							"type": "",
 							"value": "Situation::enStation"
 						}
 					]
@@ -8787,6 +8779,7 @@
 								"$ref": "AAAAAAF/ZTUFpcbX3ME="
 							},
 							"name": "modeleV",
+							"type": "",
 							"value": "ModeleV::vtc"
 						},
 						{
@@ -8806,6 +8799,7 @@
 								"$ref": "AAAAAAF/ZTUFpcbX3ME="
 							},
 							"name": "etatV",
+							"type": "",
 							"value": "Etat::ok"
 						},
 						{
