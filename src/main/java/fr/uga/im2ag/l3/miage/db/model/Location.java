@@ -1,10 +1,13 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,10 +23,10 @@ public class Location {
     
     private float cout;
 
-    @OneToOne
-    private Velo velo;
+    @ManyToMany
+    private List<Velo> velo;
 
-    @OneToOne
+    @ManyToOne
     private Client client;
 
 
@@ -33,14 +36,20 @@ public class Location {
     public void setIdLoc(int idLoc) {
         this.idLoc = idLoc;
     }
-    public Velo getVelo() {
+   
+    
+    public List<Velo> getVelo() {
         return velo;
     }
-    public void setVelos(Velo velo) {
+    public void setVelo(List<Velo> velo) {
         this.velo = velo;
     }
-    
-    
+    public Client getClient() {
+        return client;
+    }
+    public void setClient(Client client) {
+        this.client = client;
+    }
     public int getId() {
         return idLoc;
     }

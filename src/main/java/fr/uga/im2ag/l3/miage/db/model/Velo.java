@@ -1,11 +1,13 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,10 +25,10 @@ public class Velo {
 
     private Date dateMiseEnService;
 
-    @ManyToOne(targetEntity = Client.class)
-    private Client client;
+    @ManyToMany(targetEntity = Location.class)
+    private List<Location> location;
 
-    @ManyToOne(targetEntity = Bornette.class)
+    @OneToOne(targetEntity = Bornette.class)
     private Bornette estAccueilli;
 
     public int getNumero() {
