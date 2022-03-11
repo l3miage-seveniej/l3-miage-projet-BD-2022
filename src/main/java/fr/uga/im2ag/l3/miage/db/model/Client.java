@@ -1,5 +1,7 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
+
+
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,12 +19,8 @@ public class Client {
     private int numeroCB;
     private int codeSecret;
 
-    @OneToMany(targetEntity = Velo.class)
-    private List<Velo> velos;
-    
-    @OneToMany(targetEntity = Client.class)
-    private List<Client> clients;
-
+    @OneToMany(targetEntity = Location.class)
+    List<Location> locations;
 
     public int getnCB() {
         return numeroCB;
@@ -47,18 +45,6 @@ public class Client {
     }
     public void setNumeroCB(int numeroCB) {
         this.numeroCB = numeroCB;
-    }
-    public List<Velo> getVelos() {
-        return velos;
-    }
-    public void setVelos(List<Velo> velos) {
-        this.velos = velos;
-    }
-    public List<Client> getClients() {
-        return clients;
-    }
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
     }
     
     

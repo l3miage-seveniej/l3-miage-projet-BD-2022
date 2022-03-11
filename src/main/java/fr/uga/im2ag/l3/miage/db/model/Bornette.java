@@ -5,9 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.List;
+
 
 @Entity
 @Table(name = "BORNETTE")
@@ -23,8 +24,8 @@ public class Bornette {
     @ManyToOne(targetEntity = Station.class)
     private Station station;
 
-    @OneToMany(targetEntity = Velo.class)
-    private List<Velo> velos;
+    @OneToOne
+    private Velo velo;
 
     public int getNumeroB() {
         return numeroB;
@@ -50,13 +51,6 @@ public class Bornette {
         this.libre = libre;
     }
 
-    public List<Velo> getVelos() {
-        return velos;
-    }
-
-    public void setVelos(List<Velo> velos) {
-        this.velos = velos;
-    }
 
     public Station getStation() {
         return station;
@@ -66,11 +60,5 @@ public class Bornette {
         this.station = station;
     }
 
-    @Override
-    public String toString() {
-        return "Bornette [etatB=" + etatB + ", libre=" + libre + ", numeroB=" + numeroB + ", station=" + station
-                + ", velos=" + velos + "]";
-    }
-    
     
 }
