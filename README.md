@@ -28,3 +28,6 @@ Dans la séance du TP SI nous avons consulté / amelioré (brievement) notre dia
 
 ### 10/03/2022
 Nous avons fait quelques tests sur nos classes / repositories et trouvé quelquechose qui ne va pas dans notre diagramme.
+
+### 11/03/2022
+Nous avons soumis le rapport intermediaire, et realisé que nous n'avons pas modifier la classe Client dans le rapport. Le deadline était à 20h et on viens de la realiser vers 21h30.
