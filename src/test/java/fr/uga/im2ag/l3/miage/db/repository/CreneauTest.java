@@ -48,7 +48,7 @@ public class CreneauTest extends Base{
     //String s = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(myTimestamp);
     String formatDate = "MM/dd/yyyy HH:mm:ss";
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatDate);
-    java.util.Date dateUtil = simpleDateFormat.parse("15-12-2022 14:30:10");
+    //java.util.Date dateUtil = simpleDateFormat.parse("15-12-2022 14:30:10");
 
     java.sql.Timestamp timestampDebut = java.sql.Timestamp.valueOf("15-12-2022 14:30:10");
     java.sql.Timestamp timestampFin = java.sql.Timestamp.valueOf("15-12-2022 16:30:10");
