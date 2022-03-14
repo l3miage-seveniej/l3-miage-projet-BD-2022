@@ -27,7 +27,7 @@ public class Enums {
     }
 
     
-    public enum VType {
+    public enum TypeStation {
         PLUS, MOINS, NUL;
     }
     public enum sexe {
