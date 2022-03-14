@@ -1,7 +1,5 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
-
-
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,7 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Client")
+@Table(name = "Client")
 public abstract class Client {
     @Id
     @GeneratedValue
@@ -28,15 +26,19 @@ public abstract class Client {
     public void setnCB(String numeroCB) {
         this.numeroCB = numeroCB;
     }
+
     public int getCodeSecret() {
         return codeSecret;
     }
+
     public void setCodeSecret(int codeSecret) {
         this.codeSecret = codeSecret;
     }
+
     public Long getIdClient() {
         return idClient;
     }
+
     public void setIdClient(Long idClient) {
         this.idClient = idClient;
     }
@@ -46,7 +48,5 @@ public abstract class Client {
     public void setNumeroCB(String numeroCB) {
         this.numeroCB = numeroCB;
     }
-    
-    
-    
+
 }

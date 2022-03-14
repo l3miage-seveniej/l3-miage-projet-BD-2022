@@ -9,15 +9,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "BORNETTE")
 public class Bornette {
-    
+
     @Column(nullable = false)
     @Id
     @GeneratedValue
-    private int numeroB;
+    private Long numeroB;
     private Enums.Etat etatB;
     private Boolean libre;
 
@@ -27,11 +26,11 @@ public class Bornette {
     @OneToOne
     private Velo velo;
 
-    public int getNumeroB() {
+    public Long getNumeroB() {
         return numeroB;
     }
 
-    public void setNumeroB(int numeroB) {
+    public void setNumeroB(Long numeroB) {
         this.numeroB = numeroB;
     }
 
@@ -51,7 +50,6 @@ public class Bornette {
         this.libre = libre;
     }
 
-
     public Station getStation() {
         return station;
     }
@@ -60,5 +58,4 @@ public class Bornette {
         this.station = station;
     }
 
-    
 }

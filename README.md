@@ -31,3 +31,6 @@ Nous avons fait quelques tests sur nos classes / repositories et trouvé quelque
 
 ### 11/03/2022
 Nous avons soumis le rapport intermédiaire, et réalisé que nous n'avons pas modifier la classe Client dans le rapport. La deadline était à 20h et on vient de le réaliser vers 21h30.
+
+### 14/03/2022
+Après avoir soumis le rapport intermédiaire via le moodle, nous avons eu quelques retours quant à notre diagramme de classes. Nous avons donc modifié cela et nous avons ensuite travaillé sur le mapping et la création des nouvelles classes ajoutées à l'issue de la modification. 

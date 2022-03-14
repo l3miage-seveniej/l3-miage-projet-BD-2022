@@ -29,7 +29,7 @@ public class StationTest extends Base {
     }
 
     @Test
-    void shouldSaveStudent() {
+    void shouldSaveStation() {
         Station station = new Station();
         Bornette b = new Bornette();
 

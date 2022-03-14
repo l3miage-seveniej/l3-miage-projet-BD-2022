@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Creneau")
+@Table(name = "Creneau")
 public class Creneau {
     @Id
     @GeneratedValue
@@ -18,12 +18,8 @@ public class Creneau {
     private Date hFin;
     private Enums.TypeStation typeStation;
 
-
-
     @ManyToOne
     private Station station;
-
-
 
     public Date gethDebut() {
         return hDebut;
@@ -47,46 +43,28 @@ public class Creneau {
         this.hDebut = hDebut;
     }
 
-
-
     public Date gethFin() {
         return hFin;
     }
-
-
 
     public void sethFin(Date hFin) {
         this.hFin = hFin;
     }
 
-
-
     public Enums.TypeStation getTypeStation() {
         return typeStation;
     }
-
-
 
     public void setTypeStation(Enums.TypeStation typeStation) {
         this.typeStation = typeStation;
     }
 
-
-
     public Station getStation() {
         return station;
     }
-
-
 
     public void setStation(Station station) {
         this.station = station;
     }
 
-
-
-
-        
-
-    
 }

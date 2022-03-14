@@ -15,10 +15,10 @@
         <class>fr.uga.im2ag.l3.miage.db.model.Creneau</class>
 
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;" />
-            <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="1512" />
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag" />
+            <property name="javax.persistence.jdbc.user" value="wicaksop" />
+            <property name="javax.persistence.jdbc.password" value="859b65abbf" />
+            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
         </properties>

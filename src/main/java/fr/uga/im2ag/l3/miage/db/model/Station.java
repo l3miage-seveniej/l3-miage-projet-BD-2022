@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "STATION")
 public class Station {
-    
+
     @Id
     @GeneratedValue
     private Long idStation;
@@ -20,7 +20,7 @@ public class Station {
 
     @OneToMany(targetEntity = Bornette.class)
     private List<Bornette> bornettes;
-    
+
     public Long getIdStation() {
         return idStation;
     }
