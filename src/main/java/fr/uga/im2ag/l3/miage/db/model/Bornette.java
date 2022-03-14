@@ -17,7 +17,7 @@ public class Bornette {
     @Column(nullable = false)
     @Id
     @GeneratedValue
-    private int numeroB;
+    private Long numeroB;
     private Enums.Etat etatB;
     private Boolean libre;
 
@@ -27,11 +27,11 @@ public class Bornette {
     @OneToOne
     private Velo velo;
 
-    public int getNumeroB() {
+    public Long getNumeroB() {
         return numeroB;
     }
 
-    public void setNumeroB(int numeroB) {
+    public void setNumeroB(Long numeroB) {
         this.numeroB = numeroB;
     }
 
