@@ -19,6 +19,10 @@
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            
+            <property name="format_sql" value="true" />
+            <property name="use_sql_comments" value="true" />
+            
         </properties>
 
     </persistence-unit>
