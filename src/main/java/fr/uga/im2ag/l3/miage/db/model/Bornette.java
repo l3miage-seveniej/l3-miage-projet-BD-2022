@@ -9,11 +9,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "BORNETTE")
 public class Bornette {
-    
+
     @Column(nullable = false)
     @Id
     @GeneratedValue
@@ -51,7 +50,6 @@ public class Bornette {
         this.libre = libre;
     }
 
-
     public Station getStation() {
         return station;
     }
@@ -60,5 +58,4 @@ public class Bornette {
         this.station = station;
     }
 
-    
 }

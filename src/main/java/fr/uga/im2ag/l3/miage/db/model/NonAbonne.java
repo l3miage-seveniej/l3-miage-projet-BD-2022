@@ -4,11 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="NonAbonne")
+@Table(name = "NonAbonne")
 public class NonAbonne extends Client {
-    
 
-    
-
-    
 }

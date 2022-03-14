@@ -32,7 +32,7 @@ public class Velo {
     private Bornette estAccueilli;
 
     public int getNumero() {
-        return numeroV; //numero
+        return numeroV;
     }
 
     public void setNumero(int numeroV) {
