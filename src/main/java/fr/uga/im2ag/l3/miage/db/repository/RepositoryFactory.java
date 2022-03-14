@@ -29,7 +29,7 @@ public class RepositoryFactory {
         return new StationRepositoryImpl(entityManager);
     }
 
-    public VeloRepository newGraduationClassRepository(EntityManager entityManager) {
+    public VeloRepository newVeloRepository(EntityManager entityManager) {
         return new VeloRepositoryImpl(entityManager);
     }
 
