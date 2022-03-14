@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Velo {
     @Id
     @GeneratedValue
-    private int numeroV;
+    private Long numeroV;
 
     private Enums.Modele modeleV;
 
@@ -31,11 +31,11 @@ public class Velo {
     @OneToOne(targetEntity = Bornette.class)
     private Bornette estAccueilli;
 
-    public int getNumero() {
+    public Long getNumero() {
         return numeroV;
     }
 
-    public void setNumero(int numeroV) {
+    public void setNumero(Long numeroV) {
         this.numeroV = numeroV;
     }
 
