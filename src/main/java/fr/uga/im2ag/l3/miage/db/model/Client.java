@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Client")
-public class Client {
+public abstract class Client {
     @Id
     @GeneratedValue
     private Long idClient;

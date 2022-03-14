@@ -6,6 +6,7 @@
         <class>fr.uga.im2ag.l3.miage.db.model.Abonne</class>
         <class>fr.uga.im2ag.l3.miage.db.model.Bornette</class>
         <class>fr.uga.im2ag.l3.miage.db.model.Client</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.Location</class>
         <class>fr.uga.im2ag.l3.miage.db.model.Velo</class>
         <class>fr.uga.im2ag.l3.miage.db.model.Situation</class>
         <class>fr.uga.im2ag.l3.miage.db.model.Station</class>

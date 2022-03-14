@@ -14,7 +14,7 @@ public class Enums {
         HOLLANDAIS, VTC, VTT;
     }
     
-    public enum VType {
+    public enum TypeStation {
         PLUS, MOINS, NUL;
     }
     public enum sexe {
