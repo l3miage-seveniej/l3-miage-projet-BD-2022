@@ -1,5 +1,6 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
+import java.sql.Timestamp;
 import java.sql.Date;
 
 import javax.persistence.Entity;
@@ -14,14 +15,14 @@ public class Creneau {
     @Id
     @GeneratedValue
     private long idCreneau;
-    private Date hDebut;
-    private Date hFin;
+    private Timestamp hDebut;
+    private Timestamp hFin;
     private Enums.TypeStation typeStation;
 
     @ManyToOne
     private Station station;
 
-    public Date gethDebut() {
+    public Timestamp gethDebut() {
         return hDebut;
     }
 
@@ -39,15 +40,15 @@ public class Creneau {
 
 
 
-    public void sethDebut(Date hDebut) {
+    public void sethDebut(Timestamp hDebut) {
         this.hDebut = hDebut;
     }
 
-    public Date gethFin() {
+    public Timestamp gethFin() {
         return hFin;
     }
 
-    public void sethFin(Date hFin) {
+    public void sethFin(Timestamp hFin) {
         this.hFin = hFin;
     }
 
