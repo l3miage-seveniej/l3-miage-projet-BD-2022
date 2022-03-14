@@ -1,6 +1,6 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
-import java.time.LocalTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,9 +17,9 @@ public class Location {
     @GeneratedValue
     private int idLoc;
 
-    private LocalTime heureDebut;
+    private Timestamp dateDebut;
 
-    private LocalTime heureFin;
+    private Timestamp dateFin;
 
     private float cout;
 
@@ -61,20 +61,20 @@ public class Location {
         this.idLoc = idLoc;
     }
 
-    public LocalTime getHeureDebut() {
-        return heureDebut;
+    public Timestamp getDateDebut() {
+        return dateDebut;
     }
 
-    public void setHeureDebut(LocalTime heureDebut) {
-        this.heureDebut = heureDebut;
+    public void setDateDebut(Timestamp dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
-    public LocalTime getHeureFin() {
-        return heureFin;
+    public Timestamp getDateFin() {
+        return dateFin;
     }
 
-    public void setHeureFin(LocalTime heureFin) {
-        this.heureFin = heureFin;
+    public void setDateFin(Timestamp dateFin) {
+        this.dateFin = dateFin;
     }
 
     public float getCout() {
@@ -83,6 +83,24 @@ public class Location {
 
     public void setCout(float cout) {
         this.cout = cout;
+    }
+
+    public void calculerCout(Velo velo) {
+        // Calculer le temps de location
+        int minute = 1000 * 60;        
+        float minutes = (dateFin.getTime() - dateDebut.getTime()) / minute;
+        
+        // Recuperer le €/min du velo
+        int valeurV = velo.getModele().getValeur();
+
+        // Multiplier le prix par le temps (en minutes)
+        float cout = valeurV * minutes;
+
+        if (client instanceof Abonne) {
+            cout = cout * 0.7f;         // Réduction de 30%
+        }
+
+        setCout(cout);
     }
 
 }
