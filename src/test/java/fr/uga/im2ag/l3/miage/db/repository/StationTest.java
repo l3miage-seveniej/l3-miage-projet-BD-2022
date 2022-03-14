@@ -29,7 +29,7 @@ public class StationTest extends Base {
     }
 
     @Test
-    void shouldSaveStudent() {
+    void shouldSaveStation() {
         Station station = new Station();
         Bornette b = new Bornette();
 
@@ -38,7 +38,7 @@ public class StationTest extends Base {
         
 
         station.setAdresse("23 rue de la mathematique");
-        station.setType(Enums.VType.PLUS);
+        station.setType(Enums.TypeStation.PLUS);
         station.setBornettes(Arrays.asList(b));
 
         entityManager.persist(b);
