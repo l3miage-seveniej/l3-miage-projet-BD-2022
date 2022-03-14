@@ -1,6 +1,7 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
 
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,9 +18,9 @@ public class Location {
     @GeneratedValue
     private int idLoc;
 
-    private int heureDebut;
+    private LocalTime heureDebut;
 
-    private int heureFin;
+    private LocalTime heureFin;
     
     private float cout;
 
@@ -33,44 +34,55 @@ public class Location {
     public int getIdLoc() {
         return idLoc;
     }
+    
     public void setIdLoc(int idLoc) {
         this.idLoc = idLoc;
     }
-   
     
     public List<Velo> getVelo() {
         return velo;
     }
+
     public void setVelo(List<Velo> velo) {
         this.velo = velo;
     }
+
     public Client getClient() {
         return client;
     }
+
     public void setClient(Client client) {
         this.client = client;
     }
+
     public int getId() {
         return idLoc;
     }
+
     public void setId(int idLoc) {
         this.idLoc = idLoc;
     }
-    public int getHeureDebut() {
+
+    public LocalTime getHeureDebut() {
         return heureDebut;
     }
-    public void setHeureDebut(int heureDebut) {
+
+    public void setHeureDebut(LocalTime heureDebut) {
         this.heureDebut = heureDebut;
     }
-    public int getHeureFin() {
+
+    public LocalTime getHeureFin() {
         return heureFin;
     }
-    public void setHeureFin(int heureFin) {
+
+    public void setHeureFin(LocalTime heureFin) {
         this.heureFin = heureFin;
     }
+
     public float getCout() {
         return cout;
     }
+
     public void setCout(float cout) {
         this.cout = cout;
     }
