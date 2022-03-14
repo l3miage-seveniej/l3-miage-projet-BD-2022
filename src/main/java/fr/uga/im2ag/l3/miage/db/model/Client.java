@@ -16,16 +16,16 @@ public abstract class Client {
     @Id
     @GeneratedValue
     private Long idClient;
-    private int numeroCB;
+    private String numeroCB;
     private int codeSecret;
 
     @OneToMany(targetEntity = Location.class)
     List<Location> locations;
 
-    public int getnCB() {
+    public String getnCB() {
         return numeroCB;
     }
-    public void setnCB(int numeroCB) {
+    public void setnCB(String numeroCB) {
         this.numeroCB = numeroCB;
     }
     public int getCodeSecret() {
@@ -40,10 +40,10 @@ public abstract class Client {
     public void setIdClient(Long idClient) {
         this.idClient = idClient;
     }
-    public int getNumeroCB() {
+    public String getNumeroCB() {
         return numeroCB;
     }
-    public void setNumeroCB(int numeroCB) {
+    public void setNumeroCB(String numeroCB) {
         this.numeroCB = numeroCB;
     }
     

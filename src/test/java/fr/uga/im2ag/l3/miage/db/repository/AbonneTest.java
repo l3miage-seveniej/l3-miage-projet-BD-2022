@@ -37,7 +37,7 @@ public class AbonneTest extends Base {
         abonne.setNom("Macrone");
         abonne.setPrenom("Emmanuelle");
         abonne.setSexe(Enums.sexe.FEMELLE);
-        abonne.setNumeroCB(4589614);
+        abonne.setNumeroCB("4589614");
 
         String formatDate = "dd-MM-yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatDate);

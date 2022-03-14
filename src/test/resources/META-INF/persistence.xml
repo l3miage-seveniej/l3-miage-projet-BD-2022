@@ -11,6 +11,8 @@
         <class>fr.uga.im2ag.l3.miage.db.model.Location</class>
         <class>fr.uga.im2ag.l3.miage.db.model.Station</class>
         <class>fr.uga.im2ag.l3.miage.db.model.Velo</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.NonAbonne</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.Creneau</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:db1;DB_CLOSE_DELAY=-1;" />
