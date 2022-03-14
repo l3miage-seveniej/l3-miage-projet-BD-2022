@@ -35,7 +35,7 @@ class Station
     attributes
         idStation : Integer
         adresse : String
-        typeStation : TypeStation
+        creneaux : Creneau
 end
 
 class Bornette
@@ -54,7 +54,7 @@ class Velo
         situation : Situation
 end
 
-class Client
+abstract class Client
     attributes
         idClient : Integer
         codeSecret : Integer
@@ -76,13 +76,31 @@ class Location
         idLoc : Integer
         heureDebut : String
         heureFin : String
-        cout : Real
+end
+
+class NonAbonne < Client
+end
+
+class Class1
+end
+
+class Creneau
+    attributes
+        hDebut : String
+        hFin : String
+        typeStation : TypeStation
 end
 
 association EstPossede
     between
         Station[1] role station
         Bornette[*] role bornettes
+end
+
+association EstRepresente
+    between
+        Station[1] role stationType
+        Creneau[1..*] role creneaux
 end
 
 association EstAccueilli
