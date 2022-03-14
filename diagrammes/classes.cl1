@@ -58,7 +58,7 @@ abstract class Client
     attributes
         idClient : Integer
         codeSecret : Integer
-        numeroCB : Integer
+        numeroCB : String
 end
 
 class Abonne < Client
