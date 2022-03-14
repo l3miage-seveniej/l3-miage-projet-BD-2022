@@ -5,7 +5,7 @@ public class Enums {
     public enum Situation {
         EN_STATION, EN_LOCATION, EN_MAINTENANCE;
     }
-    
+
     public enum Etat {
         OK, HS;
     }
@@ -15,6 +15,7 @@ public class Enums {
      */
     public enum Modele {
         HOLLANDAIS(1), VTC(2), VTT(4);
+
         private final int valeur;
 
         private Modele(int valeur) {
@@ -26,10 +27,10 @@ public class Enums {
         }
     }
 
-    
     public enum TypeStation {
         PLUS, MOINS, NUL;
     }
+
     public enum sexe {
         MALE, FEMELLE, NON_BINAIRE;
     }

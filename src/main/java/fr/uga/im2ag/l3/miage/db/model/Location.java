@@ -1,6 +1,5 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
-
 import java.time.LocalTime;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Location")
+@Table(name = "Location")
 public class Location {
     @Id
     @GeneratedValue
@@ -21,7 +20,7 @@ public class Location {
     private LocalTime heureDebut;
 
     private LocalTime heureFin;
-    
+
     private float cout;
 
     @ManyToMany
@@ -30,15 +29,14 @@ public class Location {
     @ManyToOne
     private Client client;
 
-
     public int getIdLoc() {
         return idLoc;
     }
-    
+
     public void setIdLoc(int idLoc) {
         this.idLoc = idLoc;
     }
-    
+
     public List<Velo> getVelo() {
         return velo;
     }
@@ -86,5 +84,5 @@ public class Location {
     public void setCout(float cout) {
         this.cout = cout;
     }
-    
+
 }
