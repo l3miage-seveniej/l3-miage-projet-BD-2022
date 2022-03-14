@@ -102,5 +102,4 @@ public class Location {
 
         setCout(cout);
     }
-
 }
