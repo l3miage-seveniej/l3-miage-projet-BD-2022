@@ -3,12 +3,17 @@ package fr.uga.im2ag.l3.miage.db.model;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Creneau")
 public class Creneau {
+    @Id
+    @GeneratedValue
+    private long idCreneau;
     private Date hDebut;
     private Date hFin;
     private Enums.TypeStation typeStation;
@@ -19,6 +24,20 @@ public class Creneau {
     public Date gethDebut() {
         return hDebut;
     }
+
+
+
+    public long getIdCreneau() {
+        return idCreneau;
+    }
+
+
+
+    public void setIdCreneau(long idCreneau) {
+        this.idCreneau = idCreneau;
+    }
+
+
 
     public void sethDebut(Date hDebut) {
         this.hDebut = hDebut;
