@@ -2,14 +2,18 @@ package fr.uga.im2ag.l3.miage.db.model;
 
 import java.util.List;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+
 
 @Entity
-@Table(name = "Client")
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorValue("TYPE_ENTITE")
 public abstract class Client {
     @Id
     @GeneratedValue
