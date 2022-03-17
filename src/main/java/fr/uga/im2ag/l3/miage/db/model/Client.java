@@ -43,8 +43,9 @@ public abstract class Client {
     public String getNumeroCB() {
         return numeroCB;
     }
-    public void setNumeroCB(String numeroCB) {
+    public Client setNumeroCB(String numeroCB) {
         this.numeroCB = numeroCB;
+        return this;
     }
 
 }

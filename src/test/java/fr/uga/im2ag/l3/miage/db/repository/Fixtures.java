@@ -10,33 +10,44 @@ import com.github.javafaker.Faker;
 
 import fr.uga.im2ag.l3.miage.db.model.Abonne;
 import fr.uga.im2ag.l3.miage.db.model.Enums;
+import fr.uga.im2ag.l3.miage.db.model.NonAbonne;
 
 public class Fixtures {
     private static final Faker FAKER = Faker.instance(new Random(42));
 
-    public static Date convertDate(String dateString) throws ParseException{
+    public static Date convertDate(String dateString) throws ParseException {
         return new Date(new SimpleDateFormat("yyyy-MM-dd").parse(dateString).getTime());
     }
 
-    public static Enums.sexe getRandomSexe(){
+    public static Enums.sexe getRandomSexe() {
         Enums.sexe sexe;
         sexe = Enums.sexe.values()[new Random().nextInt(3)];
         return sexe;
     }
 
-    public static Abonne createAbonne(Date dateAbonnement){
+    public static Abonne createAbonne(Date dateAbonnement) {
         Abonne newAbonne = new Abonne()
-        .setPrenom(FAKER.funnyName().name())
-        .setNom(FAKER.gameOfThrones().character())
-        .setAdresse(FAKER.address().fullAddress())
-        .setDateNaissance(new java.sql.Date(FAKER.date().past(60 * 365, 30 * 365, TimeUnit.DAYS).getTime()))
-        .setSexe(getRandomSexe())
-        .setDateDebut(dateAbonnement);
+                .setPrenom(FAKER.funnyName().name())
+                .setNom(FAKER.gameOfThrones().character())
+                .setAdresse(FAKER.address().fullAddress())
+                .setDateNaissance(new java.sql.Date(FAKER.date().past(60 * 365, 30 * 365, TimeUnit.DAYS).getTime()))
+                .setSexe(getRandomSexe())
+                .setDateDebut(dateAbonnement);
 
         newAbonne.setCodeSecret(9999);
         return newAbonne;
-            // to do
-            // code secret generator
-            // .setCodeSecret(new Random().nextInt(arg0));
+        // to do
+        // code secret generator
+        // .setCodeSecret(new Random().nextInt(arg0));
+    }
+
+    public static NonAbonne createNonAbonne(String numeroCB){
+        NonAbonne newNA = new NonAbonne();
+
+        newNA.setNumeroCB(numeroCB)
+            .setCodeSecret(9999);
+
+            return newNA;
+
     }
 }
