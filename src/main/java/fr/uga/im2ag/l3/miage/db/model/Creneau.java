@@ -1,7 +1,7 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
 import java.sql.Timestamp;
-import java.sql.Date;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,8 +40,9 @@ public class Creneau {
 
 
 
-    public void sethDebut(Timestamp hDebut) {
+    public Creneau sethDebut(Timestamp hDebut) {
         this.hDebut = hDebut;
+        return this;
     }
 
     public Timestamp gethFin() {
@@ -56,16 +57,18 @@ public class Creneau {
         return typeStation;
     }
 
-    public void setTypeStation(Enums.TypeStation typeStation) {
+    public Creneau setTypeStation(Enums.TypeStation typeStation) {
         this.typeStation = typeStation;
+        return this;
     }
 
     public Station getStation() {
         return station;
     }
 
-    public void setStation(Station station) {
+    public Creneau setStation(Station station) {
         this.station = station;
+        return this;
     }
 
 }
