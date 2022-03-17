@@ -8,13 +8,29 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "Abonne")
 @DiscriminatorValue("Abonne")
 public class Abonne extends Client {
 
+    public Abonne() {
+    }
+
+    public Abonne(String nom, String prenom, Enums.sexe sexe, String adresse,
+        Date dateNaissance, Date dateAbonnement) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.sexe = sexe;
+        this.adresse = adresse;
+        this.dateNaissance = dateNaissance;
+        this.dateAbonnement = dateAbonnement;
+        setDateDebut(dateAbonnement);
+    }
+
     private String nom;
     private String prenom;
+    
     @Enumerated(EnumType.STRING)
     private Enums.sexe sexe;
     private String adresse;
@@ -83,4 +99,12 @@ public class Abonne extends Client {
         return dateFin;
     }
 
+    @Override
+    public String toString() {
+        return "Abonne [adresse=" + adresse + ", dateAbonnement=" + dateAbonnement + ", dateFin=" + dateFin
+                + ", dateNaissance=" + dateNaissance + ", nom=" + nom + ", prenom=" + prenom + ", sexe=" + sexe + "]";
+    }
+
+
+    
 }
