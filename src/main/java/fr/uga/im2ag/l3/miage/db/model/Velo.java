@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -17,10 +19,13 @@ public class Velo {
     @GeneratedValue
     private Long numeroV;
 
+    @Enumerated(EnumType.STRING)
     private Enums.Modele modeleV;
 
+    @Enumerated(EnumType.STRING)
     private Enums.Etat etatV;
 
+    @Enumerated(EnumType.STRING)
     private Enums.Situation situation;
 
     private Date dateMiseEnService;

@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Entity
@@ -13,6 +15,7 @@ public class Abonne extends Client {
 
     private String nom;
     private String prenom;
+    @Enumerated(EnumType.STRING)
     private Enums.sexe sexe;
     private String adresse;
     private Date dateNaissance;

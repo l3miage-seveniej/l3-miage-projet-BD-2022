@@ -29,6 +29,10 @@ public class Location {
     @ManyToOne
     private Client client;
 
+    // private Station stationDepart;
+
+    // private Station stationArrivee;
+
     public int getIdLoc() {
         return idLoc;
     }

@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -17,6 +19,8 @@ public class Creneau {
     private long idCreneau;
     private Timestamp hDebut;
     private Timestamp hFin;
+    
+    @Enumerated(EnumType.STRING)
     private Enums.TypeStation typeStation;
 
     @ManyToOne

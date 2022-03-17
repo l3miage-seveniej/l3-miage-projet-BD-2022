@@ -16,10 +16,12 @@ public class Station {
     @GeneratedValue
     private Long idStation;
     private String adresse;
-    private Enums.TypeStation typeStation;
 
     @OneToMany(targetEntity = Bornette.class)
     private List<Bornette> bornettes;
+
+    @OneToMany
+    private List<Creneau> creneaux;
 
     public Long getIdStation() {
         return idStation;
@@ -46,12 +48,12 @@ public class Station {
         return this;
     }
 
-    public Enums.TypeStation getType() {
-        return typeStation;
+    public List<Creneau> getCreneaux() {
+        return creneaux;
     }
 
-    public Station setType(Enums.TypeStation typeStation) {
-        this.typeStation = typeStation;
-        return this;
+    public void setCreneaux(List<Creneau> creneaux) {
+        this.creneaux = creneaux;
     }
+
 }
