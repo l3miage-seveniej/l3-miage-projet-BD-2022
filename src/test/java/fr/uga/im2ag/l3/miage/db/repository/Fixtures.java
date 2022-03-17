@@ -16,6 +16,7 @@ import fr.uga.im2ag.l3.miage.db.model.Creneau;
 import fr.uga.im2ag.l3.miage.db.model.Enums;
 import fr.uga.im2ag.l3.miage.db.model.NonAbonne;
 import fr.uga.im2ag.l3.miage.db.model.Station;
+import fr.uga.im2ag.l3.miage.db.model.Velo;
 
 public class Fixtures {
     private static final Faker FAKER = Faker.instance(new Random(42));
@@ -39,6 +40,12 @@ public class Fixtures {
         return sexe;
     }
 
+    public static Enums.Modele getRandomTypeVelo() {
+        Enums.Modele modeleVelo;
+        modeleVelo = Enums.Modele.values()[new Random().nextInt(3)];
+        return modeleVelo;
+    }
+
     public static Enums.TypeStation getRandomTypeStation() {
         Enums.TypeStation TS;
         TS = Enums.TypeStation.values()[new Random().nextInt(3)];
@@ -49,6 +56,18 @@ public class Fixtures {
         Enums.Etat etatB;
         etatB = Enums.Etat.values()[new Random().nextInt(2)];
         return etatB;
+    }
+
+    public static Enums.Situation getRandomSituation() {
+        Enums.Situation situation;
+        situation = Enums.Situation.values()[new Random().nextInt(2)];
+        return situation;
+    }
+
+    public static Enums.Etat getRandomEtatVelo() {
+        Enums.Etat etatV;
+        etatV = Enums.Etat.values()[new Random().nextInt(2)];
+        return etatV;
     }
 
 
@@ -114,6 +133,17 @@ public class Fixtures {
         }
 
         return newBornette;
+
+    }
+
+    public static Velo createVelo(String dateMiseEnService) throws ParseException{
+        Velo newVelo = new Velo();
+        newVelo.setDateMiseEnService(convertDate(dateMiseEnService));
+        newVelo.setModele(getRandomTypeVelo());
+        newVelo.setSituation(getRandomSituation());
+        newVelo.setEtat(getRandomEtatVelo());
+
+        return newVelo;
 
     }
 }
