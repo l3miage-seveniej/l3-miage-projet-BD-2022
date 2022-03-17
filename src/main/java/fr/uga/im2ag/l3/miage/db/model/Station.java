@@ -41,15 +41,17 @@ public class Station {
         return adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public Station setAdresse(String adresse) {
         this.adresse = adresse;
+        return this;
     }
 
     public Enums.TypeStation getType() {
         return typeStation;
     }
 
-    public void setType(Enums.TypeStation typeStation) {
+    public Station setType(Enums.TypeStation typeStation) {
         this.typeStation = typeStation;
+        return this;
     }
 }

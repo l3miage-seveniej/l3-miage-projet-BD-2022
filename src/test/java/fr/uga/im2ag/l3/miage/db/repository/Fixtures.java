@@ -4,12 +4,14 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import com.github.javafaker.Faker;
 
 import fr.uga.im2ag.l3.miage.db.model.Abonne;
+import fr.uga.im2ag.l3.miage.db.model.Bornette;
 import fr.uga.im2ag.l3.miage.db.model.Creneau;
 import fr.uga.im2ag.l3.miage.db.model.Enums;
 import fr.uga.im2ag.l3.miage.db.model.NonAbonne;
@@ -59,26 +61,37 @@ public class Fixtures {
         // .setCodeSecret(new Random().nextInt(arg0));
     }
 
-    public static NonAbonne createNonAbonne(String numeroCB){
+    public static NonAbonne createNonAbonne(String numeroCB) {
         NonAbonne newNA = new NonAbonne();
 
         newNA.setNumeroCB(numeroCB)
-            .setCodeSecret(9999);
+                .setCodeSecret(9999);
 
-            return newNA;
+        return newNA;
 
     }
 
-    public static Creneau createCreneau(String hDebut, Station s) throws ParseException{
+    public static Creneau createCreneau(String hDebut, Station s) throws ParseException {
         Creneau newCreneau = new Creneau();
 
-        newCreneau.sethDebut( convertTimestamp(hDebut) )
-            .setStation(s)
-            .setTypeStation(getRandomTypeStation());
-
+        newCreneau.sethDebut(convertTimestamp(hDebut))
+                .setStation(s)
+                .setTypeStation(getRandomTypeStation());
 
         return newCreneau;
 
+    }
+
+    public static Station createStation(Bornette... bornettes) {
+        Station newStation = new Station();
+
+        newStation.setAdresse(FAKER.address().fullAddress())
+                .setType(getRandomTypeStation());
+
+        if (bornettes != null) {
+            newStation.setBornettes(Arrays.asList(bornettes));
+        }
+        return newStation;
 
     }
 }
