@@ -24,8 +24,9 @@ public class Abonne extends Client {
         return nom;
     }
 
-    public void setNom(String nom) {
+    public Abonne setNom(String nom) {
         this.nom = nom;
+        return this;
     }
 
     public String getPrenom() {
@@ -41,34 +42,38 @@ public class Abonne extends Client {
         return sexe;
     }
 
-    public void setSexe(Enums.sexe sexe) {
+    public Abonne setSexe(Enums.sexe sexe) {
         this.sexe = sexe;
+        return this;
     }
 
     public String getAdresse() {
         return adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public Abonne setAdresse(String adresse) {
         this.adresse = adresse;
+        return this;
     }
 
     public Date getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(Date dateNaissance) {
+    public Abonne setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
+        return this;
     }
 
     public Date getDateDebut() {
         return dateAbonnement;
     }
 
-    public void setDateDebut(Date dateAbonnement) {
+    public Abonne setDateDebut(Date dateAbonnement) {
         this.dateAbonnement = dateAbonnement;
         this.dateFin = new Date((dateAbonnement.getTime() + (365l * 24l * 60l * 60l * 1000l))); // renvoie la date un an
                                                                                                 // plus tard (365 jours)
+        return this;
     }
 
     public Date getDateFin() {

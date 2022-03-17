@@ -24,19 +24,13 @@ public abstract class Client {
     @OneToMany(targetEntity = Location.class)
     List<Location> locations;
 
-    public String getnCB() {
-        return numeroCB;
-    }
-    public void setnCB(String numeroCB) {
-        this.numeroCB = numeroCB;
-    }
-
     public int getCodeSecret() {
         return codeSecret;
     }
 
-    public void setCodeSecret(int codeSecret) {
+    public Client setCodeSecret(int codeSecret) {
         this.codeSecret = codeSecret;
+        return this;
     }
 
     public Long getIdClient() {
