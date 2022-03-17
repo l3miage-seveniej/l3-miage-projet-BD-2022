@@ -45,6 +45,13 @@ public class Fixtures {
         return TS;
     }
 
+    public static Enums.Etat getRandomEtatBornette() {
+        Enums.Etat etatB;
+        etatB = Enums.Etat.values()[new Random().nextInt(2)];
+        return etatB;
+    }
+
+
     public static Abonne createAbonne(Date dateAbonnement) {
         Abonne newAbonne = new Abonne()
                 .setPrenom(FAKER.funnyName().name())
@@ -92,6 +99,21 @@ public class Fixtures {
             newStation.setBornettes(Arrays.asList(bornettes));
         }
         return newStation;
+
+    }
+
+    public static Bornette createBornette(Station s, Enums.Etat ...b){
+        Bornette newBornette = new Bornette();
+
+        newBornette.setLibre(true).setStation(s);
+
+        if (b!=null){
+            newBornette.setEtatB(b[0]);
+        } else{
+            newBornette.setEtatB(getRandomEtatBornette());
+        }
+
+        return newBornette;
 
     }
 }

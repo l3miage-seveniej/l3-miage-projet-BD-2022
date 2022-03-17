@@ -46,8 +46,9 @@ public class Bornette {
         return libre;
     }
 
-    public void setLibre(Boolean libre) {
+    public Bornette setLibre(Boolean libre) {
         this.libre = libre;
+        return this;
     }
 
     public Station getStation() {
