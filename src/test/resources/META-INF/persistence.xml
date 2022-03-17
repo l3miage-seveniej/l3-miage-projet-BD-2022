@@ -13,6 +13,7 @@
         <class>fr.uga.im2ag.l3.miage.db.model.Velo</class>
         <class>fr.uga.im2ag.l3.miage.db.model.NonAbonne</class>
         <class>fr.uga.im2ag.l3.miage.db.model.Creneau</class>
+        
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag" />
