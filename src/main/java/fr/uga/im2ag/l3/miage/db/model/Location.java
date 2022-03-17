@@ -1,6 +1,7 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,21 +11,33 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
+
 @Entity
 @Table(name = "Location")
 public class Location {
+
+    
+    public Location() {
+        this.velos = new  ArrayList<Velo>();
+    }
+
     @Id
     @GeneratedValue
     private int idLoc;
 
-    private Timestamp dateDebut;
+    private Timestamp heureDebut;
 
-    private Timestamp dateFin;
+    private Timestamp heureFin;
+
+    private Station stationDepart;
+
+    private Station stationArrivee;
 
     private float cout;
 
     @ManyToMany
-    private List<Velo> velo;
+    private List<Velo> velos;
 
     @ManyToOne
     private Client client;
@@ -41,12 +54,18 @@ public class Location {
         this.idLoc = idLoc;
     }
 
-    public List<Velo> getVelo() {
-        return velo;
+    public List<Velo> getVelos() {
+        return velos;
     }
 
-    public void setVelo(List<Velo> velo) {
-        this.velo = velo;
+    public void setVelos(List<Velo> velos) {
+        this.velos = velos;
+    }
+
+    public void addVelos(Velo velo){
+        this.velos.add(velo);
+        velo.setSituation(Situation.EN_LOCATION);
+        
     }
 
     public Client getClient() {
@@ -55,6 +74,8 @@ public class Location {
 
     public void setClient(Client client) {
         this.client = client;
+        client.addLocation(this);
+        
     }
 
     public int getId() {
@@ -65,20 +86,22 @@ public class Location {
         this.idLoc = idLoc;
     }
 
-    public Timestamp getDateDebut() {
-        return dateDebut;
+    
+
+    public Timestamp getHeureDebut() {
+        return heureDebut;
     }
 
-    public void setDateDebut(Timestamp dateDebut) {
-        this.dateDebut = dateDebut;
+    private void setHeureDebut(Timestamp heureDebut) {
+        this.heureDebut = heureDebut;
     }
 
-    public Timestamp getDateFin() {
-        return dateFin;
+    public Timestamp getHeureFin() {
+        return heureFin;
     }
 
-    public void setDateFin(Timestamp dateFin) {
-        this.dateFin = dateFin;
+    private void setHeureFin(Timestamp heureFin) {
+        this.heureFin = heureFin;
     }
 
     public float getCout() {
@@ -88,11 +111,50 @@ public class Location {
     public void setCout(float cout) {
         this.cout = cout;
     }
+    
+    public Station getStationDepart() {
+        return stationDepart;
+    }
+
+    private void setStationDepart(Station stationDepart) {
+        this.stationDepart = stationDepart;
+    }
+
+    public Station getStationArrivee() {
+        return stationArrivee;
+    }
+
+    private void setStationArrivee(Station stationArrivee) {
+        this.stationArrivee = stationArrivee;
+    }
+
+    public void startLocation(Station s, Timestamp ...t){
+        setStationDepart(s);
+        if(t == null){
+            setHeureDebut(new Timestamp(System.currentTimeMillis()));
+        } else {
+            setHeureDebut(t[0]);
+        }
+        
+    }
+
+    public void endLocation(Station s, Timestamp ...t){
+        setStationArrivee(s);
+        if(t == null){
+            setHeureFin(new Timestamp(System.currentTimeMillis()));
+        } else {
+            setHeureFin(t[0]);
+        }
+
+        getVelos().forEach(e -> {
+            calculerCout(e);
+        });
+    }
 
     public void calculerCout(Velo velo) {
         // Calculer le temps de location
         int minute = 1000 * 60;        
-        float minutes = (dateFin.getTime() - dateDebut.getTime()) / minute;
+        float minutes = (heureFin.getTime() - heureDebut.getTime()) / minute;
         
         // Recuperer le €/min du velo
         int valeurV = velo.getModele().getValeur();
@@ -106,4 +168,13 @@ public class Location {
 
         setCout(cout);
     }
+
+    @Override
+    public String toString() {
+        return "Location [client=" + client + ", cout=" + cout + ", heureDebut=" + heureDebut + ", heureFin=" + heureFin
+                + ", idLoc=" + idLoc + ", stationArrivee=" + stationArrivee + ", stationDepart=" + stationDepart
+                + ", velos=" + velos + "]";
+    }
+
+    
 }

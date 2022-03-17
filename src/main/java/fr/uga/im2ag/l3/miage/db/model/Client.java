@@ -1,5 +1,6 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
@@ -15,6 +16,14 @@ import javax.persistence.OneToMany;
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorValue("TYPE_ENTITE")
 public abstract class Client {
+
+
+    
+    public Client() {
+        this.locations = new ArrayList<Location>();
+        
+    }
+
     @Id
     @GeneratedValue
     private Long idClient;
@@ -46,6 +55,10 @@ public abstract class Client {
     public Client setNumeroCB(String numeroCB) {
         this.numeroCB = numeroCB;
         return this;
+    }
+
+    public void addLocation(Location l){
+        locations.add(l);
     }
 
 }

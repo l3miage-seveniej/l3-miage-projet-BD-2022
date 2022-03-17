@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
+    <persistence-unit name="JPA-HBM">
+
+        <class>fr.uga.im2ag.l3.miage.db.model.Abonne</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.Bornette</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.Client</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.Location</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.Velo</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.Location</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.Station</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.Velo</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.NonAbonne</class>
+        <class>fr.uga.im2ag.l3.miage.db.model.Creneau</class>
+        
+
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag" />
+            <property name="javax.persistence.jdbc.user" value="wicaksoaap" />
+            <property name="javax.persistence.jdbc.password" value="859b65abbf" />
+            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            
+            <property name="format_sql" value="true" />
+            <property name="use_sql_comments" value="true" />
+            
+        </properties>
+
+    </persistence-unit>
+</persistence>

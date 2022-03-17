@@ -12,6 +12,19 @@ import javax.persistence.Table;
 @Table(name = "STATION")
 public class Station {
 
+    
+
+    public Station() {
+    }
+
+
+
+    public Station(String adresse) {
+        this.adresse = adresse;
+    }
+
+
+
     @Id
     @GeneratedValue
     private Long idStation;
@@ -22,6 +35,10 @@ public class Station {
 
     @OneToMany
     private List<Creneau> creneaux;
+
+    public void addBornette(Bornette b){
+        bornettes.add(b);
+    }
 
     public Long getIdStation() {
         return idStation;
