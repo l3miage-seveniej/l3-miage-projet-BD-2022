@@ -33,6 +33,10 @@ public class Velo {
         this.situation = situation;
         this.dateMiseEnService = dateMiseEnService;
         this.estAccueilli = estAccueilli;
+        this.estAccueilli.setVelo(this);
+        System.out.println("constructor velo ici");
+        System.out.println(this.toString());
+        System.out.println(this.estAccueilli.getVelo());
     }
 
 
