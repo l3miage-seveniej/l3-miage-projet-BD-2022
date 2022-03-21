@@ -7,7 +7,13 @@ public class App {
         
         /*
         try {
-            scenario1();
+            scenario2();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        try {
+            scenario3();
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -26,6 +26,8 @@ public class Velo {
         this.situation = situation;
         this.dateMiseEnService = dateMiseEnService;
         this.estAccueilli = estAccueilli;
+        estAccueilli.setLibre(false);
+        this.estAccueilli.setVelo(this);
     }
 
     @Id

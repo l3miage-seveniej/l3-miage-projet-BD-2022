@@ -136,10 +136,10 @@ public class Location {
         } else {
             setHeureDebut(t[0]);
         }
-        getVelos().forEach(e -> {
-            e.veloEstLoue();
-        });
-        
+
+        for (Velo v: getVelos()){
+            v.veloEstLoue();
+        }
     }
 
     public void endLocation(Station s, Timestamp ...t){

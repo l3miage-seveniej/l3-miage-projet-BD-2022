@@ -42,6 +42,14 @@ public class Bornette {
     @OneToOne
     private Velo velo;
 
+
+    
+    public Velo getVelo() {
+        return this.velo;
+    }
+
+
+
     public Long getNumeroB() {
         return numeroB;
     }
@@ -80,14 +88,17 @@ public class Bornette {
     // on mets un velo
     // sinon on ne mets pas un velo
     // renvoie le velo qui est officiellement dans cette bornette
-    public Velo setVelo(Velo velo) {
-        if (this.velo != null) {
+    public Bornette setVelo(Velo velo){
+        
+        if(velo != null){
             this.velo = velo;
             velo.setEstAccueilli(this);
             setLibre(false);
             velo.setSituation(Situation.EN_STATION);
+        }else{
+            this.velo=velo;
         }
-        return this.velo;
+        return this;
     }
 
     public void removeVelo() {

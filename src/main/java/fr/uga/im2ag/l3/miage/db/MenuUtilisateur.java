@@ -156,22 +156,26 @@ public class MenuUtilisateur {
         for (Abonne abonne : list) {
             if( abonne.getCodeSecret()== codeSecret){
                 b = true;
-
             }
+        }
+        return b;
+    }
+    public String contient (int codeSecret){
+        List<Abonne> list =  abonneRepository.getAll();
+        String str="";
+        for (Abonne abonne : list) {
+            if( abonne.getCodeSecret()== codeSecret){
+                str = abonne.toString();
+        }
             
         }
-
-        return b;
-
+        
+        return str; 
 
     }
-
-
+    // TODO: JONATHAN
     public  void inscrire() {
-        
-       
-        
-        
+
         Scanner scanner = new Scanner(System.in);
         
         //*****Paramètre à saisir******//
@@ -248,19 +252,41 @@ public class MenuUtilisateur {
          nouvelleAbonne = new Abonne(nom, prenom, sexe, adresse, dateNaissance, dateAbonnement);
          nouvelleAbonne.setCodeSecret(codeSecret);
          nouvelleAbonne.setNumeroCB(numeroCB);
+         scanner.close();
          
+
+         //nouvelleAbonne dans la base de donnée
          entityManager.getTransaction().begin();
          abonneRepository.save(nouvelleAbonne);
          entityManager.getTransaction().commit();
-         
-         //nouvelleAbonne dans la base de donnée
-        
 
     }
 
-    // TODO: JONATHAN
+    
 
-    // TODO: Identifier
+    // TODO: Identifier 
+
+    public void identifier(){
+        Scanner scanner = new Scanner(System.in);
+        int codeSecret;
+        String abonne ="";
+
+        System.out.println("Saisissez votre code secret afin de vous identifier : ");
+        codeSecret = scanner.nextInt();
+        while(contientCodeSecret(codeSecret)!=true){
+            
+            System.out.println("votre code secret  ne correspond à aucun abonne veuillez resaisir à nouveau votre code secret: ");
+            codeSecret = scanner.nextInt();
+
+
+        }
+        abonne = contient(codeSecret);
+        System.out.println(" Bonjour "+abonne+".");
+        scanner.close();
+
+
+    }
+   
 
     // TODO: Connexion Anonyme
 
