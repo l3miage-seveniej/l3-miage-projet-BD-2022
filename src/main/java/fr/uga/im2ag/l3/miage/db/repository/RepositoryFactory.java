@@ -4,9 +4,11 @@ import fr.uga.im2ag.l3.miage.db.repository.api.AbonneRepository;
 import fr.uga.im2ag.l3.miage.db.repository.impl.AbonneRepositoryImpl;
 import fr.uga.im2ag.l3.miage.db.repository.api.BornetteRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.CreneauRepository;
+import fr.uga.im2ag.l3.miage.db.repository.api.LocationRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.NonAbonneRepository;
 import fr.uga.im2ag.l3.miage.db.repository.impl.BornetteRepositoryImpl;
 import fr.uga.im2ag.l3.miage.db.repository.impl.CreneauRepositoryImpl;
+import fr.uga.im2ag.l3.miage.db.repository.impl.LocationRepositoryImpl;
 import fr.uga.im2ag.l3.miage.db.repository.impl.NonAbonneRepositoryImpl;
 import fr.uga.im2ag.l3.miage.db.repository.api.StationRepository;
 import fr.uga.im2ag.l3.miage.db.repository.impl.StationRepositoryImpl;
@@ -40,6 +42,9 @@ public class RepositoryFactory {
         return new CreneauRepositoryImpl(entityManager);
     }
     
+    public LocationRepository newLocationRepository(EntityManager entityManager){
+        return new LocationRepositoryImpl(entityManager);
+    }
 
 
 }
