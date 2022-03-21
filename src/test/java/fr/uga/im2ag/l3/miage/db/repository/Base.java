@@ -15,7 +15,7 @@ public abstract class Base {
      */
     @BeforeEach
     public final void setup() {
-        entityManager = Persistence.createEntityManagerFactory("TEST")
+        entityManager = Persistence.createEntityManagerFactory("JPA-HBM")
                 .createEntityManager();
     }
 }
