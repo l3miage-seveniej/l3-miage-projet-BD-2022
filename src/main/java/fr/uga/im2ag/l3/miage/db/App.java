@@ -6,10 +6,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EnumType;
+
 import javax.persistence.Persistence;
 
-import org.assertj.core.util.DateUtil;
+
 
 import fr.uga.im2ag.l3.miage.db.model.Abonne;
 import fr.uga.im2ag.l3.miage.db.model.Bornette;
@@ -19,7 +19,13 @@ import fr.uga.im2ag.l3.miage.db.model.Station;
 import fr.uga.im2ag.l3.miage.db.model.Velo;
 import fr.uga.im2ag.l3.miage.db.model.Enums.Etat;
 import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
+import fr.uga.im2ag.l3.miage.db.repository.RepositoryFactory;
+import fr.uga.im2ag.l3.miage.db.repository.api.AbonneRepository;
+import fr.uga.im2ag.l3.miage.db.repository.api.BornetteRepository;
+import fr.uga.im2ag.l3.miage.db.repository.api.LocationRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.StationRepository;
+import fr.uga.im2ag.l3.miage.db.repository.api.VeloRepository;
+
 
 public class App {
 
@@ -91,12 +97,15 @@ public class App {
         // C. Une bornette est en hors service
         Bornette b4 = new Bornette(Enums.Etat.HS, S);
 
-        EntityManager entityManager;
-        StationRepository stationRepository;
+        RepositoryFactory daoFactory = new RepositoryFactory();
+        EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
+        StationRepository stationRepository =  daoFactory.newStationRepository(entityManager);
+        BornetteRepository bornetteRepository =  daoFactory.newBornetteRepository(entityManager);
+        AbonneRepository abonneRepository =  daoFactory.newAbonneRepository(entityManager);
+        VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
+        LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
 
-        // entityManager.getTransaction().begin();
-        // stationRepository.save(S);
-        // entityManager.getTransaction().commit();
+        
 
         // D. Il y a 2 velo dans cette station, VTT et VTC
         // E. Le VTT sur bornette 1 est mise en service depuis 15 Janvier 2021
@@ -105,7 +114,21 @@ public class App {
         // F. Le VTT sur bornette 3 est mise en service depuis 16 Mars 2022
         Velo v2 = new Velo(Enums.Modele.VTT, Etat.OK, Situation.EN_STATION, convertDate("2022-03-16"), b3);
 
-        // G. La station demande son ID Client et Code Secret
+
+        entityManager.getTransaction().begin();
+        
+        veloRepository.save(v1);
+        veloRepository.save(v2);
+        abonneRepository.save(A);
+        stationRepository.save(S);
+        bornetteRepository.save(b1);
+        bornetteRepository.save(b2);
+        bornetteRepository.save(b3);
+        bornetteRepository.save(b4);
+        entityManager.getTransaction().commit();
+        
+
+        // G.  La station demande son ID Client et Code Secret
         System.out.println("Veuillez saisir votre ID et Code Secret!");
         // To Do
 
@@ -126,8 +149,19 @@ public class App {
 
         A.addLocation(l);
 
+        
+        // entityManager.getTransaction().begin();
+        // veloRepository.save(v1);
+        // locationRepository.save(l);
+        // abonneRepository.save(A);
+        // entityManager.getTransaction().commit();
+
+
         // J. Il va à la station R qui est situe à 458 avenue de la MIAGE
         Station R = new Station("458 avenue de la MIAGE");
+        // entityManager.getTransaction().begin();
+        // stationRepository.save(R);
+        // entityManager.getTransaction().commit();
 
         // K. La station R a une seule bornette qui est aussi libre
         Bornette BRetour = new Bornette(Enums.Etat.OK, R);
@@ -136,6 +170,12 @@ public class App {
         l.endLocation(R, new Timestamp((currentTime.getTime() + (54 * 60 * 1000))));
 
         BRetour.setVelo(v1);
+
+        // entityManager.getTransaction().begin();
+        // locationRepository.save(l);
+        // bornetteRepository.save(BRetour);
+        // veloRepository.save(v1);
+        // entityManager.getTransaction().commit();
 
         System.out.println("-------------------------------------");
         System.out.println(A.toString());

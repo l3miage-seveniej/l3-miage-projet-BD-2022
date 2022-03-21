@@ -1,14 +1,11 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
 import java.sql.Date;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,10 +30,7 @@ public class Velo {
         this.situation = situation;
         this.dateMiseEnService = dateMiseEnService;
         this.estAccueilli = estAccueilli;
-        this.estAccueilli.setVelo(this);
-        System.out.println("constructor velo ici");
-        System.out.println(this.toString());
-        System.out.println(this.estAccueilli.getVelo());
+        estAccueilli.setLibre(false);
     }
 
 
@@ -57,7 +51,7 @@ public class Velo {
     private Date dateMiseEnService;
 
     // Velo et location est uni-directionnelle
-    // @ManyToMany(targetEntity = Location.class)
+    // @ManyToMany(targetEntity = Location.class, mappedBy = "velos" )
     // private List<Location> location;
 
     @OneToOne(targetEntity = Bornette.class)

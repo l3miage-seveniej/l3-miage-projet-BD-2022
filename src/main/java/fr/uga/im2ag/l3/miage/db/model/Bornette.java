@@ -100,6 +100,8 @@ public class Bornette {
             velo.setEstAccueilli(this);
             setLibre(false);
             velo.setSituation(Situation.EN_STATION);
+        }else{
+            this.velo=velo;
         }
         return this;
     }
