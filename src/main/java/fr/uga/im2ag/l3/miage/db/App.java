@@ -92,15 +92,6 @@ public class App {
         VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
         LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
 
-        entityManager.getTransaction().begin();
-        abonneRepository.save(A);
-        stationRepository.save(S);
-        bornetteRepository.save(b1);
-        bornetteRepository.save(b2);
-        bornetteRepository.save(b3);
-        bornetteRepository.save(b4);
-        
-        entityManager.getTransaction().commit();
         
 
         // D. Il y a 2 velo dans cette station, VTT et VTC
@@ -110,10 +101,19 @@ public class App {
         // F. Le VTT sur bornette 3 est mise en service depuis 16 Mars 2022
         Velo v2 = new Velo(Enums.Modele.VTT, Etat.OK, Situation.EN_STATION, convertDate("2022-03-16"), b3);
 
+
         entityManager.getTransaction().begin();
+        
         veloRepository.save(v1);
         veloRepository.save(v2);
+        abonneRepository.save(A);
+        stationRepository.save(S);
+        bornetteRepository.save(b1);
+        bornetteRepository.save(b2);
+        bornetteRepository.save(b3);
+        bornetteRepository.save(b4);
         entityManager.getTransaction().commit();
+        
 
         // G.  La station demande son ID Client et Code Secret
         System.out.println("Veuillez saisir votre ID et Code Secret!");
