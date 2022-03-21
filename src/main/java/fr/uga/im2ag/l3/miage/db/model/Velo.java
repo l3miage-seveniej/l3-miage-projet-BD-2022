@@ -31,6 +31,7 @@ public class Velo {
         this.dateMiseEnService = dateMiseEnService;
         this.estAccueilli = estAccueilli;
         estAccueilli.setLibre(false);
+        this.estAccueilli.setVelo(this);
     }
 
 
