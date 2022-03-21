@@ -37,3 +37,6 @@ Après avoir soumis le rapport intermédiaire via le moodle, nous avons eu quelq
 
 ### 17/03/2022
 Nous avons travaillé sur le jeu de peuplement de notre base de données ainsi que sur les scénarios. Nous avons également avancé sur le rapport final que nous rédigeons au fur et à mesure.
+
+## 21/02/2022
+La séance du 21 a été consacrée principalement à l'ihm de l'application, mais également une partie au rapport et aux scénarios.
