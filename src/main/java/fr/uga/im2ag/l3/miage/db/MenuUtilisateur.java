@@ -23,16 +23,31 @@ import fr.uga.im2ag.l3.miage.db.model.Velo;
 import fr.uga.im2ag.l3.miage.db.model.Enums.Etat;
 import fr.uga.im2ag.l3.miage.db.model.Enums.Modele;
 import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
-
+import fr.uga.im2ag.l3.miage.db.repository.RepositoryFactory;
+import fr.uga.im2ag.l3.miage.db.repository.api.AbonneRepository;
+import fr.uga.im2ag.l3.miage.db.repository.api.BornetteRepository;
+import fr.uga.im2ag.l3.miage.db.repository.api.LocationRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.StationRepository;
+import fr.uga.im2ag.l3.miage.db.repository.api.VeloRepository;
 
 public class MenuUtilisateur {
 
-    public static Date convertDate(String dateString) throws ParseException {
+    RepositoryFactory daoFactory = new RepositoryFactory();
+        EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
+        StationRepository stationRepository =  daoFactory.newStationRepository(entityManager);
+        BornetteRepository bornetteRepository =  daoFactory.newBornetteRepository(entityManager);
+        AbonneRepository abonneRepository =  daoFactory.newAbonneRepository(entityManager);
+        VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
+        LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
+
+
+
+
+    public  Date convertDate(String dateString) throws ParseException {
         return new Date(new SimpleDateFormat("yyyy-MM-dd").parse(dateString).getTime());
     }
 
-    public static Timestamp convertTimestamp(String timeString) throws ParseException {
+    public  Timestamp convertTimestamp(String timeString) throws ParseException {
         java.text.DateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date date = format.parse(timeString);
         Timestamp timestamp = new java.sql.Timestamp(date.getTime());
@@ -54,7 +69,7 @@ public class MenuUtilisateur {
     // K. La station R a une seule bornette qui est aussi libre
     // L. Il a rendu le vélo après 54 minutes
 
-    public static void scenario1() throws ParseException {
+    public  void scenario1() throws ParseException {
 
         // A. Un abonné A venir à une station S
         Abonne A = new Abonne("MACRON", "Emmanuel", Enums.sexe.MALE, "33 Avenue Champs-Elysée",
@@ -135,14 +150,31 @@ public class MenuUtilisateur {
     public static void peupler() {
     }
 
+    public boolean contientCodeSecret(int codeSecret){
+        boolean b = false;
+        List<Abonne> list =  abonneRepository.getAll();
+        for (Abonne abonne : list) {
+            if( abonne.getCodeSecret()== codeSecret){
+                b = true;
+
+            }
+            
+        }
+
+        return b;
+
+
+    }
+
+
     public  void inscrire() {
         
-        List<Abonne> list =  abonneRepository.getAll();
+       
         
         
         Scanner scanner = new Scanner(System.in);
         
-        //*****paramètre à saisir*******
+        //*****Paramètre à saisir******//
         Abonne nouvelleAbonne;
         String nom;
         String prenom;
@@ -151,24 +183,25 @@ public class MenuUtilisateur {
         String adresse;
         Date dateAbonnement;
         int codeSecret;
+        String numeroCB;
         
-        //*****Saisie du nom***** 
+        //*****Saisie du nom***** //
         System.out.println("Saisissez votre nom de Famille:");
         nom = scanner.nextLine();
-        //*****Saisie du prenom*****
+        //*****Saisie du prenom*****//
         System.out.println("Saisissez votre prenom ");
         prenom = scanner.nextLine();
-        //*****Saisie de la date de naissance*****
+        //*****Saisie de la date de naissance*****//
         dateNaissance = new Date(System.currentTimeMillis());//initialisation
         System.out.println("Saisissez votre date de naissance date (AAAA-MM-JJ): ");
         String str = scanner.nextLine();
             //Ici on verifie que str demandé est au bon format =)
             try {
-                dateNaissance = Fixtures.convertDate(str);
+                dateNaissance = convertDate(str);
             }catch (Exception e) {
                 System.out.println(e);
          }
-        //*****Saisie du sexe*****
+        //*****Saisie du sexe*****//
         int i = 0;
         sexe = Enums.sexe.NON_BINAIRE;//initialisation
         while (i >= 1 && i <= 3) {
@@ -196,27 +229,31 @@ public class MenuUtilisateur {
 
             
         }
-        //*****Saisie de l'adresse*****
+        //*****Saisie de l'adresse*****//
         System.out.println("Saisissez votre adresse : ");
         adresse = scanner.nextLine();
 
-        //*****Saisie du mot de passe*****
+        //*****Saisie du mot de passe*****//
         System.out.println("Saisissez votre code secret   : ");
-        codeSecret = scanner.nextInt();
-        
-        for (Abonne abonne : list) {
-            
-            
+        codeSecret= scanner.nextInt();
+        while(contientCodeSecret(codeSecret)==true){
+        codeSecret= scanner.nextInt();
         }
-        
+        //*****Saisie du numéro de carte bancaire****
+        System.out.println("Saisissez votre numéro de carte bancaire  : ");
+        numeroCB = scanner.nextLine();
         //date d'inscription = date de souscription d'un abonnement 
          dateAbonnement = new Date(System.currentTimeMillis());
-
         //instantiation d'un nouvelle abonné
          nouvelleAbonne = new Abonne(nom, prenom, sexe, adresse, dateNaissance, dateAbonnement);
+         nouvelleAbonne.setCodeSecret(codeSecret);
+         nouvelleAbonne.setNumeroCB(numeroCB);
          
+         entityManager.getTransaction().begin();
+         abonneRepository.save(nouvelleAbonne);
+         entityManager.getTransaction().commit();
          
-         //nouvelleAbonne
+         //nouvelleAbonne dans la base de donnée
         
 
     }
