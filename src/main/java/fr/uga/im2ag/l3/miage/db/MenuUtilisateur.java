@@ -40,7 +40,7 @@ public class MenuUtilisateur {
         return timestamp;
 
     }
-    
+
     // A. Un abonné A venir à une station S qui est situe à 12 Avenue De Gaulle
     // B. Station S a 4 bornettes
     // C. Une bornette est en hors service
@@ -230,11 +230,12 @@ public class MenuUtilisateur {
                 // 2 -> set la Location du client égale la nouvelle location géneré
                 // 3 -> set heureDebut = now()
                 // 4 -> set heurefin = null
-    public static void emprunt() {
+    public void emprunt() {
 
         Scanner scanner = new Scanner(System.in);
         
         String codeSecret;
+        int borneN = -1;
 
         // Liste des Bornettes
         Station station = new Station();
@@ -261,10 +262,15 @@ public class MenuUtilisateur {
         // Afficher la liste des bornettes
         System.out.println("Choisir une des bornettes : ");
         // Parcourir la liste des bornettes
-        int index = 0;
+        int index = 1;
         for (Bornette bornette : station.getBornettes()) {
             System.out.println(index + " - Bornette B" + (index++));
         }
+
+        while(borneN <= 1 || borneN >= station.getBornettes().size() + 1) {
+            borneN = Integer.parseInt(scanner.nextLine());
+        }
+        System.out.println(borneN);
     } 
 
     
