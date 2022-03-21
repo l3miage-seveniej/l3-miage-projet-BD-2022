@@ -1,8 +1,11 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -14,14 +17,16 @@ public class Creneau {
     @Id
     @GeneratedValue
     private long idCreneau;
-    private Date hDebut;
-    private Date hFin;
+    private Timestamp hDebut;
+    private Timestamp hFin;
+    
+    @Enumerated(EnumType.STRING)
     private Enums.TypeStation typeStation;
 
     @ManyToOne
     private Station station;
 
-    public Date gethDebut() {
+    public Timestamp gethDebut() {
         return hDebut;
     }
 
@@ -39,15 +44,16 @@ public class Creneau {
 
 
 
-    public void sethDebut(Date hDebut) {
+    public Creneau sethDebut(Timestamp hDebut) {
         this.hDebut = hDebut;
+        return this;
     }
 
-    public Date gethFin() {
+    public Timestamp gethFin() {
         return hFin;
     }
 
-    public void sethFin(Date hFin) {
+    public void sethFin(Timestamp hFin) {
         this.hFin = hFin;
     }
 
@@ -55,16 +61,18 @@ public class Creneau {
         return typeStation;
     }
 
-    public void setTypeStation(Enums.TypeStation typeStation) {
+    public Creneau setTypeStation(Enums.TypeStation typeStation) {
         this.typeStation = typeStation;
+        return this;
     }
 
     public Station getStation() {
         return station;
     }
 
-    public void setStation(Station station) {
+    public Creneau setStation(Station station) {
         this.station = station;
+        return this;
     }
 
 }

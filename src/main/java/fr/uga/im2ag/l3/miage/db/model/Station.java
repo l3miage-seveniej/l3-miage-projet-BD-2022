@@ -12,14 +12,33 @@ import javax.persistence.Table;
 @Table(name = "STATION")
 public class Station {
 
+    
+
+    public Station() {
+    }
+
+
+
+    public Station(String adresse) {
+        this.adresse = adresse;
+    }
+
+
+
     @Id
     @GeneratedValue
     private Long idStation;
     private String adresse;
-    private Enums.TypeStation typeStation;
 
     @OneToMany(targetEntity = Bornette.class)
     private List<Bornette> bornettes;
+
+    @OneToMany
+    private List<Creneau> creneaux;
+
+    public void addBornette(Bornette b){
+        bornettes.add(b);
+    }
 
     public Long getIdStation() {
         return idStation;
@@ -41,15 +60,17 @@ public class Station {
         return adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public Station setAdresse(String adresse) {
         this.adresse = adresse;
+        return this;
     }
 
-    public Enums.TypeStation getType() {
-        return typeStation;
+    public List<Creneau> getCreneaux() {
+        return creneaux;
     }
 
-    public void setType(Enums.TypeStation typeStation) {
-        this.typeStation = typeStation;
+    public void setCreneaux(List<Creneau> creneaux) {
+        this.creneaux = creneaux;
     }
+
 }

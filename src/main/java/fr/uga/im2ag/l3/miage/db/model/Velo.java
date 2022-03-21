@@ -4,38 +4,66 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import fr.uga.im2ag.l3.miage.db.model.Enums.Etat;
+import fr.uga.im2ag.l3.miage.db.model.Enums.Modele;
+import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
+
 @Entity
 @Table(name = "VELO")
 public class Velo {
+
+    
+
+    public Velo() {
+    }
+
+    
+
+    public Velo(Modele modeleV, Etat etatV, Situation situation, Date dateMiseEnService, Bornette estAccueilli) {
+        this.modeleV = modeleV;
+        this.etatV = etatV;
+        this.situation = situation;
+        this.dateMiseEnService = dateMiseEnService;
+        this.estAccueilli = estAccueilli;
+    }
+
+
+
     @Id
     @GeneratedValue
-    private int numeroV;
+    private Long numeroV;
 
+    @Enumerated(EnumType.STRING)
     private Enums.Modele modeleV;
 
+    @Enumerated(EnumType.STRING)
     private Enums.Etat etatV;
 
+    @Enumerated(EnumType.STRING)
     private Enums.Situation situation;
 
     private Date dateMiseEnService;
 
-    @ManyToMany(targetEntity = Location.class)
-    private List<Location> location;
+    // Velo et location est uni-directionnelle
+    // @ManyToMany(targetEntity = Location.class)
+    // private List<Location> location;
 
     @OneToOne(targetEntity = Bornette.class)
     private Bornette estAccueilli;
 
-    public int getNumero() {
+    public Long getNumero() {
         return numeroV;
     }
 
-    public void setNumero(int numeroV) {
+    public void setNumero(Long numeroV) {
         this.numeroV = numeroV;
     }
 
@@ -70,4 +98,23 @@ public class Velo {
     public void setDateMiseEnService(Date dateMiseEnService) {
         this.dateMiseEnService = dateMiseEnService;
     }
+
+
+
+    public Bornette getEstAccueilli() {
+        return estAccueilli;
+    }
+
+    public void veloEstLoue() {
+        this.estAccueilli.setVelo(null);
+        this.estAccueilli.setLibre(true);
+        this.situation = Situation.EN_LOCATION;
+
+    }
+
+    public void setEstAccueilli(Bornette estAccueilli) {
+        this.estAccueilli = estAccueilli;
+    }
+
+    
 }
