@@ -112,9 +112,26 @@ public class Velo {
 
     }
 
+    public void veloEstRendu(Bornette b) {
+        this.setEstAccueilli(b);
+        this.estAccueilli.setVelo(this);
+        this.estAccueilli.setLibre(false);
+        this.situation = Situation.EN_STATION;
+
+    }
+
     public void setEstAccueilli(Bornette estAccueilli) {
         this.estAccueilli = estAccueilli;
     }
 
+
+
+    @Override
+    public String toString() {
+        return "Velo [dateMiseEnService=" + dateMiseEnService + ", estAccueilli=" + estAccueilli + ", etatV=" + etatV
+                + ", modeleV=" + modeleV + ", numeroV=" + numeroV + ", situation=" + situation + "]";
+    }
+
+    
     
 }

@@ -31,6 +31,8 @@ public class AbonneTest extends Base {
     @Test
     void shouldSaveAbonne() throws ParseException {
         Abonne abonne = new Abonne();
+
+        Abonne abonne2 = Fixtures.createAbonne(Fixtures.convertDate("2021-03-16"));
         
         abonne.setAdresse("33 Avenue Champs Elysee");
         abonne.setCodeSecret(5698);
@@ -55,15 +57,22 @@ public class AbonneTest extends Base {
         
         entityManager.getTransaction().begin();
         abonneRepository.save(abonne);
+        abonneRepository.save(abonne2);
         entityManager.getTransaction().commit();
         entityManager.detach(abonne);
+        entityManager.detach(abonne2);
 
 
         var result = abonneRepository.findById(abonne.getIdClient());
+        var result2 = abonneRepository.findById(abonne2.getIdClient());
         
         assertThat(result).isNotNull();
         assertThat(result.getIdClient()).isEqualTo(abonne.getIdClient());
         assertThat(result.getDateFin()).isEqualTo(new java.sql.Date((abonne.getDateDebut().getTime() + (365l*24l*60l*60l*1000l))) ); // verifie si la date fin est un an apres la date debut
+        
+        assertThat(result2).isNotNull();
+        assertThat(result2.getIdClient()).isEqualTo(abonne2.getIdClient());
+        assertThat(result2.getDateFin()).isEqualTo(new java.sql.Date((abonne2.getDateDebut().getTime() + (365l*24l*60l*60l*1000l))) ); // verifie si la date fin est un an apres la date debut
 
 
     }

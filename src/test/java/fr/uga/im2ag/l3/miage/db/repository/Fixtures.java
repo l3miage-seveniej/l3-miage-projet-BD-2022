@@ -12,8 +12,10 @@ import com.github.javafaker.Faker;
 
 import fr.uga.im2ag.l3.miage.db.model.Abonne;
 import fr.uga.im2ag.l3.miage.db.model.Bornette;
+import fr.uga.im2ag.l3.miage.db.model.Client;
 import fr.uga.im2ag.l3.miage.db.model.Creneau;
 import fr.uga.im2ag.l3.miage.db.model.Enums;
+import fr.uga.im2ag.l3.miage.db.model.Location;
 import fr.uga.im2ag.l3.miage.db.model.NonAbonne;
 import fr.uga.im2ag.l3.miage.db.model.Station;
 import fr.uga.im2ag.l3.miage.db.model.Velo;
@@ -111,8 +113,7 @@ public class Fixtures {
     public static Station createStation(Bornette... bornettes) {
         Station newStation = new Station();
 
-        newStation.setAdresse(FAKER.address().fullAddress())
-                .setType(getRandomTypeStation());
+        newStation.setAdresse(FAKER.address().fullAddress());
 
         if (bornettes != null) {
             newStation.setBornettes(Arrays.asList(bornettes));
@@ -145,5 +146,14 @@ public class Fixtures {
 
         return newVelo;
 
+    }
+
+
+    public static Location createLocation(Client c){
+        Location newLocation = new Location();
+        newLocation.setClient(c);
+
+
+        return newLocation;
     }
 }

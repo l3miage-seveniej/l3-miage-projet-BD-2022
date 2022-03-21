@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import fr.uga.im2ag.l3.miage.db.model.Enums.Etat;
+import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
 
 @Entity
 @Table(name = "BORNETTE")
@@ -25,7 +26,7 @@ public class Bornette {
 
     public Bornette(Etat etatB, Station station) {
         this.etatB = etatB;
-        this.station = station;
+        setStation(station);
         this.libre = true;
     }
 
@@ -89,6 +90,7 @@ public class Bornette {
             this.velo = velo;
             velo.setEstAccueilli(this);
             setLibre(false);
+            velo.setSituation(Situation.EN_STATION);
         }
         return this.velo;
     }
@@ -101,4 +103,12 @@ public class Bornette {
         }
     }
 
+
+
+    @Override
+    public String toString() {
+        return "Bornette [etatB=" + etatB + ", libre=" + libre + ", numeroB=" + numeroB + ", addresse=" + station.getAdresse() + "]";
+    }
+
+    
 }

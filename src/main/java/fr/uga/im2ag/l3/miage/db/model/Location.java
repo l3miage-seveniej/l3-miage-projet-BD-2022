@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
@@ -29,9 +30,9 @@ public class Location {
     private Timestamp heureDebut;
 
     private Timestamp heureFin;
-
+    @OneToOne
     private Station stationDepart;
-
+    @OneToOne
     private Station stationArrivee;
 
     private float cout;
@@ -135,6 +136,9 @@ public class Location {
         } else {
             setHeureDebut(t[0]);
         }
+        getVelos().forEach(e -> {
+            e.veloEstLoue();
+        });
         
     }
 

@@ -1,5 +1,6 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -15,12 +16,16 @@ public class Station {
     
 
     public Station() {
+        this.bornettes = new ArrayList<Bornette>();
+        this.creneaux = new ArrayList<Creneau>();
     }
 
 
 
     public Station(String adresse) {
         this.adresse = adresse;
+        this.bornettes = new ArrayList<Bornette>();
+        this.creneaux = new ArrayList<Creneau>();
     }
 
 
@@ -72,5 +77,15 @@ public class Station {
     public void setCreneaux(List<Creneau> creneaux) {
         this.creneaux = creneaux;
     }
+
+
+
+    @Override
+    public String toString() {
+        return "Station [adresse=" + adresse + ", bornettes=" + bornettes + ", creneaux=" + creneaux + ", idStation="
+                + idStation + "]";
+    }
+
+    
 
 }

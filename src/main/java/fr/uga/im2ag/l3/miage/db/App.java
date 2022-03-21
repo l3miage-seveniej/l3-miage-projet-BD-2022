@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EnumType;
 import javax.persistence.Persistence;
 
@@ -19,6 +20,7 @@ import fr.uga.im2ag.l3.miage.db.model.Station;
 import fr.uga.im2ag.l3.miage.db.model.Velo;
 import fr.uga.im2ag.l3.miage.db.model.Enums.Etat;
 import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
+import fr.uga.im2ag.l3.miage.db.repository.api.StationRepository;
 
 
 public class App {
@@ -35,9 +37,9 @@ public class App {
         return timestamp;
 
     }
-
+    EntityManager entityManager;
     public static void main(String[] args)  {
-        // Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
+        // entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
 
 
         try {
@@ -75,7 +77,17 @@ public class App {
 
         // C. Une bornette est en hors service
         Bornette b4 = new Bornette(Enums.Etat.HS, S);
+
+
+        EntityManager entityManager;
+        StationRepository stationRepository;
+
         
+        // entityManager.getTransaction().begin();
+        // stationRepository.save(S);
+        // entityManager.getTransaction().commit();
+        
+
         // D. Il y a 2 velo dans cette station, VTT et VTC
         // E. Le VTT sur bornette 1 est mise en service depuis 15 Janvier 2021
         Velo v1 = new Velo(Enums.Modele.VTT, Etat.OK, Situation.EN_STATION, convertDate("2021-01-15"), b1);
@@ -98,7 +110,9 @@ public class App {
         Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         l.startLocation(S, currentTime);
         
-        
+        System.out.println("-------------------------------------");
+        System.out.println(v1.toString());
+        System.out.println("-------------------------------------");
 
         A.addLocation(l);
 
@@ -113,13 +127,33 @@ public class App {
         l.endLocation(R, new Timestamp((currentTime.getTime() + (54*60*1000))) );
         
         
-        // To do: mettre le velo dans une bornette
+        BRetour.setVelo(v1);
 
         
 
-
+        System.out.println("-------------------------------------");
         System.out.println(A.toString());
+        System.out.println("-------------------------------------");
         System.out.println(l.toString());
+        System.out.println("-------------------------------------");
+        System.out.println(S.toString());
+        System.out.println("-------------------------------------");
+        System.out.println(R.toString());
+        System.out.println("-------------------------------------");
+        System.out.println(v1.toString());
+        System.out.println("-------------------------------------");
+
+    }
+
+
+
+    // Il existe 4 station
+    // Station A a 4 bornettes libres et fonctionnent bien
+    // Station B a 4 bornettes qui sont hors services
+    public static void peupler(){
+
+
+
 
     }
 }
