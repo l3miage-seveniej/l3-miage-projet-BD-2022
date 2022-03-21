@@ -18,19 +18,14 @@ import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
 @Table(name = "BORNETTE")
 public class Bornette {
 
-
     public Bornette() {
     }
-
-    
 
     public Bornette(Etat etatB, Station station) {
         this.etatB = etatB;
         setStation(station);
         this.libre = true;
     }
-
-
 
     @Column(nullable = false)
     @Id
@@ -81,12 +76,12 @@ public class Bornette {
         station.addBornette(this);
     }
 
-    // Si il n'y a pas un velo dans cette bornette, 
+    // Si il n'y a pas un velo dans cette bornette,
     // on mets un velo
-    // sinon on ne mets pas un velo 
+    // sinon on ne mets pas un velo
     // renvoie le velo qui est officiellement dans cette bornette
-    public Velo setVelo(Velo velo){
-        if(this.velo != null){
+    public Velo setVelo(Velo velo) {
+        if (this.velo != null) {
             this.velo = velo;
             velo.setEstAccueilli(this);
             setLibre(false);
@@ -95,20 +90,18 @@ public class Bornette {
         return this.velo;
     }
 
-    public void removeVelo(){
-        if(this.velo == null){
+    public void removeVelo() {
+        if (this.velo == null) {
             velo.setEstAccueilli(null);
             this.velo = null;
             setLibre(true);
         }
     }
 
-
-
     @Override
     public String toString() {
-        return "Bornette [etatB=" + etatB + ", libre=" + libre + ", numeroB=" + numeroB + ", addresse=" + station.getAdresse() + "]";
+        return "Bornette [etatB=" + etatB + ", libre=" + libre + ", numeroB=" + numeroB + ", addresse="
+                + station.getAdresse() + "]";
     }
 
-    
 }
