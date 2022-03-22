@@ -228,6 +228,26 @@ public class MenuUtilisateur {
     }
    
 
+    public Station choisirStation(){
+        List<Station> ListStation = stationRepository.getAll();
+        int choix;
+        Station stationChoisi = null;
+        int i= 0;
+        while(stationChoisi == null){
+            for(Station station: ListStation){
+                System.out.println("choisissez un station!");
+                System.out.println(i + ". " + station.getAdresse());
+            }
+            choix = LectureClavier.lireEntier("");
+            if(ListStation.get(choix) != null){
+                stationChoisi = ListStation.get(choix);
+            }
+        }
+
+        return stationChoisi;
+
+    }
+
     // TODO: Connexion Anonyme
 
 
