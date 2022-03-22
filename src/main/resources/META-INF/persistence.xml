@@ -14,6 +14,7 @@
         <class>fr.uga.im2ag.l3.miage.db.model.NonAbonne</class>
         <class>fr.uga.im2ag.l3.miage.db.model.Creneau</class>
         <class>fr.uga.im2ag.l3.miage.db.utils.LectureClavier</class>
+        <class>fr.uga.im2ag.l3.miage.db.scenario.Scenarios</class>
         
 
         <properties>
