@@ -1,6 +1,8 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
 import java.sql.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -49,7 +51,7 @@ public class Velo {
     // @ManyToMany(targetEntity = Location.class, mappedBy = "velos" )
     // private List<Location> location;
 
-    @OneToOne(targetEntity = Bornette.class)
+    @OneToOne(targetEntity = Bornette.class, cascade = {CascadeType.ALL})
     private Bornette estAccueilli;
 
     public Long getNumero() {

@@ -37,7 +37,7 @@ public class AbonneRepositoryImpl extends BaseRepositoryImpl implements AbonneRe
     @Override
     public List<Abonne> getAll() {
         
-        return entityManager.createNamedQuery("Abonnes.getAll", Abonne.class).getResultList();
+        return entityManager.createNamedQuery("Abonne.getAll", Abonne.class).getResultList();
     }
 
 }

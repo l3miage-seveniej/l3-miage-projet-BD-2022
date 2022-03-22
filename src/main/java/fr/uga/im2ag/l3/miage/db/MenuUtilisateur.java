@@ -166,7 +166,7 @@ public class MenuUtilisateur {
         //*****Saisie du sexe*****//
         int i = 0;
         sexe = Enums.sexe.NON_BINAIRE;//initialisation
-        while (i >= 1 && i <= 3) {
+        while (i < 1 || i > 3) {
             System.out.println("Saisissez votre sexe : ");
             System.out.println(" saisissez 1 pour homme : ");
             System.out.println(" saisissez 2 pour femme : ");
@@ -248,7 +248,7 @@ public class MenuUtilisateur {
 
     //Continuer sans connexion
 
-    public void ContinuerSanConnexion(){
+    public void continuerSanConnexion(){
 
             NonAbonne a ;
             int codeSecret;
