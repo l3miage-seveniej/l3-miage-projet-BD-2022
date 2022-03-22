@@ -1,4 +1,4 @@
-package utils;
+package fr.uga.im2ag.l3.miage.db.utils;
 
 import java.io.*;
 
