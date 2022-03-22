@@ -59,93 +59,7 @@ public class MenuUtilisateur {
 
     }
     
-    // A. Un abonné A venir à une station S qui est situe à 12 Avenue De Gaulle
-    // B. Station S a 4 bornettes
-    // C. Une bornette est en hors service
-    // D. Il y a 2 VTT dans cette station
-    // E. Le VTT sur bornette 1 est mise en service depuis 15 Janvier 2021
-    // F. Le TT sur bornette 3 est mise en service depuis 16 Mars 2022
-    // G. La station demande sonID et Code Secret
-    // H. Il a mis son ID et son code secret
-    // I. Il a loué un VTT
-    // J. Il va à la station R qui est situe à 458 avenue de la MIAGE
-    // K. La station R a une seule bornette qui est aussi libre
-    // L. Il a rendu le vélo après 54 minutes
 
-    public  void scenario1() throws ParseException {
-
-        // A. Un abonné A venir à une station S
-        Abonne A = new Abonne("MACRON", "Emmanuel", Enums.sexe.MALE, "33 Avenue Champs-Elysée",
-                convertDate("2000-09-14"), convertDate("2022-03-15"));
-
-        // B. Station S a 4 bornettes
-        Station S = new Station("12 Avenue De Gaulle");
-        Bornette b1 = new Bornette(Enums.Etat.OK, S);
-        Bornette b2 = new Bornette(Enums.Etat.OK, S);
-        Bornette b3 = new Bornette(Enums.Etat.OK, S);
-
-        // C. Une bornette est en hors service
-        Bornette b4 = new Bornette(Enums.Etat.HS, S);
-
-        EntityManager entityManager;
-        StationRepository stationRepository;
-
-        // entityManager.getTransaction().begin();
-        // stationRepository.save(S);
-        // entityManager.getTransaction().commit();
-
-        // D. Il y a 2 velo dans cette station, VTT et VTC
-        // E. Le VTT sur bornette 1 est mise en service depuis 15 Janvier 2021
-        Velo v1 = new Velo(Enums.Modele.VTT, Etat.OK, Situation.EN_STATION, convertDate("2021-01-15"), b1);
-
-        // F. Le VTT sur bornette 3 est mise en service depuis 16 Mars 2022
-        Velo v2 = new Velo(Enums.Modele.VTT, Etat.OK, Situation.EN_STATION, convertDate("2022-03-16"), b3);
-
-        // G. La station demande son ID Client et Code Secret
-        System.out.println("Veuillez saisir votre ID et Code Secret!");
-        // To Do
-
-        // H. Il a mis son ID et son code secret
-        // To Do
-
-        // I. Il a loué un VTT
-        Location l = new Location();
-        l.setClient(A);
-        l.addVelos(v1);
-
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        l.startLocation(S, currentTime);
-
-        System.out.println("-------------------------------------");
-        System.out.println(v1.toString());
-        System.out.println("-------------------------------------");
-
-        A.addLocation(l);
-
-        // J. Il va à la station R qui est situe à 458 avenue de la MIAGE
-        Station R = new Station("458 avenue de la MIAGE");
-
-        // K. La station R a une seule bornette qui est aussi libre
-        Bornette BRetour = new Bornette(Enums.Etat.OK, R);
-
-        // L. Il a rendu le vélo après 54 minutes
-        l.endLocation(R, new Timestamp((currentTime.getTime() + (54 * 60 * 1000))));
-
-        BRetour.setVelo(v1);
-
-        System.out.println("-------------------------------------");
-        System.out.println(A.toString());
-        System.out.println("-------------------------------------");
-        System.out.println(l.toString());
-        System.out.println("-------------------------------------");
-        System.out.println(S.toString());
-        System.out.println("-------------------------------------");
-        System.out.println(R.toString());
-        System.out.println("-------------------------------------");
-        System.out.println(v1.toString());
-        System.out.println("-------------------------------------");
-
-    }
 
     // Il existe 4 station
     // Station A a 4 bornettes libres et fonctionnent bien
@@ -329,39 +243,51 @@ public class MenuUtilisateur {
                 // 2 -> set la Location du client égale la nouvelle location géneré
                 // 3 -> set heureDebut = now()
                 // 4 -> set heurefin = null
-    public static void emprunt() {
+    public void emprunt(Station S) {
 
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
         
         int codeSecret;
 
         // Liste des Bornettes
-        Station station = new Station();
+        // Station station = new Station();
 
-        Bornette b1 = new Bornette(Etat.OK, station);
-        Bornette b2 = new Bornette(Etat.OK, station);
-        Bornette b3 = new Bornette(Etat.HS, station);
+        // Bornette b1 = new Bornette(Etat.OK, station);
+        // Bornette b2 = new Bornette(Etat.OK, station);
+        // Bornette b3 = new Bornette(Etat.HS, station);
 
-        Velo v1 = new Velo(Modele.VTC, Etat.OK, Situation.EN_STATION, new Date(2020, 1, 1), b1);
-        Velo v2 = new Velo(Modele.VTT, Etat.OK, Situation.EN_STATION, new Date(2020, 1, 4), b2);
-        Velo v3 = new Velo(Modele.HOLLANDAIS, Etat.HS, Situation.EN_STATION, new Date(2020, 2, 9), b3);
+        // Velo v1 = new Velo(Modele.VTC, Etat.OK, Situation.EN_STATION, new Date(2020, 1, 1), b1);
+        // Velo v2 = new Velo(Modele.VTT, Etat.OK, Situation.EN_STATION, new Date(2020, 1, 4), b2);
+        // Velo v3 = new Velo(Modele.HOLLANDAIS, Etat.HS, Situation.EN_STATION, new Date(2020, 2, 9), b3);
 
-        b1.setVelo(v1);
-        b2.setVelo(v2);
-        b3.setVelo(v3);
+        // b1.setVelo(v1);
+        // b2.setVelo(v2);
+        // b3.setVelo(v3);
 
-        station.setBornettes(Arrays.asList(b1, b2, b3));
+        // station.setBornettes(Arrays.asList(b1, b2, b3));
 
         // Fin Liste des Bornettes
+        // codeSecret = scanner.nextLine();
 
         System.out.println("Saisir votre code secret : ");
-        //codeSecret = scanner.nextLine();
+        codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
+        while( !contientCodeSecret(codeSecret)){
+            System.out.println("code secret inexistante! ");
+            System.out.println("resaisissez votre codre secret!");
+
+            codeSecret = LectureClavier.lireEntier("Resaisissez votre code secret !");
+        }
+
+        System.out.println((contient(codeSecret)));
+
+
+
 
         // Afficher la liste des bornettes
         System.out.println("Choisir une des bornettes : ");
         // Parcourir la liste des bornettes
         int index = 0;
-        for (Bornette bornette : station.getBornettes()) {
+        for (Bornette bornette : S.getBornettes()) {
             System.out.println(index + " - Bornette B" + (index++));
         }
     } 
