@@ -6,11 +6,13 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "STATION")
+@NamedQuery(name="Station.getAll", query="Select S from Station S")
 public class Station {
 
     
