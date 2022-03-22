@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EnumType;
@@ -65,6 +67,19 @@ public class MenuUtilisateur {
     public static void peupler() {
     }
 
+
+   public  boolean isValidDate(String d)
+    {
+        String regex = "^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$";
+        // String regex = ' ^\d';
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher((CharSequence)d);
+        return matcher.matches();
+    }
+
+
+
+
     public boolean contientCodeSecret(int codeSecret){
         boolean b = false;
         List<Abonne> list =  abonneRepository.getAll();
@@ -113,15 +128,19 @@ public class MenuUtilisateur {
         //*****Saisie de la date de naissance*****//
         //initialisation
         dateNaissance = new Date(System.currentTimeMillis());
-        Boolean error = true;
-        System.out.println("Saisissez votre date de naissance date (AAAA-MM-JJ): ");
+        
+        System.out.println("Saisissez votre date de naissance (AAAA-MM-JJ): ");
         String str = LectureClavier.lireChaine();
-            //Ici on verifie que str demandé est au bon format )
-         
+        //Ici on verifie que str demandé est au bon format )
+        while(isValidDate(str)!=true){
+            System.out.println("Saisissez votre date de naissance!(AAAA-MM-JJ): ");
+             str = LectureClavier.lireChaine();
+        }
+       
             try {
                 dateNaissance = convertDate(str);
             }catch (Exception e) {
-                error = false;
+               
                 System.out.println("pattern de date invalide , use:(AAAA-MM-JJ)");
 
          }
