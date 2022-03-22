@@ -34,12 +34,12 @@ import fr.uga.im2ag.l3.miage.db.utils.LectureClavier;
 public class MenuUtilisateur {
 
     RepositoryFactory daoFactory = new RepositoryFactory();
-        EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
-        StationRepository stationRepository =  daoFactory.newStationRepository(entityManager);
-        BornetteRepository bornetteRepository =  daoFactory.newBornetteRepository(entityManager);
-        AbonneRepository abonneRepository =  daoFactory.newAbonneRepository(entityManager);
-        VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
-        LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
+         EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
+         StationRepository stationRepository =  daoFactory.newStationRepository(entityManager);
+         BornetteRepository bornetteRepository =  daoFactory.newBornetteRepository(entityManager);
+         AbonneRepository abonneRepository =  daoFactory.newAbonneRepository(entityManager);
+         VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
+         LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
 
 
 
@@ -91,7 +91,7 @@ public class MenuUtilisateur {
     // TODO: JONATHAN
     public  void inscrire() {
 
-        Scanner scanner = new Scanner(System.in);
+      
         
         //*****Paramètre à saisir******//
         Abonne nouvelleAbonne;
@@ -106,20 +106,26 @@ public class MenuUtilisateur {
         
         //*****Saisie du nom***** //
         System.out.println("Saisissez votre nom de Famille:");
-        nom = scanner.nextLine();
+        nom = LectureClavier.lireChaine();
         //*****Saisie du prenom*****//
         System.out.println("Saisissez votre prenom ");
-        prenom = scanner.nextLine();
+        prenom = LectureClavier.lireChaine();
         //*****Saisie de la date de naissance*****//
-        dateNaissance = new Date(System.currentTimeMillis());//initialisation
+        //initialisation
+        dateNaissance = new Date(System.currentTimeMillis());
+        Boolean error = true;
         System.out.println("Saisissez votre date de naissance date (AAAA-MM-JJ): ");
-        String str = scanner.nextLine();
-            //Ici on verifie que str demandé est au bon format =)
+        String str = LectureClavier.lireChaine();
+            //Ici on verifie que str demandé est au bon format )
+         
             try {
                 dateNaissance = convertDate(str);
             }catch (Exception e) {
-                System.out.println(e);
+                error = false;
+                System.out.println("pattern de date invalide , use:(AAAA-MM-JJ)");
+
          }
+        
         //*****Saisie du sexe*****//
         int i = 0;
         sexe = Enums.sexe.NON_BINAIRE;//initialisation
@@ -128,7 +134,7 @@ public class MenuUtilisateur {
             System.out.println(" saisissez 1 pour homme : ");
             System.out.println(" saisissez 2 pour femme : ");
             System.out.println(" saisissez 3 pour non binaire : ");
-            i = scanner.nextInt();
+            i = LectureClavier.lireEntier("entier lu :");
         }
         switch (i){
             case 1:
@@ -150,30 +156,30 @@ public class MenuUtilisateur {
         }
         //*****Saisie de l'adresse*****//
         System.out.println("Saisissez votre adresse : ");
-        adresse = scanner.nextLine();
+        adresse = LectureClavier.lireChaine();
 
         //*****Saisie du mot de passe*****//
         System.out.println("Saisissez votre code secret   : ");
-        codeSecret= scanner.nextInt();
+        codeSecret= LectureClavier.lireEntier("code lu:");
         while(contientCodeSecret(codeSecret)==true){
-        codeSecret= scanner.nextInt();
+        codeSecret= LectureClavier.lireEntier("entrez un nouveau code lu:");
         }
         //*****Saisie du numéro de carte bancaire****
         System.out.println("Saisissez votre numéro de carte bancaire  : ");
-        numeroCB = scanner.nextLine();
+        numeroCB = LectureClavier.lireChaine();
         //date d'inscription = date de souscription d'un abonnement 
          dateAbonnement = new Date(System.currentTimeMillis());
         //instantiation d'un nouvelle abonné
          nouvelleAbonne = new Abonne(nom, prenom, sexe, adresse, dateNaissance, dateAbonnement);
          nouvelleAbonne.setCodeSecret(codeSecret);
          nouvelleAbonne.setNumeroCB(numeroCB);
-         scanner.close();
+        
          
 
          //nouvelleAbonne dans la base de donnée
-         entityManager.getTransaction().begin();
-         abonneRepository.save(nouvelleAbonne);
-         entityManager.getTransaction().commit();
+         //entityManager.getTransaction().begin();
+         //abonneRepository.save(nouvelleAbonne);
+         //entityManager.getTransaction().commit();
 
     }
 
@@ -182,28 +188,29 @@ public class MenuUtilisateur {
     // TODO: Identifier 
 
     public void identifier(){
-        Scanner scanner = new Scanner(System.in);
+       
         int codeSecret;
         String abonne ="";
 
         System.out.println("Saisissez votre code secret afin de vous identifier : ");
-        codeSecret = scanner.nextInt();
+        codeSecret = LectureClavier.lireEntier("code lu :");
         while(contientCodeSecret(codeSecret)!=true){
             
             System.out.println("votre code secret  ne correspond à aucun abonne veuillez resaisir à nouveau votre code secret: ");
-            codeSecret = scanner.nextInt();
+            codeSecret = LectureClavier.lireEntier("code lu :");
 
 
         }
         abonne = contient(codeSecret);
         System.out.println(" Bonjour "+abonne+".");
-        scanner.close();
+        
 
 
     }
    
 
     // TODO: Connexion Anonyme
+
 
     // ====================================== //
 
@@ -221,6 +228,7 @@ public class MenuUtilisateur {
 
         // Scanner scanner = new Scanner(System.in);
         
+        int codeSecret;
 
         // Liste des Bornettes
         // Station station = new Station();
@@ -243,7 +251,7 @@ public class MenuUtilisateur {
         // codeSecret = scanner.nextLine();
 
         System.out.println("Saisir votre code secret : ");
-        int codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
+        codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
         while( !contientCodeSecret(codeSecret)){
             System.out.println("code secret inexistante! ");
             System.out.println("resaisissez votre codre secret!");
