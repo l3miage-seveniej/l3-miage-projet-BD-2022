@@ -40,12 +40,8 @@ public class Location {
     @ManyToMany
     private List<Velo> velos;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Client.class)
     private Client client;
-
-    // private Station stationDepart;
-
-    // private Station stationArrivee;
 
     public int getIdLoc() {
         return idLoc;
