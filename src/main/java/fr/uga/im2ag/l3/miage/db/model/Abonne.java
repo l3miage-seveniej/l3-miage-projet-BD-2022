@@ -6,12 +6,14 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "Abonne")
 @DiscriminatorValue("Abonne")
+@NamedQuery(name = "Abonne.getAll", query="Select A from Abonne A")
 public class Abonne extends Client {
 
     public Abonne() {
