@@ -1,5 +1,6 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -39,7 +40,7 @@ public class Bornette {
     @ManyToOne(targetEntity = Station.class)
     private Station station;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Velo velo;
 
 
