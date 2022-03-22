@@ -20,6 +20,7 @@ import fr.uga.im2ag.l3.miage.db.model.Abonne;
 import fr.uga.im2ag.l3.miage.db.model.Bornette;
 import fr.uga.im2ag.l3.miage.db.model.Enums;
 import fr.uga.im2ag.l3.miage.db.model.Location;
+import fr.uga.im2ag.l3.miage.db.model.NonAbonne;
 import fr.uga.im2ag.l3.miage.db.model.Station;
 import fr.uga.im2ag.l3.miage.db.model.Velo;
 import fr.uga.im2ag.l3.miage.db.model.Enums.Etat;
@@ -29,6 +30,7 @@ import fr.uga.im2ag.l3.miage.db.repository.RepositoryFactory;
 import fr.uga.im2ag.l3.miage.db.repository.api.AbonneRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.BornetteRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.LocationRepository;
+import fr.uga.im2ag.l3.miage.db.repository.api.NonAbonneRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.StationRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.VeloRepository;
 import fr.uga.im2ag.l3.miage.db.utils.LectureClavier;
@@ -42,7 +44,7 @@ public class MenuUtilisateur {
          AbonneRepository abonneRepository =  daoFactory.newAbonneRepository(entityManager);
          VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
          LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
-
+         NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
 
 
 
@@ -90,6 +92,7 @@ public class MenuUtilisateur {
         }
         return b;
     }
+    //Abonne
     public String contient (int codeSecret){
         List<Abonne> list =  abonneRepository.getAll();
         String str="";
@@ -103,6 +106,21 @@ public class MenuUtilisateur {
         return str; 
 
     }
+    //nonAbonne
+    public boolean contientCodeSecretBis (int codeSecret){
+        List<NonAbonne> list =  nonAbonneRepository.getAll();
+       boolean b = false;
+        for (NonAbonne abonne : list) {
+            if( abonne.getCodeSecret()== codeSecret){
+               b= true;
+        }
+            
+        }
+        
+        return b; 
+
+    }
+
     // TODO: JONATHAN
     public  void inscrire() {
 
@@ -181,7 +199,7 @@ public class MenuUtilisateur {
         System.out.println("Saisissez votre code secret   : ");
         codeSecret= LectureClavier.lireEntier("code lu:");
         while(contientCodeSecret(codeSecret)==true){
-        codeSecret= LectureClavier.lireEntier("entrez un nouveau code lu:");
+        codeSecret= LectureClavier.lireEntier(" code secret incorrect entrez un nouveau code :");
         }
         //*****Saisie du numéro de carte bancaire****
         System.out.println("Saisissez votre numéro de carte bancaire  : ");
@@ -204,7 +222,7 @@ public class MenuUtilisateur {
 
     
 
-    // TODO: Identifier 
+    // Identifier 
 
     public void identifier(){
        
@@ -228,8 +246,33 @@ public class MenuUtilisateur {
     }
    
 
-    // TODO: Connexion Anonyme
+    //Continuer sans connexion
 
+    public void ContinuerSanConnexion(){
+
+            NonAbonne a ;
+            int codeSecret;
+            String numeroCB;
+
+            System.out.println("Saisissez un code secret    : ");
+            codeSecret= LectureClavier.lireEntier("code :");
+            while(contientCodeSecretBis(codeSecret)==true){
+                codeSecret= LectureClavier.lireEntier("code déjà utilisé , entrez un nouveau code :");
+                }
+            
+            System.out.println("Saisissez votre numéro de carde bancaire : ");
+            numeroCB = LectureClavier.lireChaine();
+
+            a = new NonAbonne();
+            a.setCodeSecret(codeSecret);
+            a.setNumeroCB(numeroCB);
+
+            //nouvelleAbonne dans la base de donnée
+         //entityManager.getTransaction().begin();
+         //NonAbonneRepository.save(a);
+         //entityManager.getTransaction().commit();
+
+    }
 
     // ====================================== //
 
