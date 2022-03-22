@@ -17,12 +17,8 @@ import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
 @Table(name = "VELO")
 public class Velo {
 
-    
-
     public Velo() {
     }
-
-    
 
     public Velo(Modele modeleV, Etat etatV, Situation situation, Date dateMiseEnService, Bornette estAccueilli) {
         this.modeleV = modeleV;
@@ -33,8 +29,6 @@ public class Velo {
         estAccueilli.setLibre(false);
         this.estAccueilli.setVelo(this);
     }
-
-
 
     @Id
     @GeneratedValue
@@ -98,8 +92,6 @@ public class Velo {
         this.dateMiseEnService = dateMiseEnService;
     }
 
-
-
     public Bornette getEstAccueilli() {
         return estAccueilli;
     }
@@ -123,14 +115,10 @@ public class Velo {
         this.estAccueilli = estAccueilli;
     }
 
-
-
     @Override
     public String toString() {
         return "Velo [dateMiseEnService=" + dateMiseEnService + ", estAccueilli=" + estAccueilli + ", etatV=" + etatV
                 + ", modeleV=" + modeleV + ", numeroV=" + numeroV + ", situation=" + situation + "]";
     }
 
-    
-    
 }
