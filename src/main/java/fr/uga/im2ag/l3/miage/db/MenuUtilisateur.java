@@ -73,13 +73,35 @@ public class MenuUtilisateur {
         return matcher.matches();
     }
 
-    /*  Verifie que le code passe est dans la base des abonnees 
+    /*  
+    * Verifie que le code passe est dans la base des abonnees
     *
+    * @return <code>true</code> si codeSecret est dans la base des donnees des abonnees
+    *
+    * @param codeSecret
     */
     public boolean contientCodeSecret(int codeSecret) {
         boolean b = false;
         // List<Abonne> list = abonneRepository.getAll();
         // for (Abonne abonne : list) {
+        //     if (abonne.getCodeSecret() == codeSecret) {
+        //         b = true;
+        //     }
+        // }
+        return b;
+    }
+
+    /*  
+    * Verifie que le code passe est dans la base des non abonnees
+    *
+    * @return <code>true</code> si codeSecret est dans la base des donnees des abonnees
+    *
+    * @param codeSecret
+    */
+    public boolean contientCodeSecretNonAbonne(int codeSecret) {
+        // List<NonAbonne> list = nonAbonneRepository.getAll();
+        boolean b = false;
+        // for (NonAbonne abonne : list) {
         //     if (abonne.getCodeSecret() == codeSecret) {
         //         b = true;
         //     }
@@ -98,20 +120,6 @@ public class MenuUtilisateur {
 
         // }
         return str;
-    }
-
-    /*  Verifie que le code passe est dans la base des abonnees 
-    *
-    */
-    public boolean contientCodeSecretBis(int codeSecret) {
-        // List<NonAbonne> list = nonAbonneRepository.getAll();
-        boolean b = false;
-        // for (NonAbonne abonne : list) {
-        //     if (abonne.getCodeSecret() == codeSecret) {
-        //         b = true;
-        //     }
-        // }
-        return b;
     }
 
     // TODO: JONATHAN
@@ -237,7 +245,7 @@ public class MenuUtilisateur {
 
         System.out.println("Saisissez un code secret    : ");
         codeSecret = LectureClavier.lireEntier("code :");
-        while (contientCodeSecretBis(codeSecret)) {
+        while (contientCodeSecretNonAbonne(codeSecret)) {
             codeSecret = LectureClavier.lireEntier("code déjà utilisé , entrez un nouveau code :");
         }
 
@@ -355,8 +363,4 @@ public class MenuUtilisateur {
     
     
     }
-
-
-
-
 }
