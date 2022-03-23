@@ -343,7 +343,16 @@ public class MenuUtilisateur {
         
         
         
-        System.out.println("1:S'inscrire");
+        System.out.println("  _____                     _       _   _              ");
+        System.out.println(" |_   _|                   (_)     | | (_)             ");
+        System.out.println("   | |  _ __  ___  ___ _ __ _ _ __ | |_ _  ___  _ __   ");
+        System.out.println("   | | | '_ \\/ __|/ __| '__| | '_ \\| __| |/ _ \\| '_ \\  ");
+        System.out.println("  _| |_| | | \\__ \\ (__| |  | | |_) | |_| | (_) | | | | ");
+        System.out.println(" |_____|_| |_|___/\\___|_|  |_| .__/ \\__|_|\\___/|_| |_| ");
+        System.out.println("                             | |                       ");
+        System.out.println("                             |_|                       ");
+        
+    
     
     }
 
