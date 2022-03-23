@@ -1,5 +1,6 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,19 +19,14 @@ import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
 @Table(name = "BORNETTE")
 public class Bornette {
 
-
     public Bornette() {
     }
-
-    
 
     public Bornette(Etat etatB, Station station) {
         this.etatB = etatB;
         setStation(station);
         this.libre = true;
     }
-
-
 
     @Column(nullable = false)
     @Id
@@ -44,7 +40,7 @@ public class Bornette {
     @ManyToOne(targetEntity = Station.class)
     private Station station;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Velo velo;
 
 
@@ -89,9 +85,9 @@ public class Bornette {
         station.addBornette(this);
     }
 
-    // Si il n'y a pas un velo dans cette bornette, 
+    // Si il n'y a pas un velo dans cette bornette,
     // on mets un velo
-    // sinon on ne mets pas un velo 
+    // sinon on ne mets pas un velo
     // renvoie le velo qui est officiellement dans cette bornette
     public Bornette setVelo(Velo velo){
         
@@ -106,20 +102,18 @@ public class Bornette {
         return this;
     }
 
-    public void removeVelo(){
-        if(this.velo == null){
+    public void removeVelo() {
+        if (this.velo == null) {
             velo.setEstAccueilli(null);
             this.velo = null;
             setLibre(true);
         }
     }
 
-
-
     @Override
     public String toString() {
-        return "Bornette [etatB=" + etatB + ", libre=" + libre + ", numeroB=" + numeroB + ", addresse=" + station.getAdresse() + "]";
+        return "Bornette [etatB=" + etatB + ", libre=" + libre + ", numeroB=" + numeroB + ", addresse="
+                + station.getAdresse() + "]";
     }
 
-    
 }
