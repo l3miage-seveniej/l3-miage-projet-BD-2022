@@ -23,6 +23,11 @@ public class Location {
         this.velos = new  ArrayList<Velo>();
     }
 
+    public Location(Timestamp heureDebut, Client client) {
+        this.heureDebut = heureDebut;
+        this.client = client;
+    }
+
     @Id
     @GeneratedValue
     private int idLoc;
