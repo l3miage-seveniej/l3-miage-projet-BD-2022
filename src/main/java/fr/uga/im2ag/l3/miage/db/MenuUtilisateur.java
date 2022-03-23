@@ -353,6 +353,7 @@ public class MenuUtilisateur {
         location.addVelos(bornette.getVelo());                              // Rajout du velo de la bornette N
 
         c.addLocation(location);                                            // Rajout de la location au client
+        
     }
 
     // TODO: Rendu
