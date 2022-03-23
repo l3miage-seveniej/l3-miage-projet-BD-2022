@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -290,18 +291,20 @@ public class MenuUtilisateur {
     // TODO: VINICIUS
 
     // TODO: Enprunt
-    // 1 -> Demander le Code Secret
-    // 2 -> Choisir une borne NON LIBRE avec un Velo avec Etat OK
-    // Generer New Location :
-    // 1 -> set la Location de velo égale la nouvelle location géneré
-    // 2 -> set la Location du client égale la nouvelle location géneré
-    // 3 -> set heureDebut = now()
-    // 4 -> set heurefin = null
-    public void emprunt(Station S) {
+        // 1 -> Demander le Code Secret
+        // 2 -> Choisir une borne NON LIBRE avec un Velo avec Etat OK
+            // Generer New Location :
+                // 1 -> set la Location de velo égale la nouvelle location géneré
+                // 2 -> set la Location du client égale la nouvelle location géneré
+                // 3 -> set heureDebut = now()
+                // 4 -> set heurefin = null
+    public void emprunt(Station S, Client c) {
 
         // Scanner scanner = new Scanner(System.in);
 
         int codeSecret;
+        Bornette bornette;
+        Location location;
 
         // Liste des Bornettes
         // Station station = new Station();
@@ -329,21 +332,37 @@ public class MenuUtilisateur {
         System.out.println("Saisir votre code secret : ");
         codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
         while (!contientCodeSecret(codeSecret)) {
-            System.out.println("code secret inexistante! ");
-            System.out.println("resaisissez votre codre secret!");
+            System.out.println("Code secret inexistante! ");
+            System.out.println("Resaisissez votre codre secret!");
 
             codeSecret = LectureClavier.lireEntier("Resaisissez votre code secret !");
         }
 
         System.out.println((getAbonneAvecCode(codeSecret)));
 
-        // Afficher la liste des bornettes
-        System.out.println("Choisir une des bornettes : ");
-        // Parcourir la liste des bornettes
+        // Afficher la liste des bornettes :
+        System.out.println("Choisir une des bornettes libres : ");
+
+        // Ici on parcours la liste des bornettes libres
         int index = 0;
-        for (Bornette bornette : S.getBornettes()) {
-            System.out.println(index + " - Bornette B" + (index++));
+        List<Bornette> bornettes = new ArrayList<Bornette>();
+        for (Bornette b : S.getBornettes()) {
+            if (b.getLibre()) {                                             // Si la bornette est libre
+                bornettes.add(b);
+                System.out.println(index + " - Bornette B" + (index));
+                index++;
+            }
         }
+
+        bornette = bornettes.get(LectureClavier.lireEntier(""));            // Prendre la bornette N
+
+        Timestamp heureDebut = new Timestamp(System.currentTimeMillis());   // Heure courante
+
+        location = new Location(heureDebut, c);                             // Nouvelle location avec l'heure courante et client c
+        location.addVelos(bornette.getVelo());                              // Rajout du velo de la bornette N
+
+        c.addLocation(location);                                            // Rajout de la location au client
+        
     }
 
     // TODO: Rendu
