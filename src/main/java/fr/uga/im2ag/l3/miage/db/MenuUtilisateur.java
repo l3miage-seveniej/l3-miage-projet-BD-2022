@@ -321,4 +321,16 @@ public class MenuUtilisateur {
     // TODO: Declaration Etat
     // Set l'etat du velo du client, lié par la location
     // 1 -> Velo.etatV = OK | HS
+
+    public void mainMenu(){
+        
+        System.out.println("###################################");
+        System.out.println("__      __  _____ _      _    ");
+        System.out.println(" \\ \\    / / |  __ (_)    | |   ");
+        System.out.println("  \\ \\ / /__| |__) |  ___| | __");
+        System.out.println("   \\ \\/ / _ \\  ___/ |/ __| |/ /");
+        System.out.println("    \\  /  __/ |   | | (__|   < ");
+        System.out.println("     \\/ \\___|_|   |_|\\___|_|\\_\\");
+        System.out.println("###################################");
+    }
 }
