@@ -135,6 +135,18 @@ public class MenuUtilisateur {
         Date dateAbonnement;
         int codeSecret;
         String numeroCB;
+        
+        System.out.println("#########################################################");
+        System.out.println("  _____                     _       _   _              ");
+        System.out.println(" |_   _|                   (_)     | | (_)             ");
+        System.out.println("   | |  _ __  ___  ___ _ __ _ _ __ | |_ _  ___  _ __   ");
+        System.out.println("   | | | '_ \\/ __|/ __| '__| | '_ \\| __| |/ _ \\| '_ \\  ");
+        System.out.println("  _| |_| | | \\__ \\ (__| |  | | |_) | |_| | (_) | | | | ");
+        System.out.println(" |_____|_| |_|___/\\___|_|  |_| .__/ \\__|_|\\___/|_| |_| ");
+        System.out.println("                             | |                       ");
+        System.out.println("                             |_|                       ");
+        System.out.println("#########################################################");
+        System.out.println(" ");
 
         // *****Saisie du nom***** //
         System.out.println("Saisissez votre nom de Famille:");
@@ -338,29 +350,43 @@ public class MenuUtilisateur {
     public void mainMenu(){
         
         System.out.println("###################################");
-        System.out.println("__      __  _____ _      _    ");
         System.out.println(" \\ \\    / / |  __ (_)    | |   ");
         System.out.println("  \\ \\ / /__| |__) |  ___| | __");
         System.out.println("   \\ \\/ / _ \\  ___/ |/ __| |/ /");
         System.out.println("    \\  /  __/ |   | | (__|   < ");
         System.out.println("     \\/ \\___|_|   |_|\\___|_|\\_\\");
         System.out.println("###################################");
+        System.out.println("-------- __@      __@       __@       __@      __~@ ");
+        System.out.println("")
+        int select=0;
         
-        int select;
-        
-        
-        
-        
-        System.out.println("  _____                     _       _   _              ");
-        System.out.println(" |_   _|                   (_)     | | (_)             ");
-        System.out.println("   | |  _ __  ___  ___ _ __ _ _ __ | |_ _  ___  _ __   ");
-        System.out.println("   | | | '_ \\/ __|/ __| '__| | '_ \\| __| |/ _ \\| '_ \\  ");
-        System.out.println("  _| |_| | | \\__ \\ (__| |  | | |_) | |_| | (_) | | | | ");
-        System.out.println(" |_____|_| |_|___/\\___|_|  |_| .__/ \\__|_|\\___/|_| |_| ");
-        System.out.println("                             | |                       ");
-        System.out.println("                             |_|                       ");
-        
-    
-    
+
+        while (select < 4){
+            System.out.println("Tapez un des numéros pour : ");    
+            System.out.println("1 - S'inscrire");
+            System.out.println("2 - S'identifier");
+            System.out.println("3 - Continuer sans connexion");
+            System.out.println("4 - Quitter l'application");
+            
+            select = LectureClavier.lireEntier("numéro:");
+        }
+
+        switch(select){
+            case 1: 
+                inscrire();
+                break;
+            case 2: 
+                identifier();
+                break;
+            case 3: 
+                continuerSanConnexion();
+                break;        
+            default:
+                break;
+        }
+
+        // emprunt
+        // rendre
+        // blabla
     }
 }
