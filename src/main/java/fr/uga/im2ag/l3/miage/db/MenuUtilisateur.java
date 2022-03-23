@@ -37,14 +37,14 @@ import fr.uga.im2ag.l3.miage.db.utils.LectureClavier;
 
 public class MenuUtilisateur {
 
-    RepositoryFactory daoFactory = new RepositoryFactory();
-         EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
-         StationRepository stationRepository =  daoFactory.newStationRepository(entityManager);
-         BornetteRepository bornetteRepository =  daoFactory.newBornetteRepository(entityManager);
-         AbonneRepository abonneRepository =  daoFactory.newAbonneRepository(entityManager);
-         VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
-         LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
-         NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
+    // RepositoryFactory daoFactory = new RepositoryFactory();
+    //      EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
+    //      StationRepository stationRepository =  daoFactory.newStationRepository(entityManager);
+    //      BornetteRepository bornetteRepository =  daoFactory.newBornetteRepository(entityManager);
+    //      AbonneRepository abonneRepository =  daoFactory.newAbonneRepository(entityManager);
+    //      VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
+    //      LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
+    //      NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
 
 
 
@@ -84,38 +84,38 @@ public class MenuUtilisateur {
 
     public boolean contientCodeSecret(int codeSecret){
         boolean b = false;
-        List<Abonne> list =  abonneRepository.getAll();
-        for (Abonne abonne : list) {
-            if( abonne.getCodeSecret()== codeSecret){
-                b = true;
-            }
-        }
+        // List<Abonne> list =  abonneRepository.getAll();
+        // for (Abonne abonne : list) {
+        //     if( abonne.getCodeSecret()== codeSecret){
+        //         b = true;
+        //     }
+        // }
         return b;
     }
     //Abonne
     public String contient (int codeSecret){
-        List<Abonne> list =  abonneRepository.getAll();
-        String str="";
-        for (Abonne abonne : list) {
-            if( abonne.getCodeSecret()== codeSecret){
-                str = abonne.toString();
-        }
+         // List<Abonne> list =  abonneRepository.getAll();
+         String str="";
+         // for (Abonne abonne : list) {
+         //     if( abonne.getCodeSecret()== codeSecret){
+         //         str = abonne.toString();
+         // }
             
-        }
+        // }
         
         return str; 
 
     }
     //nonAbonne
     public boolean contientCodeSecretBis (int codeSecret){
-        List<NonAbonne> list =  nonAbonneRepository.getAll();
-       boolean b = false;
-        for (NonAbonne abonne : list) {
-            if( abonne.getCodeSecret()== codeSecret){
-               b= true;
-        }
+    //     List<NonAbonne> list =  nonAbonneRepository.getAll();
+        boolean b = false;
+    //     for (NonAbonne abonne : list) {
+    //         if( abonne.getCodeSecret()== codeSecret){
+    //            b= true;
+    //     }
             
-        }
+    //     }
         
         return b; 
 
@@ -347,4 +347,56 @@ public class MenuUtilisateur {
     // TODO: Declaration Etat
         // Set l'etat du velo du client, lié par la location
             // 1 -> Velo.etatV = OK | HS
-}
+
+
+
+
+
+
+
+
+    public void mainMenu(){
+        
+        System.out.println("###################################");
+        System.out.println("__      __  _____ _      _    ");
+        System.out.println(" \\ \\    / / |  __ (_)    | |   ");
+        System.out.println("  \\ \\ / /__| |__) |  ___| | __");
+        System.out.println("   \\ \\/ / _ \\  ___/ |/ __| |/ /");
+        System.out.println("    \\  /  __/ |   | | (__|   < ");
+        System.out.println("     \\/ \\___|_|   |_|\\___|_|\\_\\");
+        System.out.println("###################################");
+    
+
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }

@@ -5,7 +5,7 @@ public class App {
     public static void main(String[] args) {
 
         MenuUtilisateur menu = new MenuUtilisateur();
-        menu.inscrire();
+        menu.mainMenu();
         /*
         try {
             scenario2();
