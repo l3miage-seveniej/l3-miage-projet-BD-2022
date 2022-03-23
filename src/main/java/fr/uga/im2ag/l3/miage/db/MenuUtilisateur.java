@@ -18,6 +18,7 @@ import org.assertj.core.util.DateUtil;
 
 import fr.uga.im2ag.l3.miage.db.model.Abonne;
 import fr.uga.im2ag.l3.miage.db.model.Bornette;
+import fr.uga.im2ag.l3.miage.db.model.Client;
 import fr.uga.im2ag.l3.miage.db.model.Enums;
 import fr.uga.im2ag.l3.miage.db.model.Location;
 import fr.uga.im2ag.l3.miage.db.model.NonAbonne;
@@ -110,16 +111,15 @@ public class MenuUtilisateur {
     }
 
     // Abonne
-    public String getAbonneAvecCode(int codeSecret) {
+    public Abonne getAbonneAvecCode(int codeSecret) {
         List<Abonne> list = abonneRepository.getAll();
-        String str = "";
+        Abonne a = null;
         for (Abonne abonne : list) {
             if (abonne.getCodeSecret() == codeSecret) {
-                str = abonne.toString();
+                a = abonne;
             }
-
         }
-        return str;
+        return a;
     }
 
     // TODO: JONATHAN
@@ -137,7 +137,6 @@ public class MenuUtilisateur {
         String numeroCB;
         
         System.out.println("#########################################################");
-        System.out.println("  _____                     _       _   _              ");
         System.out.println(" |_   _|                   (_)     | | (_)             ");
         System.out.println("   | |  _ __  ___  ___ _ __ _ _ __ | |_ _  ___  _ __   ");
         System.out.println("   | | | '_ \\/ __|/ __| '__| | '_ \\| __| |/ _ \\| '_ \\  ");
@@ -232,11 +231,19 @@ public class MenuUtilisateur {
 
     // Identifier
 
-    public void identifier() {
+    public Abonne identifier() {
 
         int codeSecret;
-        String abonne = "";
-
+        Abonne abonne;
+        String abonneToStr = "";
+        
+        System.out.println("################################################################");
+        System.out.println(" |_ _|__| | ___ _ __ | |_(_)/ _(_) ___ __ _| |_(_) ___  _ __  ");
+        System.out.println("  | |/ _` |/ _ \\ '_ \\| __| | |_| |/ __/ _` | __| |/ _ \\| '_ \\ ");
+        System.out.println("  | | (_| |  __/ | | | |_| |  _| | (_| (_| | |_| | (_) | | | |");
+        System.out.println(" |___\\__,_|\\___|_| |_|\\__|_|_| |_|\\___\\__,_|\\__|_|\\___/|_| |_|");
+        System.out.println("################################################################");
+        
         System.out.println("Saisissez votre code secret afin de vous identifier : ");
         codeSecret = LectureClavier.lireEntier("code lu :");
         while (!contientCodeSecret(codeSecret)) {
@@ -244,14 +251,17 @@ public class MenuUtilisateur {
             codeSecret = LectureClavier.lireEntier("code lu :");
         }
         abonne = getAbonneAvecCode(codeSecret);
-        System.out.println(" Bonjour " + abonne + ".");
+        abonneToStr = getAbonneAvecCode(codeSecret).toString();
+        System.out.println(" Bonjour " + abonneToStr + ".");
+
+        return abonne;
     }
 
     // Continuer sans connexion
 
-    public void continuerSanConnexion() {
+    public NonAbonne continuerSanConnexion() {
 
-        NonAbonne a;
+        NonAbonne a = null;
         int codeSecret;
         String numeroCB;
 
@@ -269,10 +279,10 @@ public class MenuUtilisateur {
         a.setNumeroCB(numeroCB);
 
         // nouvelleAbonne dans la base de donnée
-        // entityManager.getTransaction().begin();
-        // NonAbonneRepository.save(a);
-        // entityManager.getTransaction().commit();
-
+        entityManager.getTransaction().begin();
+        nonAbonneRepository.save(a);
+        entityManager.getTransaction().commit();
+        return a;
     }
 
     // ====================================== //
@@ -348,6 +358,11 @@ public class MenuUtilisateur {
     // 1 -> Velo.etatV = OK | HS
 
     public void mainMenu(){
+        
+        int select;
+        Client c = null;
+        
+        
         System.out.println("-------- __@      __@       __@       __@      __~@ ");
         System.out.println("----- _`\\<,_    _`\\<,_    _`\\<,_     _`\\<,_    _`\\<,_");
         System.out.println("---- (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)");
@@ -363,31 +378,40 @@ public class MenuUtilisateur {
         System.out.println("----- _`\\<,_    _`\\<,_    _`\\<,_     _`\\<,_    _`\\<,_");
         System.out.println("---- (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
-        int select = 5;
+        
+        
         
 
-        while (select > 4){
+        do{
+
             System.out.println("Tapez un des numéros pour : ");    
             System.out.println("1 - S'inscrire");
             System.out.println("2 - S'identifier");
             System.out.println("3 - Continuer sans connexion");
             System.out.println("4 - Quitter l'application");
-            
             select = LectureClavier.lireEntier("numéro:");
-        }
+
+        }while(select > 4 || select <=0);
+
+       
 
         switch(select){
             case 1: 
                 inscrire();
+                mainMenu();
                 break;
             case 2: 
-                identifier();
+                c = identifier();
+                //MenuClient(c);
                 break;
             case 3: 
                 continuerSanConnexion();
+                
                 break;        
             default:
+            System.out.println("aurevoir");
+            System.exit(0);
+            
                 break;
         }
 
