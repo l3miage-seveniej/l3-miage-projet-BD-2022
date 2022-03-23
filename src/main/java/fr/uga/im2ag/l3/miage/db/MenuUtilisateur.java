@@ -37,6 +37,7 @@ import fr.uga.im2ag.l3.miage.db.utils.LectureClavier;
 
 public class MenuUtilisateur {
 
+<<<<<<< HEAD
     // RepositoryFactory daoFactory = new RepositoryFactory();
     //      EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
     //      StationRepository stationRepository =  daoFactory.newStationRepository(entityManager);
@@ -49,10 +50,22 @@ public class MenuUtilisateur {
 
 
     public  Date convertDate(String dateString) throws ParseException {
+=======
+    RepositoryFactory daoFactory = new RepositoryFactory();
+    EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
+    StationRepository stationRepository = daoFactory.newStationRepository(entityManager);
+    BornetteRepository bornetteRepository = daoFactory.newBornetteRepository(entityManager);
+    AbonneRepository abonneRepository = daoFactory.newAbonneRepository(entityManager);
+    VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
+    LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
+    NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
+
+    public Date convertDate(String dateString) throws ParseException {
+>>>>>>> eb6a01e205d833802e06ef6ce07ee2b0493c5afd
         return new Date(new SimpleDateFormat("yyyy-MM-dd").parse(dateString).getTime());
     }
 
-    public  Timestamp convertTimestamp(String timeString) throws ParseException {
+    public Timestamp convertTimestamp(String timeString) throws ParseException {
         java.text.DateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date date = format.parse(timeString);
         Timestamp timestamp = new java.sql.Timestamp(date.getTime());
@@ -60,8 +73,6 @@ public class MenuUtilisateur {
         return timestamp;
 
     }
-    
-
 
     // Il existe 4 station
     // Station A a 4 bornettes libres et fonctionnent bien
@@ -69,21 +80,17 @@ public class MenuUtilisateur {
     public static void peupler() {
     }
 
-
-   public  boolean isValidDate(String d)
-    {
+    public boolean isValidDate(String d) {
         String regex = "^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$";
         // String regex = ' ^\d';
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher((CharSequence)d);
+        Matcher matcher = pattern.matcher((CharSequence) d);
         return matcher.matches();
     }
 
-
-
-
-    public boolean contientCodeSecret(int codeSecret){
+    public boolean contientCodeSecret(int codeSecret) {
         boolean b = false;
+<<<<<<< HEAD
         // List<Abonne> list =  abonneRepository.getAll();
         // for (Abonne abonne : list) {
         //     if( abonne.getCodeSecret()== codeSecret){
@@ -104,8 +111,30 @@ public class MenuUtilisateur {
         // }
         
         return str; 
-
+=======
+        List<Abonne> list = abonneRepository.getAll();
+        for (Abonne abonne : list) {
+            if (abonne.getCodeSecret() == codeSecret) {
+                b = true;
+            }
+        }
+        return b;
     }
+
+    // Abonne
+    public String contient(int codeSecret) {
+        List<Abonne> list = abonneRepository.getAll();
+        String str = "";
+        for (Abonne abonne : list) {
+            if (abonne.getCodeSecret() == codeSecret) {
+                str = abonne.toString();
+            }
+>>>>>>> eb6a01e205d833802e06ef6ce07ee2b0493c5afd
+
+        }
+        return str;
+    }
+<<<<<<< HEAD
     //nonAbonne
     public boolean contientCodeSecretBis (int codeSecret){
     //     List<NonAbonne> list =  nonAbonneRepository.getAll();
@@ -119,14 +148,25 @@ public class MenuUtilisateur {
         
         return b; 
 
+=======
+
+    // nonAbonne
+    public boolean contientCodeSecretBis(int codeSecret) {
+        List<NonAbonne> list = nonAbonneRepository.getAll();
+        boolean b = false;
+        for (NonAbonne abonne : list) {
+            if (abonne.getCodeSecret() == codeSecret) {
+                b = true;
+            }
+        }
+        return b;
+>>>>>>> eb6a01e205d833802e06ef6ce07ee2b0493c5afd
     }
 
     // TODO: JONATHAN
-    public  void inscrire() {
+    public void inscrire() {
 
-      
-        
-        //*****Paramètre à saisir******//
+        // *****Paramètre à saisir******//
         Abonne nouvelleAbonne;
         String nom;
         String prenom;
@@ -136,36 +176,36 @@ public class MenuUtilisateur {
         Date dateAbonnement;
         int codeSecret;
         String numeroCB;
-        
-        //*****Saisie du nom***** //
+
+        // *****Saisie du nom***** //
         System.out.println("Saisissez votre nom de Famille:");
         nom = LectureClavier.lireChaine();
-        //*****Saisie du prenom*****//
+
+        // *****Saisie du prenom*****//
         System.out.println("Saisissez votre prenom ");
         prenom = LectureClavier.lireChaine();
-        //*****Saisie de la date de naissance*****//
-        //initialisation
+
+        // *****Saisie de la date de naissance*****//
+        // initialisation
         dateNaissance = new Date(System.currentTimeMillis());
-        
+
         System.out.println("Saisissez votre date de naissance (AAAA-MM-JJ): ");
         String str = LectureClavier.lireChaine();
-        //Ici on verifie que str demandé est au bon format )
-        while(isValidDate(str)!=true){
+        // Ici on verifie que str demandé est au bon format )
+        while (isValidDate(str) != true) {
             System.out.println("Saisissez votre date de naissance!(AAAA-MM-JJ): ");
-             str = LectureClavier.lireChaine();
+            str = LectureClavier.lireChaine();
         }
-       
-            try {
-                dateNaissance = convertDate(str);
-            }catch (Exception e) {
-               
-                System.out.println("pattern de date invalide , use:(AAAA-MM-JJ)");
 
-         }
-        
-        //*****Saisie du sexe*****//
+        try {
+            dateNaissance = convertDate(str);
+        } catch (Exception e) {
+            System.out.println("pattern de date invalide , use:(AAAA-MM-JJ)");
+        }
+
+        // *****Saisie du sexe*****//
         int i = 0;
-        sexe = Enums.sexe.NON_BINAIRE;//initialisation
+        sexe = Enums.sexe.NON_BINAIRE;// initialisation
         while (i < 1 || i > 3) {
             System.out.println("Saisissez votre sexe : ");
             System.out.println(" saisissez 1 pour homme : ");
@@ -173,104 +213,94 @@ public class MenuUtilisateur {
             System.out.println(" saisissez 3 pour non binaire : ");
             i = LectureClavier.lireEntier("entier lu :");
         }
-        switch (i){
+        switch (i) {
             case 1:
                 sexe = Enums.sexe.MALE;
-            break;
-            
+                break;
+
             case 2:
                 sexe = Enums.sexe.FEMELLE;
-            break;
-            
+                break;
+
             case 3:
                 sexe = Enums.sexe.NON_BINAIRE;
-            break;
-                
-            default:
-            break;
+                break;
 
-            
+            default:
+                break;
+
         }
-        //*****Saisie de l'adresse*****//
+
+        // *****Saisie de l'adresse*****//
         System.out.println("Saisissez votre adresse : ");
         adresse = LectureClavier.lireChaine();
 
-        //*****Saisie du mot de passe*****//
+        // *****Saisie du mot de passe*****//
         System.out.println("Saisissez votre code secret   : ");
-        codeSecret= LectureClavier.lireEntier("code lu:");
-        while(contientCodeSecret(codeSecret)==true){
-        codeSecret= LectureClavier.lireEntier(" code secret incorrect entrez un nouveau code :");
+        codeSecret = LectureClavier.lireEntier("code lu:");
+        while (contientCodeSecret(codeSecret) == true) {
+            codeSecret = LectureClavier.lireEntier(" code secret incorrect entrez un nouveau code :");
         }
-        //*****Saisie du numéro de carte bancaire****
+
+        // *****Saisie du numéro de carte bancaire****
         System.out.println("Saisissez votre numéro de carte bancaire  : ");
         numeroCB = LectureClavier.lireChaine();
-        //date d'inscription = date de souscription d'un abonnement 
-         dateAbonnement = new Date(System.currentTimeMillis());
-        //instantiation d'un nouvelle abonné
-         nouvelleAbonne = new Abonne(nom, prenom, sexe, adresse, dateNaissance, dateAbonnement);
-         nouvelleAbonne.setCodeSecret(codeSecret);
-         nouvelleAbonne.setNumeroCB(numeroCB);
-        
-         
+        // date d'inscription = date de souscription d'un abonnement
+        dateAbonnement = new Date(System.currentTimeMillis());
+        // instantiation d'un nouvelle abonné
+        nouvelleAbonne = new Abonne(nom, prenom, sexe, adresse, dateNaissance, dateAbonnement);
+        nouvelleAbonne.setCodeSecret(codeSecret);
+        nouvelleAbonne.setNumeroCB(numeroCB);
 
-         //nouvelleAbonne dans la base de donnée
-         //entityManager.getTransaction().begin();
-         //abonneRepository.save(nouvelleAbonne);
-         //entityManager.getTransaction().commit();
+        // nouvelleAbonne dans la base de donnée
+        // entityManager.getTransaction().begin();
+        // abonneRepository.save(nouvelleAbonne);
+        // entityManager.getTransaction().commit();
 
     }
 
-    
+    // Identifier
 
-    // Identifier 
+    public void identifier() {
 
-    public void identifier(){
-       
         int codeSecret;
-        String abonne ="";
+        String abonne = "";
 
         System.out.println("Saisissez votre code secret afin de vous identifier : ");
         codeSecret = LectureClavier.lireEntier("code lu :");
-        while(contientCodeSecret(codeSecret)!=true){
-            
+        while (contientCodeSecret(codeSecret) != true) {
             System.out.println("votre code secret  ne correspond à aucun abonne veuillez resaisir à nouveau votre code secret: ");
             codeSecret = LectureClavier.lireEntier("code lu :");
-
-
         }
         abonne = contient(codeSecret);
-        System.out.println(" Bonjour "+abonne+".");
-        
-
-
+        System.out.println(" Bonjour " + abonne + ".");
     }
-   
 
-    //Continuer sans connexion
+    // Continuer sans connexion
 
-    public void continuerSanConnexion(){
+    public void continuerSanConnexion() {
 
-            NonAbonne a ;
-            int codeSecret;
-            String numeroCB;
+        NonAbonne a;
+        int codeSecret;
+        String numeroCB;
 
-            System.out.println("Saisissez un code secret    : ");
-            codeSecret= LectureClavier.lireEntier("code :");
-            while(contientCodeSecretBis(codeSecret)==true){
-                codeSecret= LectureClavier.lireEntier("code déjà utilisé , entrez un nouveau code :");
-                }
-            
-            System.out.println("Saisissez votre numéro de carde bancaire : ");
-            numeroCB = LectureClavier.lireChaine();
+        System.out.println("Saisissez un code secret    : ");
+        codeSecret = LectureClavier.lireEntier("code :");
+        while (contientCodeSecretBis(codeSecret) == true) {
+            codeSecret = LectureClavier.lireEntier("code déjà utilisé , entrez un nouveau code :");
+        }
 
-            a = new NonAbonne();
-            a.setCodeSecret(codeSecret);
-            a.setNumeroCB(numeroCB);
+        System.out.println("Saisissez votre numéro de carde bancaire : ");
+        numeroCB = LectureClavier.lireChaine();
 
-            //nouvelleAbonne dans la base de donnée
-         //entityManager.getTransaction().begin();
-         //NonAbonneRepository.save(a);
-         //entityManager.getTransaction().commit();
+        a = new NonAbonne();
+        a.setCodeSecret(codeSecret);
+        a.setNumeroCB(numeroCB);
+
+        // nouvelleAbonne dans la base de donnée
+        // entityManager.getTransaction().begin();
+        // NonAbonneRepository.save(a);
+        // entityManager.getTransaction().commit();
 
     }
 
@@ -279,17 +309,17 @@ public class MenuUtilisateur {
     // TODO: VINICIUS
 
     // TODO: Enprunt
-        // 1 -> Demander le Code Secret
-        // 2 -> Choisir une borne NON LIBRE avec un Velo avec Etat OK
-            // Generer New Location :
-                // 1 -> set la Location de velo égale la nouvelle location géneré
-                // 2 -> set la Location du client égale la nouvelle location géneré
-                // 3 -> set heureDebut = now()
-                // 4 -> set heurefin = null
+    // 1 -> Demander le Code Secret
+    // 2 -> Choisir une borne NON LIBRE avec un Velo avec Etat OK
+    // Generer New Location :
+    // 1 -> set la Location de velo égale la nouvelle location géneré
+    // 2 -> set la Location du client égale la nouvelle location géneré
+    // 3 -> set heureDebut = now()
+    // 4 -> set heurefin = null
     public void emprunt(Station S) {
 
         // Scanner scanner = new Scanner(System.in);
-        
+
         int codeSecret;
 
         // Liste des Bornettes
@@ -299,9 +329,12 @@ public class MenuUtilisateur {
         // Bornette b2 = new Bornette(Etat.OK, station);
         // Bornette b3 = new Bornette(Etat.HS, station);
 
-        // Velo v1 = new Velo(Modele.VTC, Etat.OK, Situation.EN_STATION, new Date(2020, 1, 1), b1);
-        // Velo v2 = new Velo(Modele.VTT, Etat.OK, Situation.EN_STATION, new Date(2020, 1, 4), b2);
-        // Velo v3 = new Velo(Modele.HOLLANDAIS, Etat.HS, Situation.EN_STATION, new Date(2020, 2, 9), b3);
+        // Velo v1 = new Velo(Modele.VTC, Etat.OK, Situation.EN_STATION, new Date(2020,
+        // 1, 1), b1);
+        // Velo v2 = new Velo(Modele.VTT, Etat.OK, Situation.EN_STATION, new Date(2020,
+        // 1, 4), b2);
+        // Velo v3 = new Velo(Modele.HOLLANDAIS, Etat.HS, Situation.EN_STATION, new
+        // Date(2020, 2, 9), b3);
 
         // b1.setVelo(v1);
         // b2.setVelo(v2);
@@ -314,7 +347,7 @@ public class MenuUtilisateur {
 
         System.out.println("Saisir votre code secret : ");
         codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
-        while( !contientCodeSecret(codeSecret)){
+        while (!contientCodeSecret(codeSecret)) {
             System.out.println("code secret inexistante! ");
             System.out.println("resaisissez votre codre secret!");
 
@@ -323,9 +356,6 @@ public class MenuUtilisateur {
 
         System.out.println((contient(codeSecret)));
 
-
-
-
         // Afficher la liste des bornettes
         System.out.println("Choisir une des bornettes : ");
         // Parcourir la liste des bornettes
@@ -333,18 +363,17 @@ public class MenuUtilisateur {
         for (Bornette bornette : S.getBornettes()) {
             System.out.println(index + " - Bornette B" + (index++));
         }
-    } 
-
-    
+    }
 
     // TODO: Rendu
-        // 1 -> Demander le Code Secret
-        // 2 -> Choisir une borne LIBRE
-            // Mettre a jour / Modifier la Location :
-                // 1 -> set heureFin = now()
-                // 2 -> calculCout()
+    // 1 -> Demander le Code Secret
+    // 2 -> Choisir une borne LIBRE
+    // Mettre a jour / Modifier la Location :
+    // 1 -> set heureFin = now()
+    // 2 -> calculCout()
 
     // TODO: Declaration Etat
+<<<<<<< HEAD
         // Set l'etat du velo du client, lié par la location
             // 1 -> Velo.etatV = OK | HS
 
@@ -400,3 +429,8 @@ public class MenuUtilisateur {
 
 
         }
+=======
+    // Set l'etat du velo du client, lié par la location
+    // 1 -> Velo.etatV = OK | HS
+}
+>>>>>>> eb6a01e205d833802e06ef6ce07ee2b0493c5afd
