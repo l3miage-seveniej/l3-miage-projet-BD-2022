@@ -75,6 +75,26 @@ public class MenuUtilisateur {
         return matcher.matches();
     }
 
+    public Station choisirStation(){
+        List<Station> ListStation = stationRepository.getAll();
+        int choix;
+        Station stationChoisi = null;
+        int i= 0;
+        while(stationChoisi == null){
+            i=0;
+            for(Station station: ListStation){
+                System.out.println("choisissez un station!");
+                System.out.println(i + ". " + station.getAdresse());
+                i++;
+            }
+            choix = LectureClavier.lireEntier("");
+            if(ListStation.get(choix) != null){
+                stationChoisi = ListStation.get(choix);
+            }
+        }
+        return stationChoisi;
+    }
+
     /*  
     * Verifie que le code passe est dans la base des abonnees
     *
