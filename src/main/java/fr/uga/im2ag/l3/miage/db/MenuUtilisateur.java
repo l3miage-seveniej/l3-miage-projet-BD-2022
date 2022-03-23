@@ -39,14 +39,14 @@ import fr.uga.im2ag.l3.miage.db.utils.LectureClavier;
 
 public class MenuUtilisateur {
 
-    // RepositoryFactory daoFactory = new RepositoryFactory();
-    // EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
-    // StationRepository stationRepository = daoFactory.newStationRepository(entityManager);
-    // BornetteRepository bornetteRepository = daoFactory.newBornetteRepository(entityManager);
-    // AbonneRepository abonneRepository = daoFactory.newAbonneRepository(entityManager);
-    // VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
-    // LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
-    // NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
+    RepositoryFactory daoFactory = new RepositoryFactory();
+    EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
+    StationRepository stationRepository = daoFactory.newStationRepository(entityManager);
+    BornetteRepository bornetteRepository = daoFactory.newBornetteRepository(entityManager);
+    AbonneRepository abonneRepository = daoFactory.newAbonneRepository(entityManager);
+    VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
+    LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
+    NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
 
     public Date convertDate(String dateString) throws ParseException {
         return new Date(new SimpleDateFormat("yyyy-MM-dd").parse(dateString).getTime());
@@ -84,12 +84,12 @@ public class MenuUtilisateur {
     */
     public boolean contientCodeSecret(int codeSecret) {
         boolean b = false;
-        // List<Abonne> list = abonneRepository.getAll();
-        // for (Abonne abonne : list) {
-        //     if (abonne.getCodeSecret() == codeSecret) {
-        //         b = true;
-        //     }
-        // }
+        List<Abonne> list = abonneRepository.getAll();
+        for (Abonne abonne : list) {
+            if (abonne.getCodeSecret() == codeSecret) {
+                b = true;
+            }
+        }
         return b;
     }
 
@@ -101,26 +101,26 @@ public class MenuUtilisateur {
     * @param codeSecret
     */
     public boolean contientCodeSecretNonAbonne(int codeSecret) {
-        // List<NonAbonne> list = nonAbonneRepository.getAll();
-        boolean b = false;
-        // for (NonAbonne abonne : list) {
-        //     if (abonne.getCodeSecret() == codeSecret) {
-        //         b = true;
-        //     }
-        // }
+        List<NonAbonne> list = nonAbonneRepository.getAll();
+         boolean b = false;
+         for (NonAbonne abonne : list) {
+             if (abonne.getCodeSecret() == codeSecret) {
+                b = true;
+           }
+         }
         return b;
     }
 
     // Abonne
     public String getAbonneAvecCode(int codeSecret) {
-        // List<Abonne> list = abonneRepository.getAll();
+        List<Abonne> list = abonneRepository.getAll();
         String str = "";
-        // for (Abonne abonne : list) {
-        //     if (abonne.getCodeSecret() == codeSecret) {
-        //         str = abonne.toString();
-        //     }
+        for (Abonne abonne : list) {
+            if (abonne.getCodeSecret() == codeSecret) {
+                str = abonne.toString();
+            }
 
-        // }
+        }
         return str;
     }
 
@@ -137,6 +137,18 @@ public class MenuUtilisateur {
         Date dateAbonnement;
         int codeSecret;
         String numeroCB;
+        
+        System.out.println("#########################################################");
+        System.out.println("  _____                     _       _   _              ");
+        System.out.println(" |_   _|                   (_)     | | (_)             ");
+        System.out.println("   | |  _ __  ___  ___ _ __ _ _ __ | |_ _  ___  _ __   ");
+        System.out.println("   | | | '_ \\/ __|/ __| '__| | '_ \\| __| |/ _ \\| '_ \\  ");
+        System.out.println("  _| |_| | | \\__ \\ (__| |  | | |_) | |_| | (_) | | | | ");
+        System.out.println(" |_____|_| |_|___/\\___|_|  |_| .__/ \\__|_|\\___/|_| |_| ");
+        System.out.println("                             | |                       ");
+        System.out.println("                             |_|                       ");
+        System.out.println("#########################################################");
+        System.out.println(" ");
 
         // *****Saisie du nom***** //
         System.out.println("Saisissez votre nom de Famille:");
@@ -214,9 +226,9 @@ public class MenuUtilisateur {
         nouvelleAbonne.setNumeroCB(numeroCB);
 
         // nouvelleAbonne dans la base de donnée
-        // entityManager.getTransaction().begin();
-        // abonneRepository.save(nouvelleAbonne);
-        // entityManager.getTransaction().commit();
+         entityManager.getTransaction().begin();
+         abonneRepository.save(nouvelleAbonne);
+         entityManager.getTransaction().commit();
 
     }
 
@@ -355,22 +367,51 @@ public class MenuUtilisateur {
     // 1 -> Velo.etatV = OK | HS
 
     public void mainMenu(){
+        System.out.println("-------- __@      __@       __@       __@      __~@ ");
+        System.out.println("----- _`\\<,_    _`\\<,_    _`\\<,_     _`\\<,_    _`\\<,_");
+        System.out.println("---- (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("        ##################################");
+        System.out.println("         \\ \\    / / |  __ (_)    | |   ");
+        System.out.println("          \\ \\ / /__| |__) |  ___| | __");
+        System.out.println("           \\ \\/ / _ \\  ___/ |/ __| |/ /");
+        System.out.println("            \\  /  __/ |   | | (__|   < ");
+        System.out.println("             \\/ \\___|_|   |_|\\___|_|\\_\\");
+        System.out.println("        ##################################");
+        System.out.println("-------- __@      __@       __@       __@      __~@ ");
+        System.out.println("----- _`\\<,_    _`\\<,_    _`\\<,_     _`\\<,_    _`\\<,_");
+        System.out.println("---- (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        int select = 5;
         
-        System.out.println("###################################");
-        System.out.println("__      __  _____ _      _    ");
-        System.out.println(" \\ \\    / / |  __ (_)    | |   ");
-        System.out.println("  \\ \\  / /__| |__)    ___| | __");
-        System.out.println("   \\ \\/ / _ \\  ___/ |/ __| |/ /");
-        System.out.println("    \\  /  __/ |   | | (__|   < ");
-        System.out.println("     \\/ \\___|_|   |_|\\___|_|\\_\\");
-        System.out.println("###################################");
-        
-        int select;
-        
-        
-        
-        
-        System.out.println("1:S'inscrire");
-    
+
+        while (select > 4){
+            System.out.println("Tapez un des numéros pour : ");    
+            System.out.println("1 - S'inscrire");
+            System.out.println("2 - S'identifier");
+            System.out.println("3 - Continuer sans connexion");
+            System.out.println("4 - Quitter l'application");
+            
+            select = LectureClavier.lireEntier("numéro:");
+        }
+
+        switch(select){
+            case 1: 
+                inscrire();
+                break;
+            case 2: 
+                identifier();
+                break;
+            case 3: 
+                continuerSanConnexion();
+                break;        
+            default:
+                break;
+        }
+
+        // emprunt
+        // rendre
+        // blabla
     }
 }
