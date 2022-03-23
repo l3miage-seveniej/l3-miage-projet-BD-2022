@@ -37,20 +37,6 @@ import fr.uga.im2ag.l3.miage.db.utils.LectureClavier;
 
 public class MenuUtilisateur {
 
-<<<<<<< HEAD
-    // RepositoryFactory daoFactory = new RepositoryFactory();
-    //      EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
-    //      StationRepository stationRepository =  daoFactory.newStationRepository(entityManager);
-    //      BornetteRepository bornetteRepository =  daoFactory.newBornetteRepository(entityManager);
-    //      AbonneRepository abonneRepository =  daoFactory.newAbonneRepository(entityManager);
-    //      VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
-    //      LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
-    //      NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
-
-
-
-    public  Date convertDate(String dateString) throws ParseException {
-=======
     RepositoryFactory daoFactory = new RepositoryFactory();
     EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
     StationRepository stationRepository = daoFactory.newStationRepository(entityManager);
@@ -61,7 +47,6 @@ public class MenuUtilisateur {
     NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
 
     public Date convertDate(String dateString) throws ParseException {
->>>>>>> eb6a01e205d833802e06ef6ce07ee2b0493c5afd
         return new Date(new SimpleDateFormat("yyyy-MM-dd").parse(dateString).getTime());
     }
 
@@ -90,28 +75,6 @@ public class MenuUtilisateur {
 
     public boolean contientCodeSecret(int codeSecret) {
         boolean b = false;
-<<<<<<< HEAD
-        // List<Abonne> list =  abonneRepository.getAll();
-        // for (Abonne abonne : list) {
-        //     if( abonne.getCodeSecret()== codeSecret){
-        //         b = true;
-        //     }
-        // }
-        return b;
-    }
-    //Abonne
-    public String contient (int codeSecret){
-         // List<Abonne> list =  abonneRepository.getAll();
-         String str="";
-         // for (Abonne abonne : list) {
-         //     if( abonne.getCodeSecret()== codeSecret){
-         //         str = abonne.toString();
-         // }
-            
-        // }
-        
-        return str; 
-=======
         List<Abonne> list = abonneRepository.getAll();
         for (Abonne abonne : list) {
             if (abonne.getCodeSecret() == codeSecret) {
@@ -129,26 +92,10 @@ public class MenuUtilisateur {
             if (abonne.getCodeSecret() == codeSecret) {
                 str = abonne.toString();
             }
->>>>>>> eb6a01e205d833802e06ef6ce07ee2b0493c5afd
 
         }
         return str;
     }
-<<<<<<< HEAD
-    //nonAbonne
-    public boolean contientCodeSecretBis (int codeSecret){
-    //     List<NonAbonne> list =  nonAbonneRepository.getAll();
-        boolean b = false;
-    //     for (NonAbonne abonne : list) {
-    //         if( abonne.getCodeSecret()== codeSecret){
-    //            b= true;
-    //     }
-            
-    //     }
-        
-        return b; 
-
-=======
 
     // nonAbonne
     public boolean contientCodeSecretBis(int codeSecret) {
@@ -160,7 +107,6 @@ public class MenuUtilisateur {
             }
         }
         return b;
->>>>>>> eb6a01e205d833802e06ef6ce07ee2b0493c5afd
     }
 
     // TODO: JONATHAN
@@ -373,16 +319,8 @@ public class MenuUtilisateur {
     // 2 -> calculCout()
 
     // TODO: Declaration Etat
-<<<<<<< HEAD
-        // Set l'etat du velo du client, lié par la location
-            // 1 -> Velo.etatV = OK | HS
-
-
-
-
-
-
-
+    // Set l'etat du velo du client, lié par la location
+    // 1 -> Velo.etatV = OK | HS
 
     public void mainMenu(){
         
@@ -394,43 +332,13 @@ public class MenuUtilisateur {
         System.out.println("    \\  /  __/ |   | | (__|   < ");
         System.out.println("     \\/ \\___|_|   |_|\\___|_|\\_\\");
         System.out.println("###################################");
+        //hufhufhf
     
-
+        
     
     }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
-=======
-    // Set l'etat du velo du client, lié par la location
-    // 1 -> Velo.etatV = OK | HS
 }
->>>>>>> eb6a01e205d833802e06ef6ce07ee2b0493c5afd
