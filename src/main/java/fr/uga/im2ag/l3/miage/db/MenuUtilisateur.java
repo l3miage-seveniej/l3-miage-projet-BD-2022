@@ -37,14 +37,14 @@ import fr.uga.im2ag.l3.miage.db.utils.LectureClavier;
 
 public class MenuUtilisateur {
 
-    RepositoryFactory daoFactory = new RepositoryFactory();
-    EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
-    StationRepository stationRepository = daoFactory.newStationRepository(entityManager);
-    BornetteRepository bornetteRepository = daoFactory.newBornetteRepository(entityManager);
-    AbonneRepository abonneRepository = daoFactory.newAbonneRepository(entityManager);
-    VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
-    LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
-    NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
+    // RepositoryFactory daoFactory = new RepositoryFactory();
+    // EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM").createEntityManager();
+    // StationRepository stationRepository = daoFactory.newStationRepository(entityManager);
+    // BornetteRepository bornetteRepository = daoFactory.newBornetteRepository(entityManager);
+    // AbonneRepository abonneRepository = daoFactory.newAbonneRepository(entityManager);
+    // VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
+    // LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
+    // NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
 
     public Date convertDate(String dateString) throws ParseException {
         return new Date(new SimpleDateFormat("yyyy-MM-dd").parse(dateString).getTime());
@@ -73,39 +73,44 @@ public class MenuUtilisateur {
         return matcher.matches();
     }
 
+    /*  Verifie que le code passe est dans la base des abonnees 
+    *
+    */
     public boolean contientCodeSecret(int codeSecret) {
         boolean b = false;
-        List<Abonne> list = abonneRepository.getAll();
-        for (Abonne abonne : list) {
-            if (abonne.getCodeSecret() == codeSecret) {
-                b = true;
-            }
-        }
+        // List<Abonne> list = abonneRepository.getAll();
+        // for (Abonne abonne : list) {
+        //     if (abonne.getCodeSecret() == codeSecret) {
+        //         b = true;
+        //     }
+        // }
         return b;
     }
 
     // Abonne
-    public String contient(int codeSecret) {
-        List<Abonne> list = abonneRepository.getAll();
+    public String getAbonneAvecCode(int codeSecret) {
+        // List<Abonne> list = abonneRepository.getAll();
         String str = "";
-        for (Abonne abonne : list) {
-            if (abonne.getCodeSecret() == codeSecret) {
-                str = abonne.toString();
-            }
+        // for (Abonne abonne : list) {
+        //     if (abonne.getCodeSecret() == codeSecret) {
+        //         str = abonne.toString();
+        //     }
 
-        }
+        // }
         return str;
     }
 
-    // nonAbonne
+    /*  Verifie que le code passe est dans la base des abonnees 
+    *
+    */
     public boolean contientCodeSecretBis(int codeSecret) {
-        List<NonAbonne> list = nonAbonneRepository.getAll();
+        // List<NonAbonne> list = nonAbonneRepository.getAll();
         boolean b = false;
-        for (NonAbonne abonne : list) {
-            if (abonne.getCodeSecret() == codeSecret) {
-                b = true;
-            }
-        }
+        // for (NonAbonne abonne : list) {
+        //     if (abonne.getCodeSecret() == codeSecret) {
+        //         b = true;
+        //     }
+        // }
         return b;
     }
 
@@ -185,7 +190,7 @@ public class MenuUtilisateur {
         System.out.println("Saisissez votre code secret   : ");
         codeSecret = LectureClavier.lireEntier("code lu:");
         while (contientCodeSecret(codeSecret) == true) {
-            codeSecret = LectureClavier.lireEntier(" code secret incorrect entrez un nouveau code :");
+            codeSecret = LectureClavier.lireEntier(" code secret déja existant ,entrez un nouveau code :");
         }
 
         // *****Saisie du numéro de carte bancaire****
@@ -214,11 +219,11 @@ public class MenuUtilisateur {
 
         System.out.println("Saisissez votre code secret afin de vous identifier : ");
         codeSecret = LectureClavier.lireEntier("code lu :");
-        while (contientCodeSecret(codeSecret) != true) {
+        while (!contientCodeSecret(codeSecret)) {
             System.out.println("votre code secret  ne correspond à aucun abonne veuillez resaisir à nouveau votre code secret: ");
             codeSecret = LectureClavier.lireEntier("code lu :");
         }
-        abonne = contient(codeSecret);
+        abonne = getAbonneAvecCode(codeSecret);
         System.out.println(" Bonjour " + abonne + ".");
     }
 
@@ -232,7 +237,7 @@ public class MenuUtilisateur {
 
         System.out.println("Saisissez un code secret    : ");
         codeSecret = LectureClavier.lireEntier("code :");
-        while (contientCodeSecretBis(codeSecret) == true) {
+        while (contientCodeSecretBis(codeSecret)) {
             codeSecret = LectureClavier.lireEntier("code déjà utilisé , entrez un nouveau code :");
         }
 
@@ -300,7 +305,7 @@ public class MenuUtilisateur {
             codeSecret = LectureClavier.lireEntier("Resaisissez votre code secret !");
         }
 
-        System.out.println((contient(codeSecret)));
+        System.out.println((getAbonneAvecCode(codeSecret)));
 
         // Afficher la liste des bornettes
         System.out.println("Choisir une des bornettes : ");
@@ -332,9 +337,13 @@ public class MenuUtilisateur {
         System.out.println("    \\  /  __/ |   | | (__|   < ");
         System.out.println("     \\/ \\___|_|   |_|\\___|_|\\_\\");
         System.out.println("###################################");
-        //hufhufhf
-    
         
+        int select;
+        
+        
+        
+        
+        System.out.println("1:S'inscrire");
     
     }
 
