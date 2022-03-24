@@ -278,7 +278,7 @@ public class MenuUtilisateur {
         System.out.println("Etes vous un abonné ou non ? (1 pour oui  2 pour non");
         select=LectureClavier.lireEntier("tapez le numéro :");
         
-        while(select != 1 || select !=2){
+        while(select > 2 || select <=0){
             select=LectureClavier.lireEntier("tapez le numéro 1 ou 2 !! :");
         }
 
