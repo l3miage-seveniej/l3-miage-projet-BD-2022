@@ -8,16 +8,26 @@ import fr.uga.im2ag.l3.miage.db.utils.LectureClavier;
 public class App {
 
     public static void main(String[] args) {
+        
+        System.out.println("##############################################");
+        System.out.println(" | _ \\_ _ ___ (_)___| |_  | _ )   \\|   \\ ");
+        System.out.println(" |  _/ '_/ _ \\| / -_)  _| | _ \\ |) | |) |");
+        System.out.println(" |_| |_| \\___// \\___|\\__| |___/___/|___/ ");
+        System.out.println("            |__/                         ");
+        System.out.println("##############################################");
+        System.out.println("");
         while(true){
             int choix = 0;
             while (choix <1 || choix >2){
                 choix = LectureClavier.lireEntier("Choisissez votre choix!\n1. Mode Client\n2. Mode Administrateur");
+                System.out.println("");
             }
 
             switch(choix){
                 case 1: 
                     MenuUtilisateur menu = new MenuUtilisateur();
-                    menu.choisirStation();
+                    
+                    menu.mainMenu();
                     break;
                 case 2:
                     System.out.println("");
