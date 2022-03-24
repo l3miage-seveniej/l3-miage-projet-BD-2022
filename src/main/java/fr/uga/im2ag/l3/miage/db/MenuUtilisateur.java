@@ -378,23 +378,25 @@ public class MenuUtilisateur {
         // Afficher la liste des bornettes :
         System.out.println("Choisir une des bornettes libres : ");
 
-        // Ici on parcours la liste des bornettes libres
+        // Ici on parcours la liste des bornettes avec des velo
         int index = 0;
-        List<Bornette> bornettes = new ArrayList<Bornette>();
+        List<Bornette> bornettesAvecVelo = new ArrayList<Bornette>();
         for (Bornette b : s.getBornettes()) {
-            if (b.getLibre()) {                                             // Si la bornette est libre
-                bornettes.add(b);
-                System.out.println(index + " - Bornette B" + (index));
+            if (!b.getLibre()) {                                             // Si la bornette est libre
+                bornettesAvecVelo.add(b);
+                System.out.println(""+index + " - Bornette B" + (index)+""+b.getVelo().getModele());
                 index++;
             }
         }
 
-        bornette = bornettes.get(LectureClavier.lireEntier(""));            // Prendre la bornette N
+        bornette = bornettesAvecVelo.get(LectureClavier.lireEntier(""));            // Prendre la bornette N
 
         Timestamp heureDebut = new Timestamp(System.currentTimeMillis());   // Heure courante
 
         location = new Location(heureDebut, c);                             // Nouvelle location avec l'heure courante et client c
-        location.addVelos(bornette.getVelo());                              // Rajout du velo de la bornette N
+        location.addVelos(bornette.getVelo());
+        bornette.getVelo().veloEstLoue(); 
+                                     
 
         c.addLocation(location);                                            // Rajout de la location au client
         
