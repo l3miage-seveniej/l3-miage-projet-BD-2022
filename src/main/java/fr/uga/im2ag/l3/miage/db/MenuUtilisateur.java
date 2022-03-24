@@ -500,10 +500,10 @@ public class MenuUtilisateur {
         }
 
         entityManager.getTransaction().begin();
-        stationRepository.save(s);
         locationRepository.save(location);
         veloRepository.save(veloChoisi);
         bornetteRepository.save(bornette);
+        stationRepository.save(s);
         entityManager.getTransaction().commit();
 
     }
