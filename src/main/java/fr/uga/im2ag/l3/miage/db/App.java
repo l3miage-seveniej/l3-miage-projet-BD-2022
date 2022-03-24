@@ -17,7 +17,8 @@ public class App {
             switch(choix){
                 case 1: 
                     MenuUtilisateur menu = new MenuUtilisateur();
-                    menu.choisirStation();
+                    
+                    menu.mainMenu();
                     break;
                 case 2:
                     System.out.println("");

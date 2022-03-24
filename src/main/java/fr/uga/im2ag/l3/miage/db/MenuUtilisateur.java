@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -285,12 +286,16 @@ public class MenuUtilisateur {
         NonAbonne a = null;
         int codeSecret;
         String numeroCB;
-
-        System.out.println("Saisissez un code secret    : ");
-        codeSecret = LectureClavier.lireEntier("code :");
+        Random random = new Random();
+        codeSecret = random.nextInt(100)*10;
+        
         while (contientCodeSecretNonAbonne(codeSecret)) {
-            codeSecret = LectureClavier.lireEntier("code déjà utilisé , entrez un nouveau code :");
+            codeSecret = random.nextInt(100)*100;
         }
+        
+        System.out.println("votre   code secret  est :"+codeSecret+" RETENEZ LE IMPERATIVEMENT");
+       
+       
 
         System.out.println("Saisissez votre numéro de carde bancaire : ");
         numeroCB = LectureClavier.lireChaine();
@@ -318,7 +323,7 @@ public class MenuUtilisateur {
                 // 2 -> set la Location du client égale la nouvelle location géneré
                 // 3 -> set heureDebut = now()
                 // 4 -> set heurefin = null
-    public void emprunt(Station S, Client c) {
+    public void emprunt(Station s, Client c) {
 
         // Scanner scanner = new Scanner(System.in);
 
@@ -349,24 +354,34 @@ public class MenuUtilisateur {
         // Fin Liste des Bornettes
         // codeSecret = scanner.nextLine();
 
-        System.out.println("Saisir votre code secret : ");
+        if( c instanceof Abonne){
         codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
         while (!contientCodeSecret(codeSecret)) {
+            System.out.println("Code secret inexistante! ");
+            System.out.println("Resaisissez votre codre secret!");
+
+            codeSecret = LectureClavier.lireEntier("");
+        }
+
+        System.out.println((getAbonneAvecCode(codeSecret)));
+    }else{
+
+        codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
+        while (!contientCodeSecretNonAbonne(codeSecret)) {
             System.out.println("Code secret inexistante! ");
             System.out.println("Resaisissez votre codre secret!");
 
             codeSecret = LectureClavier.lireEntier("Resaisissez votre code secret !");
         }
 
-        System.out.println((getAbonneAvecCode(codeSecret)));
-
+        }
         // Afficher la liste des bornettes :
         System.out.println("Choisir une des bornettes libres : ");
 
         // Ici on parcours la liste des bornettes libres
         int index = 0;
         List<Bornette> bornettes = new ArrayList<Bornette>();
-        for (Bornette b : S.getBornettes()) {
+        for (Bornette b : s.getBornettes()) {
             if (b.getLibre()) {                                             // Si la bornette est libre
                 bornettes.add(b);
                 System.out.println(index + " - Bornette B" + (index));
@@ -429,6 +444,7 @@ public class MenuUtilisateur {
             System.out.println("3 - Continuer sans connexion");
             System.out.println("4 - Quitter l'application");
             select = LectureClavier.lireEntier("numéro:");
+            System.out.println("");
 
         }while(select > 4 || select <=0);
 
@@ -441,11 +457,11 @@ public class MenuUtilisateur {
                 break;
             case 2: 
                 c = identifier();
-                //MenuClient(c);
+                menuClient(c);
                 break;
             case 3: 
-                continuerSanConnexion();
-                
+                c=continuerSanConnexion();
+                menuClient(c);
                 break;        
             default:
             System.out.println("aurevoir");
@@ -454,8 +470,48 @@ public class MenuUtilisateur {
                 break;
         }
 
-        // emprunt
-        // rendre
-        // blabla
+       
     }
+
+    public void menuClient(Client c){
+        int select;
+        Station s = null; 
+        do{
+
+            System.out.println("Tapez un des numéros pour : ");    
+            System.out.println("1 - Eprunter un velo ");
+            System.out.println("2 - Deposer un velo");
+            System.out.println("3- Revenir au menu principal");
+            select = LectureClavier.lireEntier("numéro:");
+            System.out.println("");
+
+        }while(select > 3 || select <=0);
+
+       
+
+        switch(select){
+            case 1: 
+                s = choisirStation();
+                emprunt(s, c);
+                menuClient(c);
+                break;
+            case 2: 
+                s = choisirStation();
+                //deposer(s,c)
+                menuClient(c);
+                break;
+            
+                              
+                     
+            default:
+            mainMenu();
+            
+                break;
+        }
+
+       
+
+    }
+
+
 }
