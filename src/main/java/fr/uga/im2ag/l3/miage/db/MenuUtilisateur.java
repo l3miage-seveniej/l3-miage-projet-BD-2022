@@ -497,6 +497,13 @@ public class MenuUtilisateur {
             System.out.println("LA LOCATION N'EST PAS FINI QUE SI VOUS AVEZ RENDU TOUS LES VELOS");
         }
 
+        entityManager.getTransaction().begin();
+        stationRepository.save(s);
+        locationRepository.save(location);
+        veloRepository.save(veloChoisi);
+        bornetteRepository.save(bornette);
+        entityManager.getTransaction().commit();
+
     }
 
     public void mainMenu(){
