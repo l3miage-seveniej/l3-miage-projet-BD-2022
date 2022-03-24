@@ -30,6 +30,18 @@ public class Abonne extends Client {
         setDateDebut(dateAbonnement);
     }
 
+    public Abonne(String nom, String prenom, Enums.sexe sexe, String adresse,
+        Date dateNaissance, Date dateAbonnement, int codeSecret) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.sexe = sexe;
+        this.adresse = adresse;
+        this.dateNaissance = dateNaissance;
+        this.dateAbonnement = dateAbonnement;
+        this.setCodeSecret(codeSecret);
+        setDateDebut(dateAbonnement);
+    }
+
     private String nom;
     private String prenom;
     
