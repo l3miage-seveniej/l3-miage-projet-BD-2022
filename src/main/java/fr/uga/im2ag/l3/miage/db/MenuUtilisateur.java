@@ -325,7 +325,7 @@ public class MenuUtilisateur {
                 // 4 -> set heurefin = null
     public void emprunt(Station s, Client c) {
 
-        // Scanner scanner = new Scanner(System.in);
+        
 
         int codeSecret;
         Bornette bornette;
