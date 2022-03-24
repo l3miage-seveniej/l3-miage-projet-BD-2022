@@ -325,34 +325,12 @@ public class MenuUtilisateur {
                 // 4 -> set heurefin = null
     public void emprunt(Station s, Client c) {
 
-        // Scanner scanner = new Scanner(System.in);
 
         int codeSecret;
         Bornette bornette;
         Location location;
 
-        // Liste des Bornettes
-        // Station station = new Station();
 
-        // Bornette b1 = new Bornette(Etat.OK, station);
-        // Bornette b2 = new Bornette(Etat.OK, station);
-        // Bornette b3 = new Bornette(Etat.HS, station);
-
-        // Velo v1 = new Velo(Modele.VTC, Etat.OK, Situation.EN_STATION, new Date(2020,
-        // 1, 1), b1);
-        // Velo v2 = new Velo(Modele.VTT, Etat.OK, Situation.EN_STATION, new Date(2020,
-        // 1, 4), b2);
-        // Velo v3 = new Velo(Modele.HOLLANDAIS, Etat.HS, Situation.EN_STATION, new
-        // Date(2020, 2, 9), b3);
-
-        // b1.setVelo(v1);
-        // b2.setVelo(v2);
-        // b3.setVelo(v3);
-
-        // station.setBornettes(Arrays.asList(b1, b2, b3));
-
-        // Fin Liste des Bornettes
-        // codeSecret = scanner.nextLine();
 
         if( c instanceof Abonne){
         codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
@@ -393,7 +371,7 @@ public class MenuUtilisateur {
 
         Timestamp heureDebut = new Timestamp(System.currentTimeMillis());   // Heure courante
 
-        location = new Location(heureDebut, c); 
+        location = new Location(heureDebut, c, s); 
         Velo v = bornette.getVelo();                            // Nouvelle location avec l'heure courante et client c
         location.addVelos(v);
         
@@ -498,15 +476,16 @@ public class MenuUtilisateur {
         Bornette bornette = choisirBornetteLibre(s);
 
         veloChoisi.veloEstRendu(bornette);
-        location.removeVelo(veloChoisi);
+        
 
-        if (location.getVelos().size() == 0) {
-            Timestamp heureFin = new Timestamp(System.currentTimeMillis()); // Heure courante
-            location.endLocation(s, heureFin);
-        } else{
-            System.out.println("ATTENTION VOTRE LOCATION EST TOUJOURS EN COURS");
-            System.out.println("LA LOCATION N'EST PAS FINI QUE SI VOUS AVEZ RENDU TOUS LES VELOS");
-        }
+        
+        Timestamp heureFin = new Timestamp(System.currentTimeMillis()); // Heure courante
+        
+        location.endLocation(s, heureFin, veloChoisi);
+        
+         
+        
+        
 
         entityManager.getTransaction().begin();
         locationRepository.save(location);
@@ -604,7 +583,7 @@ public class MenuUtilisateur {
                 break;
             case 2: 
                 s = choisirStation();
-                //deposer(s,c)
+                deposer(s,c);
                 menuClient(c);
                 break;
             

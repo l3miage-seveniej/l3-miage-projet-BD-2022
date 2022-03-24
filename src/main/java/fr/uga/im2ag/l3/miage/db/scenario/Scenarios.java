@@ -111,7 +111,7 @@ public class Scenarios {
         Bornette BRetour = new Bornette(Enums.Etat.OK, R);
 
         // L. Il a rendu le vélo après 54 minutes
-        l.endLocation(R, new Timestamp((currentTime.getTime() + (54 * 60 * 1000))));
+        l.endLocation(R, new Timestamp((currentTime.getTime() + (54 * 60 * 1000))),v1);
 
         BRetour.setVelo(v1);
 
@@ -215,7 +215,7 @@ public class Scenarios {
         Bornette BRetour2 = new Bornette(Enums.Etat.OK, R1);
 
         // L. Il a rendu le vélo après 54 minutes
-        l1.endLocation(R1, new Timestamp((currentTime.getTime() + (50 * 60 * 1000))));
+        l1.endLocation(R1, new Timestamp((currentTime.getTime() + (50 * 60 * 1000))), v2);
 
         // le client retourne les deux vélos aux deux bornes libres.
         BRetour1.setVelo(v1);
