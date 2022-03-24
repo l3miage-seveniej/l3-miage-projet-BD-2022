@@ -143,7 +143,16 @@ public class MenuUtilisateur {
         }
         return a;
     }
-
+    public NonAbonne getNonAbonneAvecCode(int codeSecret) {
+        List<NonAbonne> list = nonAbonneRepository.getAll();
+        NonAbonne a = null;
+        for (NonAbonne nonAbonne : list) {
+            if (nonAbonne.getCodeSecret() == codeSecret) {
+                a = nonAbonne;
+            }
+        }
+        return a;
+    }
     // TODO: JONATHAN
     public void inscrire() {
 
@@ -253,10 +262,10 @@ public class MenuUtilisateur {
 
     // Identifier
 
-    public Abonne identifier() {
-
+    public Client identifier() {
+        int select;
         int codeSecret;
-        Abonne abonne;
+        Client c = null;
         String abonneToStr = "";
         
         System.out.println("################################################################");
@@ -266,19 +275,40 @@ public class MenuUtilisateur {
         System.out.println(" |___\\__,_|\\___|_| |_|\\__|_|_| |_|\\___\\__,_|\\__|_|\\___/|_| |_|");
         System.out.println("################################################################");
         
+        System.out.println("Etes vous un abonné ou non ? (1 pour oui  2 pour non");
+        select=LectureClavier.lireEntier("tapez le numéro :");
+        
+        while(select != 1 || select !=2){
+            select=LectureClavier.lireEntier("tapez le numéro 1 ou 2 !! :");
+        }
+
+        if(select == 1){
+
+        
         System.out.println("Saisissez votre code secret afin de vous identifier : ");
         codeSecret = LectureClavier.lireEntier("code lu :");
         while (!contientCodeSecret(codeSecret)) {
             System.out.println("votre code secret  ne correspond à aucun abonne veuillez resaisir à nouveau votre code secret: ");
             codeSecret = LectureClavier.lireEntier("code lu :");
         }
-        abonne = getAbonneAvecCode(codeSecret);
+        c = getAbonneAvecCode(codeSecret);
         abonneToStr = getAbonneAvecCode(codeSecret).toString();
         System.out.println(" Bonjour " + abonneToStr + ".");
+        }else{
 
-        return abonne;
+            System.out.println("Saisissez votre code secret afin de vous identifier : ");
+            codeSecret = LectureClavier.lireEntier("code lu :");
+            while (!contientCodeSecretNonAbonne(codeSecret)) {
+                System.out.println("votre code secret  ne correspond à aucun NonAbonne veuillez resaisir à nouveau votre code secret: ");
+                codeSecret = LectureClavier.lireEntier("code lu :");
+
+        }
+        c = getNonAbonneAvecCode(codeSecret);
+       
     }
+    return c;
 
+}
     // Continuer sans connexion
 
     public NonAbonne continuerSanConnexion() {
@@ -336,7 +366,7 @@ public class MenuUtilisateur {
         if( c instanceof Abonne){
         codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
         while (!contientCodeSecret(codeSecret)) {
-            System.out.println("Code secret inexistante! ");
+            System.out.println("Code secret inexistante! il ne correspond à aucun abonné ");
             System.out.println("Resaisissez votre codre secret!");
 
             codeSecret = LectureClavier.lireEntier("");
@@ -347,7 +377,7 @@ public class MenuUtilisateur {
 
         codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
         while (!contientCodeSecretNonAbonne(codeSecret)) {
-            System.out.println("Code secret inexistante! ");
+            System.out.println("Code secret inexistante! il ne correspond à aucun NonAbonné ");
             System.out.println("Resaisissez votre codre secret!");
 
             codeSecret = LectureClavier.lireEntier("Resaisissez votre code secret !");
@@ -355,7 +385,7 @@ public class MenuUtilisateur {
 
         }
         // Afficher la liste des bornettes :
-        System.out.println("Choisir une des bornettes libres : ");
+        System.out.println("Choisir une des bornettes possédant un vélo  : ");
 
         // Ici on parcours la liste des bornettes avec des velo
         int index = 0;
