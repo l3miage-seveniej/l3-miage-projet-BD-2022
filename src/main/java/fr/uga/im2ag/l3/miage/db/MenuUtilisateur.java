@@ -393,12 +393,21 @@ public class MenuUtilisateur {
 
         Timestamp heureDebut = new Timestamp(System.currentTimeMillis());   // Heure courante
 
-        location = new Location(heureDebut, c);                             // Nouvelle location avec l'heure courante et client c
-        location.addVelos(bornette.getVelo());
-        bornette.getVelo().veloEstLoue(); 
+        location = new Location(heureDebut, c); 
+        Velo v = bornette.getVelo();                            // Nouvelle location avec l'heure courante et client c
+        location.addVelos(v);
+        
+        v.veloEstLoue(); 
                                      
 
         c.addLocation(location);                                            // Rajout de la location au client
+        entityManager.getTransaction().begin();
+        locationRepository.save(location);
+        veloRepository.save(v);
+        bornetteRepository.save(bornette);
+        stationRepository.save(s);
+        entityManager.getTransaction().commit();
+
         
     }
 
