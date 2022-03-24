@@ -432,6 +432,7 @@ public class MenuUtilisateur {
         System.out.println("----- _`\\<,_    _`\\<,_    _`\\<,_     _`\\<,_    _`\\<,_");
         System.out.println("---- (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("");
         
         
         
