@@ -70,6 +70,10 @@ public class Location {
         
     }
 
+    public void removeVelo(Velo velo){
+        this.velos.remove(velo);
+    }
+
     public Client getClient() {
         return client;
     }

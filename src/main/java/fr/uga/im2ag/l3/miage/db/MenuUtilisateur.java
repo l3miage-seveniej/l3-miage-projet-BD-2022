@@ -413,6 +413,94 @@ public class MenuUtilisateur {
     // Set l'etat du velo du client, lié par la location
     // 1 -> Velo.etatV = OK | HS
 
+     Velo choisirVeloEnLocation(Client c, Location l){
+        
+        Location locationClient = l;
+
+        // afficher la liste des velos en location
+        int compteur = 0;
+        for(Velo velo : locationClient.getVelos()){
+            System.out.println(compteur + ". Velo numero" + velo.getNumero() + " de modèle " + velo.getModele());
+        }
+
+        int choixVelo;
+        do{
+            choixVelo = LectureClavier.lireEntier("Saisissez votre choix!");
+        }while(choixVelo<0 || choixVelo > locationClient.getVelos().size());
+
+        // disclaimer for client
+        if(locationClient.getVelos().size()-1>0){
+            System.out.println("Il vous reste "  + locationClient.getVelos().size() + " velos à rendre!");
+            System.out.println("La location ne s'arret pas jusqu'à vous avez rendu tous les velos loués!");
+        }
+
+        return locationClient.getVelos().get(choixVelo);
+    }
+
+    Bornette choisirBornetteLibre(Station s){
+        Bornette bornette;
+        int index = 0;
+        List<Bornette> bornettes = new ArrayList<Bornette>();
+        for (Bornette b : s.getBornettes()) {
+            if (b.getLibre()) {                                             // Si la bornette est libre
+                bornettes.add(b);
+                System.out.println(index + " - Bornette B" + (index));
+                index++;
+            }
+        }
+
+        bornette = bornettes.get(LectureClavier.lireEntier(""));            // Prendre la bornette N
+
+        return bornette;
+    }
+
+    Location findLocationPasFini(Client c){
+
+        List<Location> listLocationsClient = c.getLocations();
+        Location locationClient=null;
+        for(Location location : listLocationsClient){
+            if(location.getVelos().size()>0){
+                locationClient = location ;
+                break;
+            }
+        }
+
+        return locationClient;
+
+    }
+
+    void deposer(Station s, Client c) {
+        int codeSecret = LectureClavier.lireEntier("veuillez saisir votre code secret!");
+        if (c instanceof Abonne) {
+            while (!contientCodeSecret(codeSecret)) {
+                LectureClavier.lireEntier("veuillez saisir votre code secret!");
+            }
+        } else {
+            while (!contientCodeSecretNonAbonne(codeSecret)) {
+                LectureClavier.lireEntier("veuillez saisir votre code secret!");
+            }
+        }
+
+        // choisir les velos en location
+        Location location = findLocationPasFini(c);
+        Velo veloChoisi = choisirVeloEnLocation(c, location);
+
+        // Ici on parcours la liste des bornettes libres
+        Bornette bornette = choisirBornetteLibre(s);
+
+        veloChoisi.veloEstRendu(bornette);
+        location.removeVelo(veloChoisi);
+
+        if (location.getVelos().size() == 0) {
+            Timestamp heureFin = new Timestamp(System.currentTimeMillis()); // Heure courante
+            location.endLocation(s, heureFin);
+        } else{
+            System.out.println("ATTENTION VOTRE LOCATION EST TOUJOURS EN COURS");
+            System.out.println("LA LOCATION N'EST PAS FINI QUE SI VOUS AVEZ RENDU TOUS LES VELOS");
+        }
+
+    }
+
     public void mainMenu(){
         
         int select;
