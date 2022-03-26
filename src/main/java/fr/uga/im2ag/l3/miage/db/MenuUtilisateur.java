@@ -84,36 +84,62 @@ public class MenuUtilisateur {
         int i = 0;
         while (stationChoisi == null) {
             i = 0;
-            for (Station station : ListStation) {                                                           // On parcours la liste des stations
+            for (Station station : ListStation) { // On parcours la liste des stations
                 System.out.println("choisissez un station!");
 
-                if (estEmprunt) {                                                                           // EMPRUNT
-                    if (!station.stationOK()) {                                                             // On verifie que la station est OK
+                if (estEmprunt) { // EMPRUNT
+                    if (!station.stationOK()) { // On verifie que la station est OK
                         System.out.println(i + " - " + station.getAdresse() + " (*AUCUN VELO DISPONIBLE*)");
-                        
+
                     } else {
-                        System.out.println(i + " - " + station.getAdresse());                               // On affiche chaque station
+                        System.out.println(i + " - " + station.getAdresse()); // On affiche chaque station
                     }
-                }
-                else {                                                                                      // DEPOT
+                } else { // DEPOT
                     if (station.contientPlaceLibre()) {
-                        System.out.println(i + " - " + station.getAdresse() + " (*PLACES DISPONIBLES*)");   // On affiche les stations avec des places disponibles
+                        System.out.println(i + " - " + station.getAdresse() + " (*PLACES DISPONIBLES*)"); // On affiche
+                                                                                                          // les
+                                                                                                          // stations
+                                                                                                          // avec des
+                                                                                                          // places
+                                                                                                          // disponibles
                     } else {
-                        System.out.println(i + " - " + station.getAdresse());                               // On affiche chaque station
+                        System.out.println(i + " - " + station.getAdresse()); // On affiche chaque station
                     }
                 }
                 i++;
             }
 
             choix = LectureClavier.lireEntier("");
-            if (estEmprunt) {                                                                                                   // EMPRUNT
+            if (estEmprunt) { // EMPRUNT
                 while (choix > ListStation.size() - 1 || choix < 0 || !ListStation.get(choix).stationOK()) {
-                   choix = LectureClavier.lireEntier("Tappez un numéro de station valide et avec des vélos disponibles !");     // Si la station n'est pas OK on affiche la message d'erreur
+                    choix = LectureClavier
+                            .lireEntier("Tappez un numéro de station valide et avec des vélos disponibles !"); // Si la
+                                                                                                               // station
+                                                                                                               // n'est
+                                                                                                               // pas OK
+                                                                                                               // on
+                                                                                                               // affiche
+                                                                                                               // la
+                                                                                                               // message
+                                                                                                               // d'erreur
                 }
-            }
-            else {                                                                                                              // DEPOT
+            } else { // DEPOT
                 while (choix > ListStation.size() - 1 || choix < 0 || !ListStation.get(choix).contientPlaceLibre()) {
-                    choix = LectureClavier.lireEntier("Tappez un numéro de station valide et avec des places libres !");        // Si la station ne contient pas des places libres on affiche une message de warning
+                    choix = LectureClavier.lireEntier("Tappez un numéro de station valide et avec des places libres !"); // Si
+                                                                                                                         // la
+                                                                                                                         // station
+                                                                                                                         // ne
+                                                                                                                         // contient
+                                                                                                                         // pas
+                                                                                                                         // des
+                                                                                                                         // places
+                                                                                                                         // libres
+                                                                                                                         // on
+                                                                                                                         // affiche
+                                                                                                                         // une
+                                                                                                                         // message
+                                                                                                                         // de
+                                                                                                                         // warning
                 }
             }
             stationChoisi = ListStation.get(choix);
@@ -460,28 +486,31 @@ public class MenuUtilisateur {
     // Set l'etat du velo du client, lié par la location
     // 1 -> Velo.etatV = OK | HS
 
-    Velo choisirVeloEnLocation(Client c, Location l) {
+    Velo choisirVeloEnLocation(Client c) {
 
-        Location locationClient = l;
+        List<Location> listeLocations = c.getLocations();
 
         // afficher la liste des velos en location
         int compteur = 0;
-        for (Velo velo : locationClient.getVelos()) {
+        int indexLocation = 0;
+        for (Location location : listeLocations) {
+            if (location.getHeureFin() == null) { // Location toujours valable
+                // Velo velo
+                break;
+            }
+            indexLocation++;
+        }
+        for (Velo velo : listeLocations.get(indexLocation).getVelos()) {
             System.out.println(compteur + ". Velo numero" + velo.getNumero() + " de modèle " + velo.getModele());
+            compteur++;
         }
 
         int choixVelo;
         do {
             choixVelo = LectureClavier.lireEntier("Saisissez votre choix!");
-        } while (choixVelo < 0 || choixVelo > locationClient.getVelos().size());
+        } while (choixVelo < 0 || choixVelo > compteur);
 
-        // disclaimer for client
-        if (locationClient.getVelos().size() - 1 > 0) {
-            System.out.println("Il vous reste " + locationClient.getVelos().size() + " velos à rendre!");
-            System.out.println("La location ne s'arret pas jusqu'à vous avez rendu tous les velos loués!");
-        }
-
-        return locationClient.getVelos().get(choixVelo);
+        return listeLocations.get(indexLocation).getVelos().get(choixVelo);
     }
 
     Bornette choisirBornetteLibre(Station s) {
@@ -530,7 +559,7 @@ public class MenuUtilisateur {
 
         // choisir les velos en location
         Location location = findLocationPasFini(c);
-        Velo veloChoisi = choisirVeloEnLocation(c, location);
+        Velo veloChoisi = choisirVeloEnLocation(c);
 
         // Ici on parcours la liste des bornettes libres
         Bornette bornette = choisirBornetteLibre(s);
@@ -549,7 +578,12 @@ public class MenuUtilisateur {
 
     }
 
-    // void declarerEtatVelo()
+    void declarerEtatVelo(Velo v) {
+
+        System.out.println("Quel est l'etat du vélo ?");
+        LectureClavier.lireEntier("1 - Bon état\n2 - Mauvais état");
+
+    }
 
     public void mainMenu() {
 
