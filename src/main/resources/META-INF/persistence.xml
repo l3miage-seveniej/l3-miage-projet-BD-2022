@@ -13,25 +13,33 @@
         <class>fr.uga.im2ag.l3.miage.db.model.Velo</class>
         <class>fr.uga.im2ag.l3.miage.db.model.NonAbonne</class>
         <class>fr.uga.im2ag.l3.miage.db.model.Creneau</class>
+        <class>fr.uga.im2ag.l3.miage.db.utils.LectureClavier</class>
+        <class>fr.uga.im2ag.l3.miage.db.scenario.Scenarios</class>
         
 
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/projetBD"/>
+            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/projetBD"/>
             <property name="javax.persistence.jdbc.user" value="root" />
             <property name="javax.persistence.jdbc.password" value="1512" />
-            <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver" /> -->
 
-            <!-- <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag" />
-            <property name="javax.persistence.jdbc.user" value="wicaksop" />
-            <property name="javax.persistence.jdbc.password" value="859b65abbf" />
-            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" /> -->
 
-            <property name="hibernate.show_sql" value="true" />
-            <property name="format_sql" value="true" />
-            <property name="use_sql_comments" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            
+            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag" />
+            <!-- <property name="javax.persistence.jdbc.user" value="wicaksop" />
+            <property name="javax.persistence.jdbc.password" value="859b65abbf" /> -->
+
+            <property name="javax.persistence.jdbc.user" value="seveniej" />
+            <property name="javax.persistence.jdbc.password" value="14cab8c9fd" />
+
+            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
+
+            <!-- <property name="hibernate.show_sql" value="true" /> -->
+            <!-- <property name="format_sql" value="true" /> -->
+            <!-- <property name="use_sql_comments" value="true" /> -->
+            <!-- <property name="hibernate.hbm2ddl.auto" value="create-drop"/> -->
             <!-- <property name="hibernate.connection.provider_disables_autocommit" value="true" /> -->
-            <!-- <property name="hibernate.hbm2ddl.auto" value="validate" /> -->
+            <property name="hibernate.hbm2ddl.auto" value="validate" />
             
         </properties>
 

@@ -61,4 +61,8 @@ public abstract class Client {
         locations.add(l);
     }
 
+    public List<Location> getLocations() {
+        return locations;
+    }    
+
 }

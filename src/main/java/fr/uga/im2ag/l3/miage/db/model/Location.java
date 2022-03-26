@@ -23,6 +23,13 @@ public class Location {
         this.velos = new  ArrayList<Velo>();
     }
 
+    public Location(Timestamp heureDebut, Client client, Station sDepart) {
+        this.heureDebut = heureDebut;
+        this.client = client;
+        this.stationDepart = sDepart;
+        this.velos = new  ArrayList<Velo>();
+    }
+
     @Id
     @GeneratedValue
     private int idLoc;
@@ -40,12 +47,8 @@ public class Location {
     @ManyToMany
     private List<Velo> velos;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Client.class)
     private Client client;
-
-    // private Station stationDepart;
-
-    // private Station stationArrivee;
 
     public int getIdLoc() {
         return idLoc;
@@ -67,6 +70,10 @@ public class Location {
         this.velos.add(velo);
         velo.setSituation(Situation.EN_LOCATION);
         
+    }
+
+    public void removeVelo(Velo velo){
+        this.velos.remove(velo);
     }
 
     public Client getClient() {
@@ -142,23 +149,38 @@ public class Location {
         }
     }
 
-    public void endLocation(Station s, Timestamp ...t){
+    public void endLocation(Station s, Timestamp t, Velo v){
+
+
+
         setStationArrivee(s);
-        if(t == null){
-            setHeureFin(new Timestamp(System.currentTimeMillis()));
+        System.out.println(this.getVelos());
+
+        if(this.getVelos().size()-1 != 0){
+            System.out.println("ATTENTION VOTRE LOCATION EST TOUJOURS EN COURS");
+            System.out.println("LA LOCATION N'EST PAS FINI QUE SI VOUS AVEZ RENDU TOUS LES VELOS");
         } else {
-            setHeureFin(t[0]);
+
+                setHeureFin(t);
+            
+            
+            for(Velo velo  : this.getVelos()){
+                calculerCout(velo);
+            }
         }
 
-        getVelos().forEach(e -> {
-            calculerCout(e);
-        });
+        this.removeVelo(v);
+
+        
+       
+
+
     }
 
     public void calculerCout(Velo velo) {
         // Calculer le temps de location
-        int minute = 1000 * 60;        
-        float minutes = (heureFin.getTime() - heureDebut.getTime()) / minute;
+        float minute = 1000 * 60;        
+        float minutes = (this.heureFin.getTime() - this.heureDebut.getTime()) / minute;
         
         // Recuperer le €/min du velo
         int valeurV = velo.getModele().getValeur();
@@ -170,7 +192,7 @@ public class Location {
             cout = cout * 0.7f;         // Réduction de 30%
         }
 
-        setCout(cout);
+        this.setCout(cout);
     }
 
     @Override

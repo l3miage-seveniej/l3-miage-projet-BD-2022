@@ -6,12 +6,14 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "Abonne")
 @DiscriminatorValue("Abonne")
+@NamedQuery(name = "Abonne.getAll", query="Select A from Abonne A")
 public class Abonne extends Client {
 
     public Abonne() {
@@ -25,6 +27,18 @@ public class Abonne extends Client {
         this.adresse = adresse;
         this.dateNaissance = dateNaissance;
         this.dateAbonnement = dateAbonnement;
+        setDateDebut(dateAbonnement);
+    }
+
+    public Abonne(String nom, String prenom, Enums.sexe sexe, String adresse,
+        Date dateNaissance, Date dateAbonnement, int codeSecret) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.sexe = sexe;
+        this.adresse = adresse;
+        this.dateNaissance = dateNaissance;
+        this.dateAbonnement = dateAbonnement;
+        this.setCodeSecret(codeSecret);
         setDateDebut(dateAbonnement);
     }
 

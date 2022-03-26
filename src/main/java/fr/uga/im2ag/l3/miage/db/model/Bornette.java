@@ -1,5 +1,6 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,7 +8,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -16,6 +18,11 @@ import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
 
 @Entity
 @Table(name = "BORNETTE")
+@NamedQueries({
+    @NamedQuery(name="Bornette.getAll", query="Select B from Bornette B"),
+    @NamedQuery(name="Bornette.findBornetteByStation", query="Select B from Bornette B where station_idStation=:idStation")
+
+})
 public class Bornette {
 
     public Bornette() {
@@ -39,7 +46,7 @@ public class Bornette {
     @ManyToOne(targetEntity = Station.class)
     private Station station;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Velo velo;
 
 
