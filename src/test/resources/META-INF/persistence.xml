@@ -33,6 +33,7 @@
             <property name="hibernate.hbm2ddl.auto" value="create-drop" />
             <property name="format_sql" value="true" />
             <property name="use_sql_comments" value="true" />
+            <property name="org.hibernate.dialect.Dialect" value="org.hibernate.dialect.Oracle12cDialect" />
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate" /> -->
             
 

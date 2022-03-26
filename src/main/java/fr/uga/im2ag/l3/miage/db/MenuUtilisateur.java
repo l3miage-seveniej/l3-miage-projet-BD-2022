@@ -76,33 +76,59 @@ public class MenuUtilisateur {
         return matcher.matches();
     }
 
-    public Station choisirStation(){
+    public Station choisirStation(boolean estEmprunt) {
         List<Station> ListStation = stationRepository.getAll();
+
         int choix;
         Station stationChoisi = null;
-        int i= 0;
-        while(stationChoisi == null){
-            i=0;
-            for(Station station: ListStation){
+        int i = 0;
+        while (stationChoisi == null) {
+            i = 0;
+            for (Station station : ListStation) {                                                           // On parcours la liste des stations
                 System.out.println("choisissez un station!");
-                System.out.println(i + ". " + station.getAdresse());
+
+                if (estEmprunt) {                                                                           // EMPRUNT
+                    if (!station.stationOK()) {                                                             // On verifie que la station est OK
+                        System.out.println(i + " - " + station.getAdresse() + " (*AUCUN VELO DISPONIBLE*)");
+                        
+                    } else {
+                        System.out.println(i + " - " + station.getAdresse());                               // On affiche chaque station
+                    }
+                }
+                else {                                                                                      // DEPOT
+                    if (station.contientPlaceLibre()) {
+                        System.out.println(i + " - " + station.getAdresse() + " (*PLACES DISPONIBLES*)");   // On affiche les stations avec des places disponibles
+                    } else {
+                        System.out.println(i + " - " + station.getAdresse());                               // On affiche chaque station
+                    }
+                }
                 i++;
             }
+
             choix = LectureClavier.lireEntier("");
-            if(ListStation.get(choix) != null){
-                stationChoisi = ListStation.get(choix);
+            if (estEmprunt) {                                                                                                   // EMPRUNT
+                while (choix > ListStation.size() - 1 || choix < 0 || !ListStation.get(choix).stationOK()) {
+                   choix = LectureClavier.lireEntier("Tappez un numéro de station valide et avec des vélos disponibles !");     // Si la station n'est pas OK on affiche la message d'erreur
+                }
             }
+            else {                                                                                                              // DEPOT
+                while (choix > ListStation.size() - 1 || choix < 0 || !ListStation.get(choix).contientPlaceLibre()) {
+                    choix = LectureClavier.lireEntier("Tappez un numéro de station valide et avec des places libres !");        // Si la station ne contient pas des places libres on affiche une message de warning
+                }
+            }
+            stationChoisi = ListStation.get(choix);
         }
         return stationChoisi;
     }
 
-    /*  
-    * Verifie que le code passe est dans la base des abonnees
-    *
-    * @return <code>true</code> si codeSecret est dans la base des donnees des abonnees
-    *
-    * @param codeSecret
-    */
+    /*
+     * Verifie que le code passe est dans la base des abonnees
+     *
+     * @return <code>true</code> si codeSecret est dans la base des donnees des
+     * abonnees
+     *
+     * @param codeSecret
+     */
     public boolean contientCodeSecret(int codeSecret) {
         boolean b = false;
         List<Abonne> list = abonneRepository.getAll();
@@ -114,21 +140,22 @@ public class MenuUtilisateur {
         return b;
     }
 
-    /*  
-    * Verifie que le code passe est dans la base des non abonnees
-    *
-    * @return <code>true</code> si codeSecret est dans la base des donnees des abonnees
-    *
-    * @param codeSecret
-    */
+    /*
+     * Verifie que le code passe est dans la base des non abonnees
+     *
+     * @return <code>true</code> si codeSecret est dans la base des donnees des
+     * abonnees
+     *
+     * @param codeSecret
+     */
     public boolean contientCodeSecretNonAbonne(int codeSecret) {
         List<NonAbonne> list = nonAbonneRepository.getAll();
-         boolean b = false;
-         for (NonAbonne abonne : list) {
-             if (abonne.getCodeSecret() == codeSecret) {
+        boolean b = false;
+        for (NonAbonne abonne : list) {
+            if (abonne.getCodeSecret() == codeSecret) {
                 b = true;
-           }
-         }
+            }
+        }
         return b;
     }
 
@@ -143,6 +170,7 @@ public class MenuUtilisateur {
         }
         return a;
     }
+
     public NonAbonne getNonAbonneAvecCode(int codeSecret) {
         List<NonAbonne> list = nonAbonneRepository.getAll();
         NonAbonne a = null;
@@ -153,8 +181,9 @@ public class MenuUtilisateur {
         }
         return a;
     }
+
     // TODO: JONATHAN
-    public void inscrire() {
+    public void abonner() {
 
         // *****Paramètre à saisir******//
         Abonne nouvelleAbonne;
@@ -166,7 +195,7 @@ public class MenuUtilisateur {
         Date dateAbonnement;
         int codeSecret;
         String numeroCB;
-        
+
         System.out.println("#########################################################");
         System.out.println(" |_   _|                   (_)     | | (_)             ");
         System.out.println("   | |  _ __  ___  ___ _ __ _ _ __ | |_ _  ___  _ __   ");
@@ -254,9 +283,9 @@ public class MenuUtilisateur {
         nouvelleAbonne.setNumeroCB(numeroCB);
 
         // nouvelleAbonne dans la base de donnée
-         entityManager.getTransaction().begin();
-         abonneRepository.save(nouvelleAbonne);
-         entityManager.getTransaction().commit();
+        entityManager.getTransaction().begin();
+        abonneRepository.save(nouvelleAbonne);
+        entityManager.getTransaction().commit();
 
     }
 
@@ -267,48 +296,56 @@ public class MenuUtilisateur {
         int codeSecret;
         Client c = null;
         String abonneToStr = "";
-        
+
         System.out.println("################################################################");
         System.out.println(" |_ _|__| | ___ _ __ | |_(_)/ _(_) ___ __ _| |_(_) ___  _ __  ");
         System.out.println("  | |/ _` |/ _ \\ '_ \\| __| | |_| |/ __/ _` | __| |/ _ \\| '_ \\ ");
         System.out.println("  | | (_| |  __/ | | | |_| |  _| | (_| (_| | |_| | (_) | | | |");
         System.out.println(" |___\\__,_|\\___|_| |_|\\__|_|_| |_|\\___\\__,_|\\__|_|\\___/|_| |_|");
         System.out.println("################################################################");
-        
-        System.out.println("Etes vous un abonné ou non ? (1 pour oui  2 pour non");
-        select=LectureClavier.lireEntier("tapez le numéro :");
-        
-        while(select > 2 || select <=0){
-            select=LectureClavier.lireEntier("tapez le numéro 1 ou 2 !! :");
+
+        // CHOISIR ABONNE OU NON ABONNE
+        System.out.println("Tappez 1 si vous êtes abonnés, 2 sinon :");
+        select = 0;
+
+        while (select > 2 || select <= 0) {
+            select = LectureClavier.lireEntier("** Tappez 1 si vous êtes abonnés, 2 sinon **");
         }
 
-        if(select == 1){
-
-        
-        System.out.println("Saisissez votre code secret afin de vous identifier : ");
-        codeSecret = LectureClavier.lireEntier("code lu :");
-        while (!contientCodeSecret(codeSecret)) {
-            System.out.println("votre code secret  ne correspond à aucun abonne veuillez resaisir à nouveau votre code secret: ");
-            codeSecret = LectureClavier.lireEntier("code lu :");
-        }
-        c = getAbonneAvecCode(codeSecret);
-        abonneToStr = getAbonneAvecCode(codeSecret).toString();
-        System.out.println(" Bonjour " + abonneToStr + ".");
-        }else{
-
+        // ABONNE
+        if (select == 1) {
             System.out.println("Saisissez votre code secret afin de vous identifier : ");
-            codeSecret = LectureClavier.lireEntier("code lu :");
+            codeSecret = LectureClavier.lireEntier("Code lu :");
+            while (!contientCodeSecret(codeSecret)) {
+                System.out.println(
+                        "Votre code secret  ne correspond à aucun abonne veuillez resaisir à nouveau votre code secret (tappez -1 pour retourner au menu principale): ");
+                codeSecret = LectureClavier.lireEntier("Code lu :");
+                if (codeSecret == -1) {
+                    mainMenu();
+                }
+            }
+            c = getAbonneAvecCode(codeSecret);
+            abonneToStr = getAbonneAvecCode(codeSecret).toString();
+            System.out.println(" Bonjour " + abonneToStr + ".");
+        }
+        // NON ABONNE
+        else {
+            System.out.println("Saisissez votre code secret afin de vous identifier : ");
+            codeSecret = LectureClavier.lireEntier("Code lu :");
             while (!contientCodeSecretNonAbonne(codeSecret)) {
-                System.out.println("votre code secret  ne correspond à aucun NonAbonne veuillez resaisir à nouveau votre code secret: ");
-                codeSecret = LectureClavier.lireEntier("code lu :");
+                System.out.println(
+                        "Votre code secret  ne correspond à aucun non abonne veuillez resaisir à nouveau votre code secret (tappez -1 pour retourner au menu principale): ");
+                codeSecret = LectureClavier.lireEntier("Code lu :");
+                if (codeSecret == -1) {
+                    mainMenu();
+                }
+            }
+            c = getNonAbonneAvecCode(codeSecret);
 
         }
-        c = getNonAbonneAvecCode(codeSecret);
-       
-    }
-    return c;
+        return c;
 
-}
+    }
     // Continuer sans connexion
 
     public NonAbonne continuerSanConnexion() {
@@ -317,15 +354,13 @@ public class MenuUtilisateur {
         int codeSecret;
         String numeroCB;
         Random random = new Random();
-        codeSecret = random.nextInt(100)*10;
-        
+        codeSecret = random.nextInt(100) * 10;
+
         while (contientCodeSecretNonAbonne(codeSecret)) {
-            codeSecret = random.nextInt(100)*100;
+            codeSecret = random.nextInt(100) * 100;
         }
-        
-        System.out.println("votre   code secret  est :"+codeSecret+" RETENEZ LE IMPERATIVEMENT");
-       
-       
+
+        System.out.println("votre   code secret  est :" + codeSecret + " RETENEZ LE IMPERATIVEMENT");
 
         System.out.println("Saisissez votre numéro de carde bancaire : ");
         numeroCB = LectureClavier.lireChaine();
@@ -346,43 +381,39 @@ public class MenuUtilisateur {
     // TODO: VINICIUS
 
     // TODO: Enprunt
-        // 1 -> Demander le Code Secret
-        // 2 -> Choisir une borne NON LIBRE avec un Velo avec Etat OK
-            // Generer New Location :
-                // 1 -> set la Location de velo égale la nouvelle location géneré
-                // 2 -> set la Location du client égale la nouvelle location géneré
-                // 3 -> set heureDebut = now()
-                // 4 -> set heurefin = null
+    // 1 -> Demander le Code Secret
+    // 2 -> Choisir une borne NON LIBRE avec un Velo avec Etat OK
+    // Generer New Location :
+    // 1 -> set la Location de velo égale la nouvelle location géneré
+    // 2 -> set la Location du client égale la nouvelle location géneré
+    // 3 -> set heureDebut = now()
+    // 4 -> set heurefin = null
     public void emprunt(Station s, Client c) {
-
-        
 
         int codeSecret;
         Bornette bornette;
         Location location;
 
-        
+        // ABONNE
+        if (c instanceof Abonne) {
+            codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
+            while (!contientCodeSecret(codeSecret)) {
+                System.out.println("Code secret inexistante! il ne correspond à aucun abonné ");
+                System.out.println("Resaisissez votre codre secret!");
 
-        if( c instanceof Abonne){
-        codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
-        while (!contientCodeSecret(codeSecret)) {
-            System.out.println("Code secret inexistante! il ne correspond à aucun abonné ");
-            System.out.println("Resaisissez votre codre secret!");
-
-            codeSecret = LectureClavier.lireEntier("");
+                codeSecret = LectureClavier.lireEntier("");
+            }
+            System.out.println((getAbonneAvecCode(codeSecret)));
         }
+        // NON ABONNE
+        else {
+            codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
+            while (!contientCodeSecretNonAbonne(codeSecret)) {
+                System.out.println("Code secret inexistante! il ne correspond à aucun NonAbonné ");
+                System.out.println("Resaisissez votre codre secret!");
 
-        System.out.println((getAbonneAvecCode(codeSecret)));
-    }else{
-
-        codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
-        while (!contientCodeSecretNonAbonne(codeSecret)) {
-            System.out.println("Code secret inexistante! il ne correspond à aucun NonAbonné ");
-            System.out.println("Resaisissez votre codre secret!");
-
-            codeSecret = LectureClavier.lireEntier("Resaisissez votre code secret !");
-        }
-
+                codeSecret = LectureClavier.lireEntier("Resaisissez votre code secret !");
+            }
         }
         // Afficher la liste des bornettes :
         System.out.println("Choisir une des bornettes possédant un vélo  : ");
@@ -391,25 +422,24 @@ public class MenuUtilisateur {
         int index = 0;
         List<Bornette> bornettesAvecVelo = new ArrayList<Bornette>();
         for (Bornette b : s.getBornettes()) {
-            if (!b.getLibre()) {                                             // Si la bornette est libre
+            if (!b.getLibre()) { // Si la bornette est libre
                 bornettesAvecVelo.add(b);
-                System.out.println(""+index + " - Bornette B" + (index)+""+b.getVelo().getModele());
+                System.out.println("" + index + " - Bornette B" + (index) + "" + b.getVelo().getModele());
                 index++;
             }
         }
 
-        bornette = bornettesAvecVelo.get(LectureClavier.lireEntier(""));            // Prendre la bornette N
+        bornette = bornettesAvecVelo.get(LectureClavier.lireEntier("")); // Prendre la bornette N
 
-        Timestamp heureDebut = new Timestamp(System.currentTimeMillis());   // Heure courante
+        Timestamp heureDebut = new Timestamp(System.currentTimeMillis()); // Heure courante
 
-        location = new Location(heureDebut, c, s); 
-        Velo v = bornette.getVelo();                            // Nouvelle location avec l'heure courante et client c
+        location = new Location(heureDebut, c, s);
+        Velo v = bornette.getVelo(); // Nouvelle location avec l'heure courante et client c
         location.addVelos(v);
-        
-        v.veloEstLoue(); 
-                                     
 
-        c.addLocation(location);                                            // Rajout de la location au client
+        v.veloEstLoue();
+
+        c.addLocation(location); // Rajout de la location au client
         entityManager.getTransaction().begin();
         locationRepository.save(location);
         veloRepository.save(v);
@@ -417,7 +447,6 @@ public class MenuUtilisateur {
         stationRepository.save(s);
         entityManager.getTransaction().commit();
 
-        
     }
 
     // TODO: Rendu
@@ -431,54 +460,54 @@ public class MenuUtilisateur {
     // Set l'etat du velo du client, lié par la location
     // 1 -> Velo.etatV = OK | HS
 
-     Velo choisirVeloEnLocation(Client c, Location l){
-        
+    Velo choisirVeloEnLocation(Client c, Location l) {
+
         Location locationClient = l;
 
         // afficher la liste des velos en location
         int compteur = 0;
-        for(Velo velo : locationClient.getVelos()){
+        for (Velo velo : locationClient.getVelos()) {
             System.out.println(compteur + ". Velo numero" + velo.getNumero() + " de modèle " + velo.getModele());
         }
 
         int choixVelo;
-        do{
+        do {
             choixVelo = LectureClavier.lireEntier("Saisissez votre choix!");
-        }while(choixVelo<0 || choixVelo > locationClient.getVelos().size());
+        } while (choixVelo < 0 || choixVelo > locationClient.getVelos().size());
 
         // disclaimer for client
-        if(locationClient.getVelos().size()-1>0){
-            System.out.println("Il vous reste "  + locationClient.getVelos().size() + " velos à rendre!");
+        if (locationClient.getVelos().size() - 1 > 0) {
+            System.out.println("Il vous reste " + locationClient.getVelos().size() + " velos à rendre!");
             System.out.println("La location ne s'arret pas jusqu'à vous avez rendu tous les velos loués!");
         }
 
         return locationClient.getVelos().get(choixVelo);
     }
 
-    Bornette choisirBornetteLibre(Station s){
+    Bornette choisirBornetteLibre(Station s) {
         Bornette bornette;
         int index = 0;
         List<Bornette> bornettes = new ArrayList<Bornette>();
         for (Bornette b : s.getBornettes()) {
-            if (b.getLibre()) {                                             // Si la bornette est libre
+            if (b.getLibre()) { // Si la bornette est libre
                 bornettes.add(b);
-                System.out.println(index + " - Bornette B" + (index));
+                System.out.println(index + " - Bornette B" + (index) + " ");
                 index++;
             }
         }
 
-        bornette = bornettes.get(LectureClavier.lireEntier(""));            // Prendre la bornette N
+        bornette = bornettes.get(LectureClavier.lireEntier("")); // Prendre la bornette N
 
         return bornette;
     }
 
-    Location findLocationPasFini(Client c){
+    Location findLocationPasFini(Client c) {
 
         List<Location> listLocationsClient = c.getLocations();
-        Location locationClient=null;
-        for(Location location : listLocationsClient){
-            if(location.getVelos().size()>0){
-                locationClient = location ;
+        Location locationClient = null;
+        for (Location location : listLocationsClient) {
+            if (location.getVelos().size() > 0) {
+                locationClient = location;
                 break;
             }
         }
@@ -508,7 +537,7 @@ public class MenuUtilisateur {
 
         veloChoisi.veloEstRendu(bornette);
         Timestamp heureFin = new Timestamp(System.currentTimeMillis()); // Heure courante
-        
+
         location.endLocation(s, heureFin, veloChoisi);
 
         entityManager.getTransaction().begin();
@@ -520,12 +549,13 @@ public class MenuUtilisateur {
 
     }
 
-    public void mainMenu(){
-        
+    // void declarerEtatVelo()
+
+    public void mainMenu() {
+
         int select;
         Client c = null;
-        
-        
+
         System.out.println("-------- __@      __@       __@       __@      __~@ ");
         System.out.println("----- _`\\<,_    _`\\<,_    _`\\<,_     _`\\<,_    _`\\<,_");
         System.out.println("---- (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)");
@@ -542,86 +572,72 @@ public class MenuUtilisateur {
         System.out.println("---- (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)  (*)/ (*)");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("");
-        
-        
-        
 
-        do{
+        do {
 
-            System.out.println("Tapez un des numéros pour : ");    
-            System.out.println("1 - S'inscrire");
+            System.out.println("Tapez un des numéros pour : ");
+            System.out.println("1 - S'abonner");
             System.out.println("2 - S'identifier");
-            System.out.println("3 - Continuer sans connexion");
+            System.out.println("3 - Continuer sans connexion (pour les non abonnés)");
             System.out.println("4 - Quitter l'application");
             select = LectureClavier.lireEntier("numéro:");
             System.out.println("");
 
-        }while(select > 4 || select <=0);
+        } while (select > 4 || select <= 0);
 
-       
-
-        switch(select){
-            case 1: 
-                inscrire();
+        switch (select) {
+            case 1:
+                abonner();
                 mainMenu();
                 break;
-            case 2: 
+            case 2:
                 c = identifier();
                 menuClient(c);
                 break;
-            case 3: 
-                c=continuerSanConnexion();
+            case 3:
+                c = continuerSanConnexion();
                 menuClient(c);
-                break;        
+                break;
             default:
-            System.out.println("aurevoir");
-            System.exit(0);
-            
+                System.out.println("aurevoir");
+                System.exit(0);
+
                 break;
         }
 
-       
     }
 
-    public void menuClient(Client c){
+    public void menuClient(Client c) {
         int select;
-        Station s = null; 
-        do{
+        Station s = null;
+        do {
 
-            System.out.println("Tapez un des numéros pour : ");    
+            System.out.println("Tapez un des numéros pour : ");
             System.out.println("1 - Eprunter un velo ");
             System.out.println("2 - Deposer un velo");
-            System.out.println("3- Revenir au menu principal");
+            System.out.println("3 - Revenir au menu principal");
             select = LectureClavier.lireEntier("numéro:");
             System.out.println("");
 
-        }while(select > 3 || select <=0);
+        } while (select > 3 || select <= 0);
 
-       
-
-        switch(select){
-            case 1: 
-                s = choisirStation();
+        switch (select) {
+            case 1:
+                s = choisirStation(true);
                 emprunt(s, c);
                 menuClient(c);
                 break;
-            case 2: 
-                s = choisirStation();
-                deposer(s,c);
+            case 2:
+                s = choisirStation(false);
+                deposer(s, c);
                 menuClient(c);
                 break;
-            
-                              
-                     
+
             default:
-            mainMenu();
-            
+                mainMenu();
                 break;
         }
 
-       
-
     }
-
 
 }

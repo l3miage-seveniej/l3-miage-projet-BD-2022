@@ -31,10 +31,11 @@ public class MenuMaintenance {
     public void infoStations(){
         List<Station> stations = stationRepository.getAll();
 
-        for(Station station: stations){
-            System.out.println(station.getAdresse());
-            velosOKDansStation(station);
-
+        for(Station station: stations) {
+            if (station.getBornettes().size() > 0) {            // Si la station a un ou plusieurs bornettes
+                System.out.println(station.getAdresse());
+                velosOKDansStation(station);
+            } 
         }
 
 

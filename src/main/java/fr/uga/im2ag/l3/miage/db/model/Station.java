@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
@@ -12,25 +13,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "STATION")
-@NamedQuery(name="Station.getAll", query="Select S from Station S")
+@NamedQuery(name = "Station.getAll", query = "Select S from Station S")
 public class Station {
-
-    
 
     public Station() {
         this.bornettes = new ArrayList<Bornette>();
         this.creneaux = new ArrayList<Creneau>();
     }
 
-
-
     public Station(String adresse) {
         this.adresse = adresse;
         this.bornettes = new ArrayList<Bornette>();
         this.creneaux = new ArrayList<Creneau>();
     }
-
-
 
     @Id
     @GeneratedValue
@@ -43,7 +38,7 @@ public class Station {
     @OneToMany
     private List<Creneau> creneaux;
 
-    public void addBornette(Bornette b){
+    public void addBornette(Bornette b) {
         bornettes.add(b);
     }
 
@@ -80,14 +75,33 @@ public class Station {
         this.creneaux = creneaux;
     }
 
+    public boolean stationOK() {
+        if (getBornettes().size() == 0)
+            return false; // Si la station est vide, la station n'est pas OK
 
+        for (Bornette bornette : getBornettes()) {
+            if (bornette.getVelo() != null && bornette.getVelo().getEtat() == Enums.Etat.OK) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean contientPlaceLibre() {
+        if (getBornettes().size() == 0) return false;                                   // Si la station est vide, la station n'est pas OK
+
+        for (Bornette bornette : getBornettes()) {
+            if (bornette.getEtatB() == Enums.Etat.OK && bornette.getLibre() == true) {  
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
         return "Station [adresse=" + adresse + ", bornettes=" + bornettes + ", creneaux=" + creneaux + ", idStation="
                 + idStation + "]";
     }
-
-    
 
 }

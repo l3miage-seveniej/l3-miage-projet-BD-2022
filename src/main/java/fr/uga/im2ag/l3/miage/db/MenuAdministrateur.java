@@ -1,6 +1,11 @@
 package fr.uga.im2ag.l3.miage.db;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -11,6 +16,8 @@ import javax.persistence.Persistence;
 
 import fr.uga.im2ag.l3.miage.db.model.Abonne;
 import fr.uga.im2ag.l3.miage.db.model.Bornette;
+import fr.uga.im2ag.l3.miage.db.model.Creneau;
+import fr.uga.im2ag.l3.miage.db.model.Enums;
 import fr.uga.im2ag.l3.miage.db.model.Station;
 import fr.uga.im2ag.l3.miage.db.model.Velo;
 import fr.uga.im2ag.l3.miage.db.model.Enums.Etat;
@@ -20,6 +27,7 @@ import fr.uga.im2ag.l3.miage.db.model.Enums.sexe;
 import fr.uga.im2ag.l3.miage.db.repository.RepositoryFactory;
 import fr.uga.im2ag.l3.miage.db.repository.api.AbonneRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.BornetteRepository;
+import fr.uga.im2ag.l3.miage.db.repository.api.CreneauRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.LocationRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.StationRepository;
 import fr.uga.im2ag.l3.miage.db.repository.api.VeloRepository;
@@ -48,6 +56,7 @@ public class MenuAdministrateur {
     AbonneRepository abonneRepository = daoFactory.newAbonneRepository(entityManager);
     VeloRepository veloRepository = daoFactory.newVeloRepository(entityManager);
     LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
+    CreneauRepository creneauRepository = daoFactory.newCreneauRepository(entityManager);
 
     // Notre entreprise de location de vélos a 4 abonnées pour ce moment
     // On a 4 stations; station A,B,C,D
@@ -56,6 +65,8 @@ public class MenuAdministrateur {
     // La plupart des vélos sont garées à station D car la plupart de notre abonnées
     // sont des étudiants à l'IM2AG
     public void peupler() throws ParseException {
+        
+
         Abonne Andreas = new Abonne("Schevchenko", "Andreas", sexe.MALE, "Paris", convertDate("1945-08-17"),
                 convertDate("2022-03-20"), 666);
         Abonne Emmanuelle = new Abonne("Macrone", "Emmanuelle", sexe.FEMELLE, "Amiens", convertDate("1977-12-21"),
@@ -93,8 +104,15 @@ public class MenuAdministrateur {
         Velo v2 = new Velo(Modele.VTC, Etat.OK, Situation.EN_STATION, convertDate("2021-12-15"), DB2);
         Velo v3 = new Velo(Modele.HOLLANDAIS, Etat.OK, Situation.EN_STATION, convertDate("2021-12-15"), DB3);
         Velo v4 = new Velo(Modele.HOLLANDAIS, Etat.OK, Situation.EN_STATION, convertDate("2021-12-15"), DB4);
-        Velo v5 = new Velo(Modele.VTT, Etat.OK, Situation.EN_STATION, convertDate("2021-12-15"), CB1);
+        Velo v5 = new Velo(Modele.VTT, Etat.HS, Situation.EN_STATION, convertDate("2021-12-15"), CB1);
         Velo v6 = new Velo(Modele.HOLLANDAIS, Etat.OK, Situation.EN_STATION, convertDate("2021-12-15"), AB1);
+
+
+        Creneau creneau = new Creneau();
+        creneau.setStation(A);
+        creneau.setTypeStation(Enums.TypeStation.PLUS);
+        creneau.sethDebut(new Timestamp(System.currentTimeMillis()));
+        creneau.sethFin(new Timestamp(System.currentTimeMillis() + (60*60)));
 
         entityManager.getTransaction().begin();
 
@@ -127,7 +145,18 @@ public class MenuAdministrateur {
         veloRepository.save(v4);
         veloRepository.save(v5);
         veloRepository.save(v6);
+        creneauRepository.save(creneau);
         entityManager.getTransaction().commit();
 
+    }
+
+    void peuplerParScript(BufferedReader br) throws IOException {
+        String line;
+        entityManager.getTransaction().begin();
+        while( (line = br.readLine()) != null )
+        {
+            entityManager.createNativeQuery(line).executeUpdate();
+        }
+        entityManager.getTransaction().commit();
     }
 }
