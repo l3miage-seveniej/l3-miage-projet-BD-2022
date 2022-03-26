@@ -38,4 +38,9 @@ public class BornetteRepositoryImpl extends BaseRepositoryImpl implements Bornet
         return entityManager.createNamedQuery("Bornette.getAll", Bornette.class).getResultList();
     }
 
+    @Override
+    public List<Bornette> findBornetteByStation(Long idStation){
+        return entityManager.createNamedQuery("Bornette.findBornetteByStation", Bornette.class).setParameter("idStation", idStation).getResultList();
+    }
+
 }
