@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-package utils;
-=======
 package fr.uga.im2ag.l3.miage.db.utils;
->>>>>>> f23f55084dfc44ee7e509b63c5b9f3a79aaa16b6
 
 import java.io.*;
 
