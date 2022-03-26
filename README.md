@@ -40,3 +40,6 @@ Nous avons travaillé sur le jeu de peuplement de notre base de données ainsi q
 
 ### 21/02/2022
 La séance du 21 a été consacrée principalement à l'ihm de l'application, mais également une partie au rapport et aux scénarios.
+
+### 26/03/2022
+Nous nous sommes réunis une dernière fois pour tout finaliser et voir ce qui a été fait depuis le début et s'il y a des choses non encore faîtes.
