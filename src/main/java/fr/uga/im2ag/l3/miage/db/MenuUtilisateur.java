@@ -264,7 +264,7 @@ public class MenuUtilisateur {
 
 
             }
-           System.out.println("");
+           System.out.println("kogkog");
         }else{
             System.out.println("Aucun historique de location terminé ou en cours !!");
         }
@@ -648,11 +648,11 @@ public class MenuUtilisateur {
         int codeSecret = LectureClavier.lireEntier("veuillez saisir votre code secret!");
         if (c instanceof Abonne) {
             while (c.getCodeSecret()!=codeSecret) {
-                LectureClavier.lireEntier("veuillez saisir votre code secret!");
+                codeSecret=LectureClavier.lireEntier("veuillez saisir votre code secret!");
             }
         } else {
             while (c.getCodeSecret()!=codeSecret) {
-                LectureClavier.lireEntier("veuillez saisir votre code secret!");
+                codeSecret=LectureClavier.lireEntier("veuillez saisir votre code secret!");
             }
         }
 
