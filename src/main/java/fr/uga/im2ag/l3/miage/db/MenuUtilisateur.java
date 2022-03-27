@@ -62,12 +62,6 @@ public class MenuUtilisateur {
 
     }
 
-    // Il existe 4 station
-    // Station A a 4 bornettes libres et fonctionnent bien
-    // Station B a 4 bornettes qui sont hors services
-    public static void peupler() {
-    }
-
     public boolean isValidDate(String d) {
         String regex = "^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$";
         // String regex = ' ^\d';
@@ -208,7 +202,38 @@ public class MenuUtilisateur {
         return a;
     }
 
-    // TODO: JONATHAN
+    public void consulterHistoriqueDesLocations(Client c){
+        int indexLocation = 0;
+        List<Location> listLocationsClient = c.getLocations();
+            if(listLocationsClient !=null){
+                for (Location location : listLocationsClient) {
+                
+                    if(location.getHeureFin()!=null){
+                    System.out.println(indexLocation + ". Location numéro "+" "+location.getIdLoc()+" date : "+new java.util.Date(location.getHeureDebut().getTime())+"");
+                    System.out.println("Cout total: "+location.getCout()+"euros");
+
+                
+                    }else{
+                        System.out.println( indexLocation + ". Location en cours  numéro "+" "+location.getIdLoc()+" heure debut : "+ new java.util.Date(location.getHeureDebut().getTime())+" et vous avez " + location.getVelos().size()+" vélo pas rendu!") ;
+                    }
+                    indexLocation++;
+
+
+            }
+           System.out.println("");
+        }else{
+            System.out.println("Aucun historique de location terminé ou en cours !!");
+        }
+        
+
+
+
+
+    }
+    
+
+
+    
     public void abonner() {
 
         // *****Paramètre à saisir******//
@@ -402,23 +427,11 @@ public class MenuUtilisateur {
         return a;
     }
 
-    // ====================================== //
-
-    // TODO: VINICIUS
-
-    // TODO: Enprunt
-    // 1 -> Demander le Code Secret
-    // 2 -> Choisir une borne NON LIBRE avec un Velo avec Etat OK
-    // Generer New Location :
-    // 1 -> set la Location de velo égale la nouvelle location géneré
-    // 2 -> set la Location du client égale la nouvelle location géneré
-    // 3 -> set heureDebut = now()
-    // 4 -> set heurefin = null
+    // Emprunt
     public void emprunt(Station s, Client c) {
 
         int codeSecret;
         Bornette bornette;
-        Location location;
 
         // ABONNE
         if (c instanceof Abonne) {
@@ -454,53 +467,51 @@ public class MenuUtilisateur {
                 index++;
             }
         }
+        Location locationEnCours = findLocationPasFini(c);
+        if (locationEnCours == null) {
+            bornette = bornettesAvecVelo.get(LectureClavier.lireEntier("")); // Prendre la bornette N
 
-        bornette = bornettesAvecVelo.get(LectureClavier.lireEntier("")); // Prendre la bornette N
+            Timestamp heureDebut = new Timestamp(System.currentTimeMillis()); // Heure courante
 
-        Timestamp heureDebut = new Timestamp(System.currentTimeMillis()); // Heure courante
+            locationEnCours = new Location(heureDebut, c, s);
+            Velo v = bornette.getVelo(); // Nouvelle location avec l'heure courante et client c
+            locationEnCours.addVelos(v);
 
-        location = new Location(heureDebut, c, s);
-        Velo v = bornette.getVelo(); // Nouvelle location avec l'heure courante et client c
-        location.addVelos(v);
+            v.veloEstLoue();
 
-        v.veloEstLoue();
+            c.addLocation(locationEnCours); // Rajout de la location au client
+            entityManager.getTransaction().begin();
+            locationRepository.save(locationEnCours);
+            veloRepository.save(v);
+            bornetteRepository.save(bornette);
+            stationRepository.save(s);
+            entityManager.getTransaction().commit();
 
-        c.addLocation(location); // Rajout de la location au client
-        entityManager.getTransaction().begin();
-        locationRepository.save(location);
-        veloRepository.save(v);
-        bornetteRepository.save(bornette);
-        stationRepository.save(s);
-        entityManager.getTransaction().commit();
+        } else {
+
+            bornette = bornettesAvecVelo.get(LectureClavier.lireEntier(""));
+
+            Velo v = bornette.getVelo();
+            locationEnCours.addVelos(v);
+            v.veloEstLoue();
+            entityManager.getTransaction().begin();
+            locationRepository.save(locationEnCours);
+            veloRepository.save(v);
+            bornetteRepository.save(bornette);
+            stationRepository.save(s);
+            entityManager.getTransaction().commit();
+
+        }
 
     }
 
-    // TODO: Rendu
-    // 1 -> Demander le Code Secret
-    // 2 -> Choisir une borne LIBRE
-    // Mettre a jour / Modifier la Location :
-    // 1 -> set heureFin = now()
-    // 2 -> calculCout()
+    Velo choisirVeloEnLocation(Client c, Location l) {
 
-    // TODO: Declaration Etat
-    // Set l'etat du velo du client, lié par la location
-    // 1 -> Velo.etatV = OK | HS
-
-    Velo choisirVeloEnLocation(Client c) {
-
-        List<Location> listeLocations = c.getLocations();
+        Location locationClient = l;
 
         // afficher la liste des velos en location
         int compteur = 0;
-        int indexLocation = 0;
-        for (Location location : listeLocations) {
-            if (location.getHeureFin() == null) { // Location toujours valable
-                // Velo velo
-                break;
-            }
-            indexLocation++;
-        }
-        for (Velo velo : listeLocations.get(indexLocation).getVelos()) {
+        for (Velo velo : locationClient.getVelos()) {
             System.out.println(compteur + ". Velo numero" + velo.getNumero() + " de modèle " + velo.getModele());
             compteur++;
         }
@@ -508,9 +519,15 @@ public class MenuUtilisateur {
         int choixVelo;
         do {
             choixVelo = LectureClavier.lireEntier("Saisissez votre choix!");
-        } while (choixVelo < 0 || choixVelo > compteur);
+        } while (choixVelo < 0 || choixVelo > locationClient.getVelos().size());
 
-        return listeLocations.get(indexLocation).getVelos().get(choixVelo);
+        // disclaimer for client
+        if (locationClient.getVelos().size() - 1 > 0) {
+            System.out.println("Il vous reste " + (locationClient.getVelos().size()-1) + " velos à rendre!");
+            System.out.println("La location ne s'arret pas jusqu'à vous avez rendu tous les velos loués!");
+        }
+
+        return locationClient.getVelos().get(choixVelo);
     }
 
     Bornette choisirBornetteLibre(Station s) {
@@ -534,13 +551,14 @@ public class MenuUtilisateur {
 
         List<Location> listLocationsClient = c.getLocations();
         Location locationClient = null;
-        for (Location location : listLocationsClient) {
-            if (location.getVelos().size() > 0) {
-                locationClient = location;
-                break;
+        if (listLocationsClient != null) {
+            for (Location location : listLocationsClient) {
+                if (location.getVelos().size() > 0) {
+                    locationClient = location;
+                    break;
+                }
             }
         }
-
         return locationClient;
 
     }
@@ -559,7 +577,8 @@ public class MenuUtilisateur {
 
         // choisir les velos en location
         Location location = findLocationPasFini(c);
-        Velo veloChoisi = choisirVeloEnLocation(c);
+        Velo veloChoisi = choisirVeloEnLocation(c, location);
+        declarerEtatVelo(veloChoisi);
 
         // Ici on parcours la liste des bornettes libres
         Bornette bornette = choisirBornetteLibre(s);
@@ -580,8 +599,20 @@ public class MenuUtilisateur {
 
     void declarerEtatVelo(Velo v) {
 
-        System.out.println("Quel est l'etat du vélo ?");
-        LectureClavier.lireEntier("1 - Bon état\n2 - Mauvais état");
+        System.out.println("Quel est l'etat actuel du vélo que vous voulez déposer  ?" + v.getModele() + "");
+        int select = LectureClavier.lireEntier("1 - Bon état\n2 - Mauvais état");
+        while (select > 2 || select <= 0) {
+            select = LectureClavier.lireEntier("** Tappez 1 Bon état , 2 sinon !! **");
+
+        }
+        if (select == 1) {
+            System.out.println(" Le velo reste donc en bon état" + v.getModele() + " " + v.getEtat());
+        } else {
+            v.setEtat(Etat.HS);
+            System.out
+                    .println(" Le velo reste donc en mauvaise état actuellement " + v.getModele() + " " + v.getEtat());
+
+        }
 
     }
 
@@ -644,6 +675,11 @@ public class MenuUtilisateur {
     public void menuClient(Client c) {
         int select;
         Station s = null;
+        boolean estEmprunt= true;
+        
+        if(c instanceof NonAbonne){
+        
+        
         do {
 
             System.out.println("Tapez un des numéros pour : ");
@@ -657,12 +693,12 @@ public class MenuUtilisateur {
 
         switch (select) {
             case 1:
-                s = choisirStation(true);
+                s = choisirStation(estEmprunt);
                 emprunt(s, c);
                 menuClient(c);
                 break;
             case 2:
-                s = choisirStation(false);
+                s = choisirStation(!estEmprunt);
                 deposer(s, c);
                 menuClient(c);
                 break;
@@ -672,6 +708,50 @@ public class MenuUtilisateur {
                 break;
         }
 
+    }else{
+
+        do {
+        System.out.println("Tapez un des numéros pour : ");
+        System.out.println("1 - Eprunter un velo ");
+        System.out.println("2 - Deposer un velo");
+        System.out.println("3 - Consulter  l'historique des locations ");
+        System.out.println("4 - Revenir au menu principal");
+        
+        select = LectureClavier.lireEntier("numéro:");
+        System.out.println("");
+
+        }while (select > 4 || select <= 0);
+
+        switch (select) {
+            case 1:
+                s = choisirStation(estEmprunt);
+                emprunt(s, c);
+                menuClient(c);
+                break;
+            case 2:
+                s = choisirStation(!estEmprunt);
+                deposer(s, c);
+                menuClient(c);
+                break;
+            case 3:
+                consulterHistoriqueDesLocations(c);
+                menuClient(c);
+                break;
+              
+            case 4:
+            mainMenu();
+            break;
+
+                
+        }
+
+
     }
 
+
+    }
+
+
+
 }
+

@@ -21,6 +21,7 @@ public class Location {
     
     public Location() {
         this.velos = new  ArrayList<Velo>();
+        this.cout = 0.0f;
     }
 
     public Location(Timestamp heureDebut, Client client, Station sDepart) {
@@ -28,6 +29,7 @@ public class Location {
         this.client = client;
         this.stationDepart = sDepart;
         this.velos = new  ArrayList<Velo>();
+        this.cout = 0.0f;
     }
 
     @Id
@@ -154,7 +156,7 @@ public class Location {
 
 
         setStationArrivee(s);
-        System.out.println(this.getVelos());
+        // System.out.println(this.getVelos());
 
         if(this.getVelos().size()-1 != 0){
             System.out.println("ATTENTION VOTRE LOCATION EST TOUJOURS EN COURS");
@@ -192,7 +194,7 @@ public class Location {
             cout = cout * 0.7f;         // Réduction de 30%
         }
 
-        this.setCout(cout);
+        this.setCout(cout + this.getCout());
     }
 
     @Override
