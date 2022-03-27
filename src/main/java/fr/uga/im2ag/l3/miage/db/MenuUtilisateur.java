@@ -264,7 +264,7 @@ public class MenuUtilisateur {
 
 
             }
-           System.out.println("kogkog");
+           
         }else{
             System.out.println("Aucun historique de location terminé ou en cours !!");
         }
@@ -532,6 +532,7 @@ public class MenuUtilisateur {
                 System.out.println("" + index + " - Bornette B" + (index) + "" + b.getVelo().getModele());
                 index++;
             }
+            
         }
         Location locationEnCours = findLocationPasFini(c);
         if (locationEnCours == null) {

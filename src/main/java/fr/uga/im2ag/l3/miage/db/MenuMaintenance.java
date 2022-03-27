@@ -40,7 +40,7 @@ public class MenuMaintenance {
 
 
     }
-
+    
     public void velosOKDansStation(Station s){
         List<Bornette> bornettes = bornetteRepository.findBornetteByStation(s.getIdStation());
         int nombreVelosOk = 0;
