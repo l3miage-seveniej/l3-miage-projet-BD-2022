@@ -11,13 +11,10 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EnumType;
 import javax.persistence.Persistence;
-
 import org.assertj.core.util.DateUtil;
-
 import fr.uga.im2ag.l3.miage.db.model.Abonne;
 import fr.uga.im2ag.l3.miage.db.model.Bornette;
 import fr.uga.im2ag.l3.miage.db.model.Client;
@@ -49,6 +46,15 @@ public class MenuUtilisateur {
     LocationRepository locationRepository = daoFactory.newLocationRepository(entityManager);
     NonAbonneRepository nonAbonneRepository = daoFactory.newNonAbonneRepository(entityManager);
 
+    /*
+     * convertit un string passé en paramètre en un objet de type Date
+     * 
+     *
+     * @return un objet de type Date
+     * 
+     *
+     * @param dateString
+     */
     public Date convertDate(String dateString) throws ParseException {
         return new Date(new SimpleDateFormat("yyyy-MM-dd").parse(dateString).getTime());
     }
@@ -61,18 +67,33 @@ public class MenuUtilisateur {
         return timestamp;
 
     }
-
-    public boolean isValidDate(String d) {
+    /*
+     * Verifie que la date passée en paramètre respecte l'expression régulière d'une date
+     * au format sql  :(yyyy-mm-jj)
+     *
+     * @return true si  la date est au bon format 
+     * 
+     *
+     * @param Formatdate
+     */
+    public boolean isValidDate(String Formatdate) {
         String regex = "^\\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$";
-        // String regex = ' ^\d';
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher((CharSequence) d);
+        Matcher matcher = pattern.matcher((CharSequence) Formatdate);
         return matcher.matches();
     }
-
+    /*
+     * Renvoie une station choisi par l'utilisateur si il est dans une situation
+     *d'emprunt ou de depot
+     *
+     * @return une station 
+     * abonnees
+     *
+     * @param estEmprunt de type boolean
+     */
     public Station choisirStation(boolean estEmprunt) {
-        List<Station> ListStation = stationRepository.getAll();
-
+        
+        List<Station> ListStation = stationRepository.getAll();//on recupère la liste des staions de la BDD
         int choix;
         Station stationChoisi = null;
         int i = 0;
@@ -149,7 +170,7 @@ public class MenuUtilisateur {
      *
      * @param codeSecret
      */
-    public boolean contientCodeSecret(int codeSecret) {
+    public boolean contientCodeSecretAbonne(int codeSecret) {
         boolean b = false;
         List<Abonne> list = abonneRepository.getAll();
         for (Abonne abonne : list) {
@@ -179,7 +200,14 @@ public class MenuUtilisateur {
         return b;
     }
 
-    // Abonne
+    /* Renvoie l'abonne corrspondant au code secret passé en paramètre
+     *
+     *
+     * @return un abonne
+     * 
+     *
+     * @param codeSecret
+     */
     public Abonne getAbonneAvecCode(int codeSecret) {
         List<Abonne> list = abonneRepository.getAll();
         Abonne a = null;
@@ -191,6 +219,14 @@ public class MenuUtilisateur {
         return a;
     }
 
+   /* Renvoie le non-abonne corrspondant au code secret passé en paramètre
+     *
+     *
+     * @return un non abonne
+     * 
+     *
+     * @param codeSecret
+     */
     public NonAbonne getNonAbonneAvecCode(int codeSecret) {
         List<NonAbonne> list = nonAbonneRepository.getAll();
         NonAbonne a = null;
@@ -202,6 +238,14 @@ public class MenuUtilisateur {
         return a;
     }
 
+    /*
+     * Affiche l'historique des location en cours ou terminées d'un client 
+     *
+     * 
+     * 
+     *
+     * @param un client 
+     */
     public void consulterHistoriqueDesLocations(Client c){
         int indexLocation = 0;
         List<Location> listLocationsClient = c.getLocations();
@@ -231,7 +275,13 @@ public class MenuUtilisateur {
 
     }
     
-
+    /*
+     * Saisie des information d'une personne qui veut devenir un abonne et ajoute un nouvel abonne à la base 
+     *
+     *
+     *
+     * 
+     */
 
     
     public void abonner() {
@@ -319,7 +369,7 @@ public class MenuUtilisateur {
         // *****Saisie du mot de passe*****//
         System.out.println("Saisissez votre code secret   : ");
         codeSecret = LectureClavier.lireEntier("code lu:");
-        while (contientCodeSecret(codeSecret) == true) {
+        while (contientCodeSecretAbonne(codeSecret) == true) {
             codeSecret = LectureClavier.lireEntier(" code secret déja existant ,entrez un nouveau code :");
         }
 
@@ -340,7 +390,12 @@ public class MenuUtilisateur {
 
     }
 
-    // Identifier
+    /*  identifie un client à l'aide de son code secret issu de la BDD 
+     * 
+     *
+     *
+     * @return un client 
+     */
 
     public Client identifier() {
         int select;
@@ -367,7 +422,7 @@ public class MenuUtilisateur {
         if (select == 1) {
             System.out.println("Saisissez votre code secret afin de vous identifier : ");
             codeSecret = LectureClavier.lireEntier("Code lu :");
-            while (!contientCodeSecret(codeSecret)) {
+            while (!contientCodeSecretAbonne(codeSecret)) {
                 System.out.println(
                         "Votre code secret  ne correspond à aucun abonne veuillez resaisir à nouveau votre code secret (tappez -1 pour retourner au menu principale): ");
                 codeSecret = LectureClavier.lireEntier("Code lu :");
@@ -397,8 +452,14 @@ public class MenuUtilisateur {
         return c;
 
     }
-    // Continuer sans connexion
-
+    
+    /*cree un nouvel non abonne et lui fournit un code secret unique 
+     * 
+     *
+     * @return un non abonne
+     * 
+     *
+     */
     public NonAbonne continuerSanConnexion() {
 
         NonAbonne a = null;
@@ -406,12 +467,13 @@ public class MenuUtilisateur {
         String numeroCB;
         Random random = new Random();
         codeSecret = random.nextInt(100) * 10;
-
+       
+        //on fournit un code secret unique 
         while (contientCodeSecretNonAbonne(codeSecret)) {
             codeSecret = random.nextInt(100) * 100;
         }
 
-        System.out.println("votre   code secret  est :" + codeSecret + " RETENEZ LE IMPERATIVEMENT");
+        System.out.println("votre code secret  est : "+ codeSecret +" RETENEZ LE IMPERATIVEMENT !!");
 
         System.out.println("Saisissez votre numéro de carde bancaire : ");
         numeroCB = LectureClavier.lireChaine();
@@ -420,14 +482,18 @@ public class MenuUtilisateur {
         a.setCodeSecret(codeSecret);
         a.setNumeroCB(numeroCB);
 
-        // nouvelleAbonne dans la base de donnée
+        // nouvelNonAbonne dans la base de donnée
         entityManager.getTransaction().begin();
         nonAbonneRepository.save(a);
         entityManager.getTransaction().commit();
         return a;
     }
 
-    // Emprunt
+    /*  
+     * 
+     * Associe une location d'un ou plusieurs velo à un client
+     *
+     */
     public void emprunt(Station s, Client c) {
 
         int codeSecret;
@@ -436,8 +502,8 @@ public class MenuUtilisateur {
         // ABONNE
         if (c instanceof Abonne) {
             codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
-            while (!contientCodeSecret(codeSecret)) {
-                System.out.println("Code secret inexistante! il ne correspond à aucun abonné ");
+            while (c.getCodeSecret()!=codeSecret){
+                System.out.println("Code secret incorrect! ");
                 System.out.println("Resaisissez votre codre secret!");
 
                 codeSecret = LectureClavier.lireEntier("");
@@ -447,8 +513,8 @@ public class MenuUtilisateur {
         // NON ABONNE
         else {
             codeSecret = LectureClavier.lireEntier("Saisir votre code secret : ");
-            while (!contientCodeSecretNonAbonne(codeSecret)) {
-                System.out.println("Code secret inexistante! il ne correspond à aucun NonAbonné ");
+            while (c.getCodeSecret()!=codeSecret) {
+                System.out.println("code secret incorrect ");
                 System.out.println("Resaisissez votre codre secret!");
 
                 codeSecret = LectureClavier.lireEntier("Resaisissez votre code secret !");
@@ -504,7 +570,11 @@ public class MenuUtilisateur {
         }
 
     }
-
+    /* 
+     *  affiche les Velo en cours de location pour un client et renvoi le velo choisi
+     *  
+     *  @return un Velo
+     */
     Velo choisirVeloEnLocation(Client c, Location l) {
 
         Location locationClient = l;
@@ -529,7 +599,11 @@ public class MenuUtilisateur {
 
         return locationClient.getVelos().get(choixVelo);
     }
-
+    /* affiche une liste de bornnette libre et renvoi la bornnette choisie 
+     *
+     * 
+     * @return une bornnette
+     */
     Bornette choisirBornetteLibre(Station s) {
         Bornette bornette;
         int index = 0;
@@ -546,7 +620,11 @@ public class MenuUtilisateur {
 
         return bornette;
     }
-
+    /*
+     * Renvoie une location en cours 
+     *
+     * @return un location
+     */
     Location findLocationPasFini(Client c) {
 
         List<Location> listLocationsClient = c.getLocations();
@@ -562,15 +640,18 @@ public class MenuUtilisateur {
         return locationClient;
 
     }
-
+    /*
+     *  Deposer un velo à une sation s pour un client c
+     * 
+     */
     void deposer(Station s, Client c) {
         int codeSecret = LectureClavier.lireEntier("veuillez saisir votre code secret!");
         if (c instanceof Abonne) {
-            while (!contientCodeSecret(codeSecret)) {
+            while (c.getCodeSecret()!=codeSecret) {
                 LectureClavier.lireEntier("veuillez saisir votre code secret!");
             }
         } else {
-            while (!contientCodeSecretNonAbonne(codeSecret)) {
+            while (c.getCodeSecret()!=codeSecret) {
                 LectureClavier.lireEntier("veuillez saisir votre code secret!");
             }
         }
@@ -596,26 +677,31 @@ public class MenuUtilisateur {
         entityManager.getTransaction().commit();
 
     }
-
+    /*
+     * Change l'etat d'un velo  lors du depot
+     *
+     */
     void declarerEtatVelo(Velo v) {
 
-        System.out.println("Quel est l'etat actuel du vélo que vous voulez déposer  ?" + v.getModele() + "");
+        System.out.println("Quel est l'etat actuel du vélo "+v.getModele()+" que vous voulez déposer ? ");
         int select = LectureClavier.lireEntier("1 - Bon état\n2 - Mauvais état");
         while (select > 2 || select <= 0) {
             select = LectureClavier.lireEntier("** Tappez 1 Bon état , 2 sinon !! **");
 
         }
         if (select == 1) {
-            System.out.println(" Le velo reste donc en bon état" + v.getModele() + " " + v.getEtat());
+            System.out.println(" Le velo "+v.getModele()+" est toujours en bon état: "+v.getEtat()+"");
         } else {
             v.setEtat(Etat.HS);
             System.out
-                    .println(" Le velo reste donc en mauvaise état actuellement " + v.getModele() + " " + v.getEtat());
+                    .println(" Le velo "+ v.getModele() + " est donc actuellement en mauvaise état " + v.getEtat()+"");
 
         }
 
     }
-
+    /*
+     * Menu principal
+     */
     public void mainMenu() {
 
         int select;
@@ -672,6 +758,10 @@ public class MenuUtilisateur {
 
     }
 
+    /*
+     * menu client 
+     * 
+     */
     public void menuClient(Client c) {
         int select;
         Station s = null;
