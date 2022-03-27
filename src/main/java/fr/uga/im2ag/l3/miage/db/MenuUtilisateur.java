@@ -521,22 +521,51 @@ public class MenuUtilisateur {
             }
         }
         // Afficher la liste des bornettes :
-        System.out.println("Choisir une des bornettes possédant un vélo  : ");
+        System.out.println("Liste des  bornettes possédant un vélo OK  : ");
 
         // Ici on parcours la liste des bornettes avec des velo
         int index = 0;
-        List<Bornette> bornettesAvecVelo = new ArrayList<Bornette>();
+        List<Bornette> bornettesAvecVeloOk = new ArrayList<Bornette>();
         for (Bornette b : s.getBornettes()) {
-            if (!b.getLibre()) { // Si la bornette est libre
-                bornettesAvecVelo.add(b);
+            if (!b.getLibre()&&(b.getVelo().getEtat()==Etat.OK)) { // Si la bornette est occupée avec un velo en bonne etat
+                bornettesAvecVeloOk.add(b);
                 System.out.println("" + index + " - Bornette B" + (index) + "" + b.getVelo().getModele());
                 index++;
             }
             
         }
+        System.out.println("Voulez vous declarer un velo HS parmis la liste de velo ci-dessus ? (1:oui 2:non)");
+        int select = LectureClavier.lireEntier("");
+
+        while(select > 2|| select <=0){
+            select = LectureClavier.lireEntier(" 1 oui  2 non !");
+            
+        }
+        if(select==1){
+            
+            int i = LectureClavier.lireEntier(" choisi le numéro de la bornnette où le velo est HS");
+            bornette = bornettesAvecVeloOk.get(i);
+            Velo v = bornette.getVelo(); //Prendre la bornnette  N avec un velo ok et change son etat
+            v.setEtat(Etat.HS);
+            
+           
+            entityManager.getTransaction().begin();
+            veloRepository.save(v);
+            bornetteRepository.save(bornette);
+            stationRepository.save(s);
+            entityManager.getTransaction().commit();
+            
+            menuClient(c);
+        
+        
+        }else{
+        
+
+        
+       
         Location locationEnCours = findLocationPasFini(c);
         if (locationEnCours == null) {
-            bornette = bornettesAvecVelo.get(LectureClavier.lireEntier("")); // Prendre la bornette N
+            bornette = bornettesAvecVeloOk.get(LectureClavier.lireEntier(" Choisi une bornnette")); // Prendre la bornette N
 
             Timestamp heureDebut = new Timestamp(System.currentTimeMillis()); // Heure courante
 
@@ -556,7 +585,7 @@ public class MenuUtilisateur {
 
         } else {
 
-            bornette = bornettesAvecVelo.get(LectureClavier.lireEntier(""));
+            bornette = bornettesAvecVeloOk.get(LectureClavier.lireEntier(""));
 
             Velo v = bornette.getVelo();
             locationEnCours.addVelos(v);
@@ -570,6 +599,7 @@ public class MenuUtilisateur {
 
         }
 
+    }
     }
     /* 
      *  affiche les Velo en cours de location pour un client et renvoi le velo choisi
