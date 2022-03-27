@@ -2,8 +2,6 @@ package fr.uga.im2ag.l3.miage.db;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -45,7 +43,7 @@ public class MenuAdministrateur {
                 put("hibernate.hbm2ddl.auto", "create-drop");
             }
         };
-        EntityManager entityManager = Persistence.createEntityManagerFactory("JPA-HBM", properties)
+        Persistence.createEntityManagerFactory("JPA-HBM", properties)
                 .createEntityManager();
 
     }
@@ -69,12 +67,16 @@ public class MenuAdministrateur {
 
         Abonne Andreas = new Abonne("Schevchenko", "Andreas", sexe.MALE, "Paris", convertDate("1945-08-17"),
                 convertDate("2022-03-20"), 666);
+                Andreas.setNumeroCB("48641351");
         Abonne Emmanuelle = new Abonne("Macrone", "Emmanuelle", sexe.FEMELLE, "Amiens", convertDate("1977-12-21"),
                 convertDate("2022-03-10"), 1789);
+                Emmanuelle.setNumeroCB("45313513505");
         Abonne Sofia = new Abonne("Boutella", "Sofia", sexe.FEMELLE, "39 avenue de Deschamps",
                 convertDate("1999-11-11"), convertDate("2022-02-15"), 9999);
+                Sofia.setNumeroCB("41531351");
         Abonne Theo = new Abonne("Flavius", "Theodorus", sexe.MALE, "LXIX rue des Romains", convertDate("350-01-14"),
                 convertDate("2022-03-21"), 7887);
+                Theo.setNumeroCB("45313030515");
 
         Station A = new Station("Residential Area");
         Bornette AB1 = new Bornette(Etat.OK, A);
@@ -112,7 +114,7 @@ public class MenuAdministrateur {
         creneau.setStation(A);
         creneau.setTypeStation(Enums.TypeStation.PLUS);
         creneau.sethDebut(new Timestamp(System.currentTimeMillis()));
-        creneau.sethFin(new Timestamp(System.currentTimeMillis() + (60*60)));
+        creneau.sethFin(new Timestamp(System.currentTimeMillis() + (60*60*1000)));
 
         entityManager.getTransaction().begin();
 

@@ -7,7 +7,6 @@ import javax.persistence.Persistence;
 
 import fr.uga.im2ag.l3.miage.db.model.Bornette;
 import fr.uga.im2ag.l3.miage.db.model.Station;
-import fr.uga.im2ag.l3.miage.db.model.Velo;
 import fr.uga.im2ag.l3.miage.db.model.Enums.Etat;
 import fr.uga.im2ag.l3.miage.db.repository.RepositoryFactory;
 import fr.uga.im2ag.l3.miage.db.repository.api.AbonneRepository;

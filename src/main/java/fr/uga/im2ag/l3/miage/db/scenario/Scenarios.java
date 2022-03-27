@@ -12,11 +12,6 @@ import javax.persistence.Persistence;
 
 import fr.uga.im2ag.l3.miage.db.model.*;
 import fr.uga.im2ag.l3.miage.db.model.Enums;
-import fr.uga.im2ag.l3.miage.db.model.Enums.Etat;
-import fr.uga.im2ag.l3.miage.db.model.Enums.Modele;
-import fr.uga.im2ag.l3.miage.db.model.Enums.Situation;
-import fr.uga.im2ag.l3.miage.db.model.Enums.sexe;
-import fr.uga.im2ag.l3.miage.db.utils.*;
 import fr.uga.im2ag.l3.miage.db.repository.RepositoryFactory;
 import fr.uga.im2ag.l3.miage.db.repository.api.*;
 

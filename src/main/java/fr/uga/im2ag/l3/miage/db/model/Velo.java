@@ -102,6 +102,7 @@ public class Velo {
         this.estAccueilli.setVelo(null);
         this.estAccueilli.setLibre(true);
         this.situation = Situation.EN_LOCATION;
+        this.estAccueilli = null;
 
     }
 

@@ -3,6 +3,7 @@ package fr.uga.im2ag.l3.miage.db.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,7 @@ public abstract class Client {
     @Id
     @GeneratedValue
     private Long idClient;
+    @Column(nullable = false)
     private String numeroCB;
     private int codeSecret;
 

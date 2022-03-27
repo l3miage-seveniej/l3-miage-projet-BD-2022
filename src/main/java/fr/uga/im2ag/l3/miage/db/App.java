@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 
-import fr.uga.im2ag.l3.miage.db.scenario.Scenarios;
 import fr.uga.im2ag.l3.miage.db.utils.LectureClavier;
 
 public class App {
